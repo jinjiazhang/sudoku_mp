@@ -1,0 +1,75 @@
+<!--sudoku.wxml-->
+<view class="container">
+  <!-- 顶部状态栏 -->
+  <view class="status-bar">
+    <view class="time-display">
+      时间: {{formattedTime}}
+    </view>
+  </view>
+
+  <!-- 数独棋盘 -->
+  <view class="board-container">
+    <view class="sudoku-board" style="grid-template-columns: repeat({{game.gridSize}}, 1fr);">
+      <view 
+        wx:for="{{boardCells}}" 
+        wx:key="{{item.row}}-{{item.col}}"
+        class="cell {{item.className}}"
+        bindtap="selectCell" 
+        data-row="{{item.row}}" 
+        data-col="{{item.col}}"
+      >
+        <text wx:if="{{item.value !== 0}}" class="cell-text {{item.textClass}}">{{item.value}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 工具栏 -->
+  <view class="toolbar">
+    <view class="tool-button" bindtap="eraseCell">
+      <text class="tool-icon">🗑️</text>
+      <text class="tool-label">擦除</text>
+    </view>
+    
+    <view class="tool-button {{isNoteMode ? 'active' : ''}}" bindtap="toggleNoteMode">
+      <text class="tool-icon">✏️</text>
+      <text class="tool-label">备注{{isNoteMode ? ' ON' : ' OFF'}}</text>
+    </view>
+    
+    <view class="tool-button {{game.checkCount > 0 ? '' : 'disabled'}}" bindtap="checkGame">
+      <text class="tool-icon">✓</text>
+      <text class="tool-label">检查</text>
+      <view wx:if="{{game.checkCount > 0}}" class="badge">{{game.checkCount}}</view>
+    </view>
+    
+    <view class="tool-button {{game.hintCount > 0 ? '' : 'disabled'}}" bindtap="showHint">
+      <text class="tool-icon">💡</text>
+      <text class="tool-label">提示</text>
+      <view wx:if="{{game.hintCount > 0}}" class="badge">{{game.hintCount}}</view>
+    </view>
+  </view>
+
+  <!-- 数字输入键盘 -->
+  <view class="number-keyboard">
+    <view 
+      wx:for="{{numberRange}}" 
+      wx:key="{{item}}"
+      class="number-key" 
+      bindtap="inputNumber" 
+      data-number="{{item}}"
+    >
+      {{item}}
+    </view>
+  </view>
+</view>
+
+<!-- 游戏完成对话框 -->
+<view wx:if="{{showCompleteDialog}}" class="dialog-mask">
+  <view class="complete-dialog">
+    <text class="dialog-title">🎉 恭喜完成！</text>
+    <text class="dialog-content">用时: {{formattedTime}}</text>
+    <view class="dialog-buttons">
+      <button class="dialog-btn secondary" bindtap="backToHome">返回主页</button>
+      <button class="dialog-btn primary" bindtap="playAgain">再来一局</button>
+    </view>
+  </view>
+</view>

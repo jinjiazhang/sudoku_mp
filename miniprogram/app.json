@@ -1,12 +1,30 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/sudoku/sudoku",
+    "pages/profile/profile",
     "pages/logs/logs"
   ],
   "window": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "Weixin",
+    "navigationBarTitleText": "数独游戏",
     "navigationBarBackgroundColor": "#ffffff"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#2196F3",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "主页"
+      },
+      {
+        "pagePath": "pages/profile/profile", 
+        "text": "我"
+      }
+    ]
   },
   "style": "v2",
   "componentFramework": "glass-easel",

@@ -1,27 +1,39 @@
 <!--index.wxml-->
-<scroll-view class="scrollarea" scroll-y type="list">
-  <view class="container">
-    <view class="userinfo">
-      <block wx:if="{{canIUseNicknameComp && !hasUserInfo}}">
-        <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
-          <image class="avatar" src="{{userInfo.avatarUrl}}"></image>
-        </button>
-        <view class="nickname-wrapper">
-          <text class="nickname-label">昵称</text>
-          <input type="nickname" class="nickname-input" placeholder="请输入昵称" bind:change="onInputChange" />
-        </view>
-      </block>
-      <block wx:elif="{{!hasUserInfo}}">
-        <button wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile"> 获取头像昵称 </button>
-        <view wx:else> 请使用2.10.4及以上版本基础库 </view>
-      </block>
-      <block wx:else>
-        <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-        <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-      </block>
+<view class="container">
+  <view class="header">
+    <text class="title">Sudoku</text>
+    <text class="subtitle">jinjiazh@qq.com</text>
+  </view>
+  
+  <view class="main">
+    <!-- 有正在进行的游戏时显示 -->
+    <view wx:if="{{hasOngoingGame}}" class="ongoing-game">
+      <button class="continue-btn" bindtap="continueGame">
+        继续游戏
+      </button>
+      <button class="restart-btn" bindtap="restartGame">
+        重新开始
+      </button>
     </view>
-    <view class="usermotto">
-      <text class="user-motto">{{motto}}</text>
+    
+    <!-- 没有正在进行的游戏时显示难度选择 -->
+    <view wx:else class="new-game">
+      <view class="difficulty-section">
+        <text class="difficulty-label">难度: {{selectedDifficulty}}</text>
+        <slider 
+          class="difficulty-slider"
+          value="{{selectedDifficulty}}"
+          min="1"
+          max="9"
+          step="1"
+          show-value="{{false}}"
+          bindchange="onDifficultyChange"
+        />
+      </view>
+      
+      <button class="start-btn" bindtap="startNewGame">
+        开始游戏
+      </button>
     </view>
   </view>
-</scroll-view>
+</view>

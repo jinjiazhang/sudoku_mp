@@ -1,11 +1,12 @@
 // logs.ts
-// const util = require('../../utils/util.js')
-import { formatTime } from '../../utils/util'
+export {}
+const { formatTime } = require('../../utils/util')
 
 Component({
   data: {
     logs: [],
   },
+  
   lifetimes: {
     attached() {
       this.setData({
@@ -17,5 +18,5 @@ Component({
         }),
       })
     }
-  },
+  }
 })
