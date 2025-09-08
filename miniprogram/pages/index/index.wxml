@@ -19,7 +19,7 @@
     <!-- 没有正在进行的游戏时显示难度选择 -->
     <view wx:else class="new-game">
       <view class="difficulty-section">
-        <text class="difficulty-label">难度: {{selectedDifficulty}}</text>
+        <text class="difficulty-label">难度: {{selectedDifficultyName}}</text>
         <slider 
           class="difficulty-slider"
           value="{{selectedDifficulty}}"

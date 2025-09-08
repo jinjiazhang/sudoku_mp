@@ -1,6 +1,6 @@
 // logs.ts
 export {}
-const { formatTime } = require('../../utils/util')
+const { formatTime } = require('../../utils/util.js')
 
 Component({
   data: {

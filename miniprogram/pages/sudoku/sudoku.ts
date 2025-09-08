@@ -1,7 +1,7 @@
 // sudoku.ts
 export {}
 const { SudokuService } = require('../../utils/sudoku-service.js')
-const { SudokuGame, getDifficultyFromName, getDifficultyValues } = require('../../utils/sudoku-game.js')
+const { SudokuGame, getDifficultyFromName } = require('../../utils/sudoku-game.js')
 
 interface CellData {
   row: number
@@ -9,9 +9,10 @@ interface CellData {
   value: number
   className: string
   textClass: string
+  borderClass: string
 }
 
-Component({
+Page({
   data: {
     game: {} as SudokuGame,
     selectedRow: -1,
@@ -27,29 +28,22 @@ Component({
     gameTimer: null as any
   },
 
-  lifetimes: {
-    attached() {
-      const pages = getCurrentPages()
-      const currentPage = pages[pages.length - 1]
-      const options = (currentPage as any).options || {}
-      
-      const difficulty = options.difficulty || '1级'
-      const isResuming = options.isResuming === 'true'
-      
-      this.initializeGame(difficulty, isResuming)
-      this.startTimer()
-    },
-
-    detached() {
-      if (this.data.gameTimer) {
-        clearInterval(this.data.gameTimer)
-      }
-    }
+  onLoad(options: any) {
+    const difficulty = options.difficulty || '1级'
+    const isResuming = options.isResuming === 'true'
+    
+    this.initializeGame(difficulty, isResuming)
+    this.startTimer()
   },
 
-  methods: {
-    // 初始化游戏
-    initializeGame(difficulty: string, isResuming: boolean) {
+  onUnload() {
+    if (this.data.gameTimer) {
+      clearInterval(this.data.gameTimer)
+    }
+  },
+  
+  // 初始化游戏
+  initializeGame(difficulty: string, isResuming: boolean) {
       let game: SudokuGame
 
       if (isResuming) {
@@ -223,7 +217,8 @@ Component({
             col,
             value: game.board[row][col],
             className: this.getCellClassName(row, col),
-            textClass: this.getCellTextClass(row, col)
+            textClass: this.getCellTextClass(row, col),
+            borderClass: this.getCellBorderClass(row, col)
           }
           boardCells.push(cell)
         }
@@ -273,6 +268,35 @@ Component({
       } else {
         return 'user'
       }
+    },
+
+    // 获取单元格边框样式类名
+    getCellBorderClass(row: number, col: number): string {
+      const classes = []
+      const gridSize = this.data.game.gridSize
+      
+      // 添加子区域边框
+      switch (gridSize) {
+        case 4:
+          // 2x2子区域
+          if (row === 1) classes.push('border-bottom-thick')  // 第1行下边框
+          if (col === 1) classes.push('border-right-thick')   // 第1列右边框
+          break
+          
+        case 6:
+          // 2x3子区域 
+          if (row === 1 || row === 3) classes.push('border-bottom-thick')  // 行边框
+          if (col === 2) classes.push('border-right-thick')                // 列边框  
+          break
+          
+        case 9:
+          // 3x3子区域
+          if (row === 2 || row === 5) classes.push('border-bottom-thick')  // 行边框
+          if (col === 2 || col === 5) classes.push('border-right-thick')   // 列边框
+          break
+      }
+      
+      return classes.join(' ')
     },
 
     // 判断单元格是否需要高亮显示
@@ -329,6 +353,10 @@ Component({
 
     // 返回主页
     backToHome() {
+      // 关闭对话框并返回主页
+      this.setData({
+        showCompleteDialog: false
+      })
       wx.navigateBack()
     },
 
@@ -393,6 +421,12 @@ Component({
     playAgain() {
       const difficultyObj = getDifficultyFromName(this.data.game.difficulty)
       if (difficultyObj) {
+        // 先清除计时器
+        if (this.data.gameTimer) {
+          clearInterval(this.data.gameTimer)
+        }
+
+        // 重置游戏状态
         this.setData({
           showCompleteDialog: false,
           selectedRow: -1,
@@ -403,8 +437,10 @@ Component({
           isCheckMode: false
         })
 
+        // 创建新游戏
         this.initializeGame(difficultyObj.displayName, false)
+        // 重新启动计时器
+        this.startTimer()
       }
     }
-  }
 })

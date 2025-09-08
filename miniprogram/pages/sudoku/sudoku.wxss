@@ -83,10 +83,29 @@ page {
   background-color: #CCFFCC !important;
 }
 
+/* 子区域边框样式 */
+.border-bottom-thick {
+  border-bottom: 4rpx solid #000 !important;
+}
+
+.border-right-thick {
+  border-right: 4rpx solid #000 !important;
+}
+
 .cell-text {
-  font-size: 60rpx;
+  font-size: 60rpx;  /* 默认9x9网格字体 */
   font-weight: 400;
   font-family: 'SF Pro Display', -apple-system, system-ui, sans-serif;
+}
+
+/* 4x4网格字体 */
+.sudoku-board[data-size="4"] .cell-text {
+  font-size: 104rpx;
+}
+
+/* 6x6网格字体 */
+.sudoku-board[data-size="6"] .cell-text {
+  font-size: 76rpx;
 }
 
 .cell-text.fixed {
@@ -191,51 +210,105 @@ page {
 }
 
 .complete-dialog {
-  background-color: white;
-  padding: 60rpx 40rpx 40rpx;
-  border-radius: 24rpx;
+  background: linear-gradient(135deg, #4FC3F7, #29B6F6, #03A9F4);
+  padding: 48rpx;
+  border-radius: 40rpx;
   width: 600rpx;
   max-width: 90vw;
   text-align: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
 }
 
-.dialog-title {
-  font-size: 48rpx;
-  font-weight: bold;
-  color: #333;
+.celebrate-icon {
+  font-size: 120rpx;
+  animation: celebrate 2s ease-in-out infinite;
   margin-bottom: 32rpx;
   display: block;
 }
 
-.dialog-content {
-  font-size: 32rpx;
-  color: #666;
-  margin-bottom: 48rpx;
+@keyframes celebrate {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.1) rotate(10deg); }
+}
+
+.dialog-title {
+  font-size: 56rpx;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 24rpx;
   display: block;
+}
+
+.dialog-subtitle {
+  font-size: 36rpx;
+  color: white;
+  margin-bottom: 40rpx;
+  display: block;
+  font-weight: 500;
+}
+
+.stats-container {
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 32rpx;
+  border-radius: 24rpx;
+  margin-bottom: 48rpx;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.stat-row:last-child {
+  margin-bottom: 0;
+}
+
+.stat-label {
+  font-size: 32rpx;
+  color: white;
+  font-weight: 500;
+}
+
+.stat-value {
+  font-size: 32rpx;
+  color: white;
+  font-weight: bold;
 }
 
 .dialog-buttons {
   display: flex;
-  gap: 24rpx;
+  gap: 16rpx;
 }
 
 .dialog-btn {
   flex: 1;
-  padding: 24rpx;
-  border-radius: 12rpx;
+  padding: 24rpx 16rpx;
+  border-radius: 50rpx;
   font-size: 32rpx;
   font-weight: 600;
   border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
 }
 
 .dialog-btn.primary {
-  background-color: #2196F3;
-  color: white;
+  background-color: white;
+  color: #03A9F4;
 }
 
 .dialog-btn.secondary {
-  background-color: #f0f0f0;
-  color: #333;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.btn-icon {
+  font-size: 32rpx;
 }
 
 /* 响应式调整 */

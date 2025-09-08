@@ -7,7 +7,8 @@ Component({
   data: {
     hasOngoingGame: false,
     savedGameDifficulty: '',
-    selectedDifficulty: 1
+    selectedDifficulty: 1,
+    selectedDifficultyName: '1级'
   },
 
   lifetimes: {
@@ -54,6 +55,9 @@ Component({
 
     // 以指定难度开始新游戏
     startNewGameWithDifficulty(difficulty: any) {
+      // 清除任何旧的保存游戏，确保创建新游戏
+      SudokuService.clearSavedGame()
+      
       this.setData({
         hasOngoingGame: true,
         savedGameDifficulty: difficulty.displayName
@@ -84,8 +88,13 @@ Component({
 
     // 难度改变事件
     onDifficultyChange(e: any) {
+      const selectedDifficulty = parseInt(e.detail.value)
+      const difficultyValues = getDifficultyValues()
+      const difficulty = difficultyValues[selectedDifficulty - 1]
+      
       this.setData({
-        selectedDifficulty: e.detail.value
+        selectedDifficulty: selectedDifficulty,
+        selectedDifficultyName: difficulty?.displayName || `${selectedDifficulty}级`
       })
     }
   }

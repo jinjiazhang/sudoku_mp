@@ -9,11 +9,11 @@
 
   <!-- 数独棋盘 -->
   <view class="board-container">
-    <view class="sudoku-board" style="grid-template-columns: repeat({{game.gridSize}}, 1fr);">
+    <view class="sudoku-board" data-size="{{game.gridSize}}" style="grid-template-columns: repeat({{game.gridSize}}, 1fr);">
       <view 
         wx:for="{{boardCells}}" 
-        wx:key="{{item.row}}-{{item.col}}"
-        class="cell {{item.className}}"
+        wx:key="row-{{item.row}}-col-{{item.col}}"
+        class="cell {{item.className}} {{item.borderClass}}"
         bindtap="selectCell" 
         data-row="{{item.row}}" 
         data-col="{{item.col}}"
@@ -52,7 +52,7 @@
   <view class="number-keyboard">
     <view 
       wx:for="{{numberRange}}" 
-      wx:key="{{item}}"
+      wx:key="*this"
       class="number-key" 
       bindtap="inputNumber" 
       data-number="{{item}}"
@@ -65,11 +65,31 @@
 <!-- 游戏完成对话框 -->
 <view wx:if="{{showCompleteDialog}}" class="dialog-mask">
   <view class="complete-dialog">
-    <text class="dialog-title">🎉 恭喜完成！</text>
-    <text class="dialog-content">用时: {{formattedTime}}</text>
+    <view class="celebrate-icon">✨</view>
+    <text class="dialog-title">🎉太棒了！</text>
+    <text class="dialog-subtitle">挑战成功</text>
+    
+    <!-- 成绩统计 -->
+    <view class="stats-container">
+      <view class="stat-row">
+        <text class="stat-label">🎯 难度</text>
+        <text class="stat-value">{{game.difficulty}}</text>
+      </view>
+      <view class="stat-row">
+        <text class="stat-label">⏱️ 用时</text>
+        <text class="stat-value">{{formattedTime}}</text>
+      </view>
+    </view>
+    
     <view class="dialog-buttons">
-      <button class="dialog-btn secondary" bindtap="backToHome">返回主页</button>
-      <button class="dialog-btn primary" bindtap="playAgain">再来一局</button>
+      <button class="dialog-btn primary" bindtap="playAgain">
+        <text class="btn-icon">🔄</text>
+        <text>再来一局</text>
+      </button>
+      <button class="dialog-btn secondary" bindtap="backToHome">
+        <text class="btn-icon">🏠</text>
+        <text>返回主页</text>
+      </button>
     </view>
   </view>
 </view>
