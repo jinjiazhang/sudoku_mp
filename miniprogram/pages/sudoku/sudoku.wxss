@@ -63,28 +63,28 @@ page {
 .sudoku-board[data-size="4"] {
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
-  gap: 2rpx;
+  gap: 4rpx;
 }
 
-/* 6x6网格 - 2x3子棋盘 */
+/* 6x6网格 - 3x2子棋盘 */
 .sudoku-board[data-size="6"] {
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 2rpx;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 4rpx;
 }
 
 /* 9x9网格 - 3x3子棋盘 */
 .sudoku-board[data-size="9"] {
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  gap: 2rpx;
+  gap: 4rpx;
 }
 
 /* 子棋盘样式 */
 .sub-grid {
   display: grid;
   background-color: #ccc;
-  gap: 1rpx;
+  gap: 2rpx;
 }
 
 /* 4x4数独的子棋盘 - 每个子棋盘2x2 */
@@ -95,8 +95,8 @@ page {
 
 /* 6x6数独的子棋盘 - 每个子棋盘2x3 */
 .sub-grid[data-size="6"] {
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
 }
 
 /* 9x9数独的子棋盘 - 每个子棋盘3x3 */
