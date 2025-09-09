@@ -9,7 +9,7 @@
 
   <!-- 数独棋盘 -->
   <view class="board-container">
-    <view class="sudoku-board" data-size="{{game.gridSize}}" style="grid-template-columns: repeat({{game.gridSize}}, 1fr);">
+    <view class="sudoku-board" data-size="{{game.gridSize}}">
       <view 
         wx:for="{{boardCells}}" 
         wx:key="row-{{item.row}}-col-{{item.col}}"

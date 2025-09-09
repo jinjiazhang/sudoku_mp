@@ -39,7 +39,6 @@ page {
 
 .sudoku-board {
   display: grid;
-  gap: 2rpx;
   background-color: #000;
   border: 4rpx solid #000;
   border-radius: 16rpx;
@@ -50,6 +49,24 @@ page {
   margin: 0 auto;
 }
 
+/* 4x4网格 */
+.sudoku-board[data-size="4"] {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rpx;
+}
+
+/* 6x6网格 */
+.sudoku-board[data-size="6"] {
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1rpx;
+}
+
+/* 9x9网格 */
+.sudoku-board[data-size="9"] {
+  grid-template-columns: repeat(9, 1fr);
+  gap: 0.5rpx;
+}
+
 .cell {
   background-color: white;
   display: flex;
@@ -57,6 +74,7 @@ page {
   align-items: center;
   aspect-ratio: 1;
   position: relative;
+  border: 1rpx solid #ddd;
 }
 
 .cell.selected {
@@ -84,12 +102,18 @@ page {
 }
 
 /* 子区域边框样式 */
-.border-bottom-thick {
+.cell.border-bottom-thick {
   border-bottom: 4rpx solid #000 !important;
+  margin-bottom: -2rpx;
+  position: relative;
+  z-index: 1;
 }
 
-.border-right-thick {
+.cell.border-right-thick {
   border-right: 4rpx solid #000 !important;
+  margin-right: -2rpx;
+  position: relative;
+  z-index: 1;
 }
 
 .cell-text {
