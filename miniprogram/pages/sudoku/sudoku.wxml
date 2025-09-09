@@ -26,17 +26,18 @@
   <!-- 工具栏 -->
   <view class="toolbar">
     <view class="tool-button" bindtap="eraseCell">
-      <text class="tool-icon">🗑️</text>
+      <text class="tool-icon">🧽</text>
       <text class="tool-label">擦除</text>
     </view>
     
     <view class="tool-button {{isNoteMode ? 'active' : ''}}" bindtap="toggleNoteMode">
-      <text class="tool-icon">✏️</text>
-      <text class="tool-label">备注{{isNoteMode ? ' ON' : ' OFF'}}</text>
+      <text class="tool-icon flipped">✏️</text>
+      <text class="tool-label">备注</text>
+      <view class="badge {{isNoteMode ? 'badge-on' : 'badge-off'}}">{{isNoteMode ? 'ON' : 'OFF'}}</view>
     </view>
     
     <view class="tool-button {{game.checkCount > 0 ? '' : 'disabled'}}" bindtap="checkGame">
-      <text class="tool-icon">✓</text>
+      <text class="tool-icon">🔍</text>
       <text class="tool-label">检查</text>
       <view wx:if="{{game.checkCount > 0}}" class="badge">{{game.checkCount}}</view>
     </view>

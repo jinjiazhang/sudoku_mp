@@ -172,6 +172,10 @@ page {
   margin-bottom: 8rpx;
 }
 
+.tool-icon.flipped {
+  transform: scaleX(-1);
+}
+
 .tool-label {
   font-size: 24rpx;
   color: #666;
@@ -188,6 +192,16 @@ page {
   border-radius: 12rpx;
   min-width: 24rpx;
   text-align: center;
+}
+
+.badge-on {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.badge-off {
+  background-color: #9E9E9E;
+  color: white;
 }
 
 /* 数字键盘 */
