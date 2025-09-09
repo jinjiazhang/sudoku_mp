@@ -37,8 +37,6 @@ class CellDifficulty {
 }
 
 class SudokuService {
-  static savedGame = null;
-
   // 创建新的数独游戏
   static createNewGame(difficulty) {
     const result = this.generateSudokuBoard(difficulty);
@@ -58,7 +56,7 @@ class SudokuService {
     if (game.isFixed[row][col]) return false;
     
     const difficulty = getDifficultyFromName(game.difficulty);
-    const maxNumber = difficulty?.numberRange || 9;
+    const maxNumber = difficulty ? difficulty.numberRange : 9;
     
     if (number < 1 || number > maxNumber) return false;
 
@@ -257,7 +255,7 @@ class SudokuService {
   static getValidNumbers(game, row, col) {
     const validNumbers = [];
     const difficulty = getDifficultyFromName(game.difficulty);
-    const maxNumber = difficulty?.numberRange || 9;
+    const maxNumber = difficulty ? difficulty.numberRange : 9;
     
     for (let number = 1; number <= maxNumber; number++) {
       if (this.isValidMove(game, row, col, number)) {
@@ -751,6 +749,9 @@ class SudokuService {
     }
   }
 }
+
+// 静态属性
+SudokuService.savedGame = null;
 
 // 导出模块
 module.exports = {

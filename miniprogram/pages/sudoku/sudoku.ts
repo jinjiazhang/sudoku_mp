@@ -52,17 +52,17 @@ Page({
           game = savedGame
         } else {
           const difficultyObj = getDifficultyFromName(difficulty)
-          game = SudokuService.createNewGame(difficultyObj!)
+          game = SudokuService.createNewGame(difficultyObj)
         }
       } else {
         const difficultyObj = getDifficultyFromName(difficulty)
-        game = SudokuService.createNewGame(difficultyObj!)
+        game = SudokuService.createNewGame(difficultyObj)
         SudokuService.saveGame(game)
         this.recordGameStart()
       }
 
       const difficultyObj = getDifficultyFromName(game.difficulty)
-      const numberRange = Array.from({ length: difficultyObj?.numberRange || 9 }, (_, i) => i + 1)
+      const numberRange = Array.from({ length: difficultyObj ? difficultyObj.numberRange : 9 }, (_, i) => i + 1)
 
       this.setData({
         game,

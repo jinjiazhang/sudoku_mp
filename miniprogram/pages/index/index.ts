@@ -94,7 +94,7 @@ Component({
       
       this.setData({
         selectedDifficulty: selectedDifficulty,
-        selectedDifficultyName: difficulty?.displayName || `${selectedDifficulty}级`
+        selectedDifficultyName: difficulty ? difficulty.displayName : `${selectedDifficulty}级`
       })
     },
 
