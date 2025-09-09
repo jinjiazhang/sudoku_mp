@@ -7,8 +7,8 @@ page {
 .container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  padding: 20rpx;
+  height: 90vh;
+  padding: 10rpx;
   box-sizing: border-box;
 }
 
@@ -17,7 +17,7 @@ page {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16rpx;
+  margin-top: 16rpx;
 }
 
 .difficulty-display {
@@ -51,10 +51,10 @@ page {
   display: grid;
   background-color: #000;
   border: 4rpx solid #000;
-  max-width: 680rpx;
-  max-height: 680rpx;
+  max-width: 740rpx;
+  max-height: 740rpx;
   aspect-ratio: 1;
-  width: calc(100vw - 40rpx);
+  width: calc(100vw - 10rpx);
   margin: 0 auto;
   overflow: hidden;
 }
