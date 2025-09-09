@@ -2,6 +2,9 @@
 <view class="container">
   <!-- 顶部状态栏 -->
   <view class="status-bar">
+    <view class="difficulty-display">
+      难度: {{game.difficulty}}
+    </view>
     <view class="time-display">
       时间: {{formattedTime}}
     </view>
