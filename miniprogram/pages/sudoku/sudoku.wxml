@@ -11,25 +11,33 @@
   <view class="board-container">
     <view class="sudoku-board" data-size="{{game.gridSize}}">
       <view 
-        wx:for="{{boardCells}}" 
-        wx:key="row-{{item.row}}-col-{{item.col}}"
-        class="cell {{item.className}} {{item.borderClass}}"
-        bindtap="selectCell" 
-        data-row="{{item.row}}" 
-        data-col="{{item.col}}"
+        wx:for="{{subGrids}}" 
+        wx:key="subGrid-{{index}}"
+        class="sub-grid"
+        data-size="{{game.gridSize}}"
       >
-        <text wx:if="{{item.value !== 0}}" class="cell-text {{item.textClass}}">{{item.value}}</text>
-        <view wx:elif="{{item.hasNotes}}" class="cell-notes">
-          <view class="note-grid">
-            <text class="note-position note-1 {{item.noteFlags[1] ? 'visible' : ''}}">1</text>
-            <text class="note-position note-2 {{item.noteFlags[2] ? 'visible' : ''}}">2</text>
-            <text class="note-position note-3 {{item.noteFlags[3] ? 'visible' : ''}}">3</text>
-            <text class="note-position note-4 {{item.noteFlags[4] ? 'visible' : ''}}">4</text>
-            <text class="note-position note-5 {{item.noteFlags[5] ? 'visible' : ''}}">5</text>
-            <text class="note-position note-6 {{item.noteFlags[6] ? 'visible' : ''}}">6</text>
-            <text class="note-position note-7 {{item.noteFlags[7] ? 'visible' : ''}}">7</text>
-            <text class="note-position note-8 {{item.noteFlags[8] ? 'visible' : ''}}">8</text>
-            <text class="note-position note-9 {{item.noteFlags[9] ? 'visible' : ''}}">9</text>
+        <view 
+          wx:for="{{item.cells}}" 
+          wx:for-item="cell"
+          wx:key="cell-{{cell.row}}-{{cell.col}}"
+          class="cell {{cell.className}}"
+          bindtap="selectCell" 
+          data-row="{{cell.row}}" 
+          data-col="{{cell.col}}"
+        >
+          <text wx:if="{{cell.value !== 0}}" class="cell-text {{cell.textClass}}">{{cell.value}}</text>
+          <view wx:elif="{{cell.hasNotes}}" class="cell-notes">
+            <view class="note-grid">
+              <text class="note-position note-1 {{cell.noteFlags[1] ? 'visible' : ''}}">1</text>
+              <text class="note-position note-2 {{cell.noteFlags[2] ? 'visible' : ''}}">2</text>
+              <text class="note-position note-3 {{cell.noteFlags[3] ? 'visible' : ''}}">3</text>
+              <text class="note-position note-4 {{cell.noteFlags[4] ? 'visible' : ''}}">4</text>
+              <text class="note-position note-5 {{cell.noteFlags[5] ? 'visible' : ''}}">5</text>
+              <text class="note-position note-6 {{cell.noteFlags[6] ? 'visible' : ''}}">6</text>
+              <text class="note-position note-7 {{cell.noteFlags[7] ? 'visible' : ''}}">7</text>
+              <text class="note-position note-8 {{cell.noteFlags[8] ? 'visible' : ''}}">8</text>
+              <text class="note-position note-9 {{cell.noteFlags[9] ? 'visible' : ''}}">9</text>
+            </view>
           </view>
         </view>
       </view>

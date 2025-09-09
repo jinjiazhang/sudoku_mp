@@ -12,7 +12,10 @@ interface CellData {
   noteFlags: { [key: number]: boolean }
   className: string
   textClass: string
-  borderClass: string
+}
+
+interface SubGridData {
+  cells: CellData[]
 }
 
 Page({
@@ -25,7 +28,7 @@ Page({
     isHintSelected: false,
     isCheckMode: false,
     formattedTime: '00:00',
-    boardCells: [] as CellData[],
+    subGrids: [] as SubGridData[],
     numberRange: [] as number[],
     showCompleteDialog: false,
     gameTimer: null as any
@@ -223,32 +226,63 @@ Page({
     // 更新棋盘显示
     updateBoardDisplay() {
       const game = this.data.game
-      const boardCells: CellData[] = []
+      const subGrids: SubGridData[] = []
+      const gridSize = game.gridSize
+      
+      // 根据不同的网格大小确定子棋盘的尺寸
+      let subRows, subCols, subGridRows, subGridCols
+      switch (gridSize) {
+        case 4:
+          subRows = 2; subCols = 2; subGridRows = 2; subGridCols = 2
+          break
+        case 6:
+          subRows = 3; subCols = 2; subGridRows = 2; subGridCols = 3
+          break
+        case 9:
+        default:
+          subRows = 3; subCols = 3; subGridRows = 3; subGridCols = 3
+          break
+      }
 
-      for (let row = 0; row < game.gridSize; row++) {
-        for (let col = 0; col < game.gridSize; col++) {
-          const notes = game.board[row][col] === 0 ? game.notes[row][col] : new Set()
+      // 创建子棋盘
+      for (let subGridIndex = 0; subGridIndex < subRows * subCols; subGridIndex++) {
+        const subGridRow = Math.floor(subGridIndex / subCols)
+        const subGridCol = subGridIndex % subCols
+        
+        const cells: CellData[] = []
+        
+        // 填充子棋盘中的每个单元格
+        for (let cellIndex = 0; cellIndex < subGridRows * subGridCols; cellIndex++) {
+          const cellRow = Math.floor(cellIndex / subGridCols)
+          const cellCol = cellIndex % subGridCols
+          
+          // 计算在整个棋盘中的实际位置
+          const actualRow = subGridRow * subGridRows + cellRow
+          const actualCol = subGridCol * subGridCols + cellCol
+          
+          const notes = game.board[actualRow][actualCol] === 0 ? game.notes[actualRow][actualCol] : new Set()
           const noteFlags: { [key: number]: boolean } = {}
           for (let i = 1; i <= 9; i++) {
             noteFlags[i] = notes.has(i)
           }
           
           const cell: CellData = {
-            row,
-            col,
-            value: game.board[row][col],
+            row: actualRow,
+            col: actualCol,
+            value: game.board[actualRow][actualCol],
             notes: Array.from(notes).sort(),
             hasNotes: notes.size > 0,
             noteFlags: noteFlags,
-            className: this.getCellClassName(row, col),
-            textClass: this.getCellTextClass(row, col),
-            borderClass: this.getCellBorderClass(row, col)
+            className: this.getCellClassName(actualRow, actualCol),
+            textClass: this.getCellTextClass(actualRow, actualCol)
           }
-          boardCells.push(cell)
+          cells.push(cell)
         }
+        
+        subGrids.push({ cells })
       }
 
-      this.setData({ boardCells })
+      this.setData({ subGrids })
     },
 
     // 获取单元格样式类名
@@ -294,34 +328,6 @@ Page({
       }
     },
 
-    // 获取单元格边框样式类名
-    getCellBorderClass(row: number, col: number): string {
-      const classes = []
-      const gridSize = this.data.game.gridSize
-      
-      // 添加子区域边框
-      switch (gridSize) {
-        case 4:
-          // 2x2子区域
-          if (row === 1) classes.push('border-bottom-thick')  // 第1行下边框
-          if (col === 1) classes.push('border-right-thick')   // 第1列右边框
-          break
-          
-        case 6:
-          // 2x3子区域 
-          if (row === 1 || row === 3) classes.push('border-bottom-thick')  // 行边框
-          if (col === 2) classes.push('border-right-thick')                // 列边框  
-          break
-          
-        case 9:
-          // 3x3子区域
-          if (row === 2 || row === 5) classes.push('border-bottom-thick')  // 行边框
-          if (col === 2 || col === 5) classes.push('border-right-thick')   // 列边框
-          break
-      }
-      
-      return classes.join(' ')
-    },
 
     // 判断单元格是否需要高亮显示
     isHighlightedCell(row: number, col: number): boolean {

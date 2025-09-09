@@ -49,22 +49,50 @@ page {
   overflow: hidden;
 }
 
-/* 4x4网格 */
+/* 4x4网格 - 2x2子棋盘 */
 .sudoku-board[data-size="4"] {
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rpx;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 2rpx;
 }
 
-/* 6x6网格 */
+/* 6x6网格 - 2x3子棋盘 */
 .sudoku-board[data-size="6"] {
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 2rpx;
+}
+
+/* 9x9网格 - 3x3子棋盘 */
+.sudoku-board[data-size="9"] {
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 2rpx;
+}
+
+/* 子棋盘样式 */
+.sub-grid {
+  display: grid;
+  background-color: #ccc;
   gap: 1rpx;
 }
 
-/* 9x9网格 */
-.sudoku-board[data-size="9"] {
-  grid-template-columns: repeat(9, 1fr);
-  gap: 0.5rpx;
+/* 4x4数独的子棋盘 - 每个子棋盘2x2 */
+.sub-grid[data-size="4"] {
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+
+/* 6x6数独的子棋盘 - 每个子棋盘2x3 */
+.sub-grid[data-size="6"] {
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+/* 9x9数独的子棋盘 - 每个子棋盘3x3 */
+.sub-grid[data-size="9"] {
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
 }
 
 .cell {
@@ -74,7 +102,7 @@ page {
   align-items: center;
   aspect-ratio: 1;
   position: relative;
-  border: 1rpx solid #ddd;
+  border: none;
 }
 
 .cell.selected {
@@ -101,20 +129,7 @@ page {
   background-color: #CCFFCC !important;
 }
 
-/* 子区域边框样式 */
-.cell.border-bottom-thick {
-  border-bottom: 4rpx solid #000 !important;
-  margin-bottom: -2rpx;
-  position: relative;
-  z-index: 1;
-}
-
-.cell.border-right-thick {
-  border-right: 4rpx solid #000 !important;
-  margin-right: -2rpx;
-  position: relative;
-  z-index: 1;
-}
+/* 移除原有的边框样式类，现在通过子棋盘结构来实现边框 */
 
 .cell-text {
   font-size: 60rpx;  /* 默认9x9网格字体 */
