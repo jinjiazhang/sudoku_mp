@@ -41,12 +41,12 @@ page {
   display: grid;
   background-color: #000;
   border: 4rpx solid #000;
-  border-radius: 16rpx;
   max-width: 680rpx;
   max-height: 680rpx;
   aspect-ratio: 1;
   width: calc(100vw - 40rpx);
   margin: 0 auto;
+  overflow: hidden;
 }
 
 /* 4x4网格 */
