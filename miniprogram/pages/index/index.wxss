@@ -50,12 +50,14 @@ page {
 .continue-btn {
   background-color: #2196F3;
   color: white;
-  padding: 32rpx;
+  padding: 32rpx 48rpx;
   border-radius: 50rpx;
   font-size: 36rpx;
   font-weight: 600;
   border: none;
   box-shadow: 0 4rpx 12rpx rgba(33, 150, 243, 0.3);
+  min-width: 420rpx;
+  white-space: nowrap;
 }
 
 .continue-btn:active {
@@ -66,12 +68,14 @@ page {
 .restart-btn, .start-btn {
   background-color: white;
   color: #2196F3;
-  padding: 32rpx;
+  padding: 32rpx 48rpx;
   border-radius: 50rpx;
   font-size: 36rpx;
   font-weight: 600;
   border: 2rpx solid #E0E0E0;
   box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+  min-width: 420rpx;
+  white-space: nowrap;
 }
 
 .restart-btn:active, .start-btn:active {
@@ -94,7 +98,7 @@ page {
 }
 
 .difficulty-slider {
-  width: 100%;
+  width: 80%;
 }
 
 /* Spacer 占位符 */
@@ -117,4 +121,5 @@ page {
   font-size: 28rpx;
   border: none;
   text-decoration: underline;
+  white-space: nowrap;
 }

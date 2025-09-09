@@ -7,8 +7,8 @@ Component({
   data: {
     hasOngoingGame: false,
     savedGameDifficulty: '',
-    selectedDifficulty: 6,
-    selectedDifficultyName: '6级'
+    selectedDifficulty: 7,
+    selectedDifficultyName: '7级'
   },
 
   lifetimes: {
