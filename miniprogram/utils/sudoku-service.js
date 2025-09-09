@@ -96,6 +96,7 @@ class SudokuService {
     if (game.isFixed[row][col]) return game;
 
     const newBoard = game.board.map(row => [...row]);
+    const newNotes = game.notes.map(row => row.map(cell => new Set(cell)));
 
     if (newBoard[row][col] === number) {
       // 如果点击相同数字，则清除
@@ -103,9 +104,11 @@ class SudokuService {
     } else {
       // 直接放置数字，不再验证或计数错误
       newBoard[row][col] = number;
+      // 清除该格子的备注
+      newNotes[row][col].clear();
     }
 
-    return game.copyWith({ board: newBoard });
+    return game.copyWith({ board: newBoard, notes: newNotes });
   }
 
   // 擦除单元格
@@ -115,7 +118,26 @@ class SudokuService {
     const newBoard = game.board.map(row => [...row]);
     newBoard[row][col] = 0;
 
-    return game.copyWith({ board: newBoard });
+    // 清除该格子的备注
+    const newNotes = game.notes.map(row => row.map(cell => new Set(cell)));
+    newNotes[row][col].clear();
+
+    return game.copyWith({ board: newBoard, notes: newNotes });
+  }
+
+  // 切换备注数字
+  static toggleNote(game, row, col, number) {
+    if (game.isFixed[row][col] || game.board[row][col] !== 0) return game;
+
+    const newNotes = game.notes.map(row => row.map(cell => new Set(cell)));
+    
+    if (newNotes[row][col].has(number)) {
+      newNotes[row][col].delete(number);
+    } else {
+      newNotes[row][col].add(number);
+    }
+
+    return game.copyWith({ notes: newNotes });
   }
 
   // 检查数字在当前位置是否有冲突

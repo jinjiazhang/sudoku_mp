@@ -3,6 +3,7 @@ class SudokuGame {
   constructor({
     board = [],
     isFixed = [],
+    notes = [],
     difficulty = '1级',
     gridSize = 9,
     secondsElapsed = 0,
@@ -13,6 +14,7 @@ class SudokuGame {
   }) {
     this.board = board;
     this.isFixed = isFixed;
+    this.notes = notes.length > 0 ? notes : this.createEmptyNotes(gridSize);
     this.difficulty = difficulty;
     this.gridSize = gridSize;
     this.secondsElapsed = secondsElapsed;
@@ -22,9 +24,17 @@ class SudokuGame {
     this.hintCount = hintCount;
   }
 
+  // 创建空的备注数组
+  createEmptyNotes(size) {
+    return Array(size).fill(null).map(() => 
+      Array(size).fill(null).map(() => new Set())
+    );
+  }
+
   copyWith({
     board,
     isFixed,
+    notes,
     difficulty,
     gridSize,
     secondsElapsed,
@@ -36,6 +46,7 @@ class SudokuGame {
     return new SudokuGame({
       board: board || this.board.map(row => [...row]),
       isFixed: isFixed || this.isFixed.map(row => [...row]),
+      notes: notes || this.notes.map(row => row.map(cell => new Set(cell))),
       difficulty: difficulty || this.difficulty,
       gridSize: gridSize !== undefined ? gridSize : this.gridSize,
       secondsElapsed: secondsElapsed !== undefined ? secondsElapsed : this.secondsElapsed,
@@ -50,6 +61,7 @@ class SudokuGame {
     return {
       board: this.board,
       isFixed: this.isFixed,
+      notes: this.notes.map(row => row.map(cell => Array.from(cell))),
       difficulty: this.difficulty,
       gridSize: this.gridSize,
       secondsElapsed: this.secondsElapsed,
@@ -64,6 +76,7 @@ class SudokuGame {
     return new SudokuGame({
       board: json.board.map(row => [...row]),
       isFixed: json.isFixed.map(row => [...row]),
+      notes: json.notes ? json.notes.map(row => row.map(cell => new Set(cell))) : [],
       difficulty: json.difficulty,
       gridSize: json.gridSize || 9,
       secondsElapsed: json.secondsElapsed || 0,

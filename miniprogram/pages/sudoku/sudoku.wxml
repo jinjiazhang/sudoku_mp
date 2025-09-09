@@ -19,6 +19,19 @@
         data-col="{{item.col}}"
       >
         <text wx:if="{{item.value !== 0}}" class="cell-text {{item.textClass}}">{{item.value}}</text>
+        <view wx:elif="{{item.hasNotes}}" class="cell-notes">
+          <view class="note-grid">
+            <text class="note-position note-1 {{item.noteFlags[1] ? 'visible' : ''}}">1</text>
+            <text class="note-position note-2 {{item.noteFlags[2] ? 'visible' : ''}}">2</text>
+            <text class="note-position note-3 {{item.noteFlags[3] ? 'visible' : ''}}">3</text>
+            <text class="note-position note-4 {{item.noteFlags[4] ? 'visible' : ''}}">4</text>
+            <text class="note-position note-5 {{item.noteFlags[5] ? 'visible' : ''}}">5</text>
+            <text class="note-position note-6 {{item.noteFlags[6] ? 'visible' : ''}}">6</text>
+            <text class="note-position note-7 {{item.noteFlags[7] ? 'visible' : ''}}">7</text>
+            <text class="note-position note-8 {{item.noteFlags[8] ? 'visible' : ''}}">8</text>
+            <text class="note-position note-9 {{item.noteFlags[9] ? 'visible' : ''}}">9</text>
+          </view>
+        </view>
       </view>
     </view>
   </view>

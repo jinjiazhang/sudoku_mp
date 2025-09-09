@@ -140,6 +140,38 @@ page {
   color: #2196F3;
 }
 
+/* 备注数字样式 */
+.cell-notes {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.note-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  width: 90%;
+  height: 90%;
+  gap: 2rpx;
+}
+
+.note-position {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14rpx;
+  color: #666;
+  line-height: 1;
+  opacity: 0;
+}
+
+.note-position.visible {
+  opacity: 1;
+}
+
 /* 工具栏 */
 .toolbar {
   display: flex;

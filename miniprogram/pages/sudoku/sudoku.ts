@@ -7,6 +7,9 @@ interface CellData {
   row: number
   col: number
   value: number
+  notes: number[]
+  hasNotes: boolean
+  noteFlags: { [key: number]: boolean }
   className: string
   textClass: string
   borderClass: string
@@ -108,12 +111,24 @@ Page({
       const number = parseInt(e.currentTarget.dataset.number)
       if (this.data.selectedRow === -1 || this.data.selectedCol === -1) return
 
-      const newGame = SudokuService.placeNumber(
-        this.data.game,
-        this.data.selectedRow,
-        this.data.selectedCol,
-        number
-      )
+      let newGame
+      if (this.data.isNoteMode) {
+        // 备注模式：切换备注数字
+        newGame = SudokuService.toggleNote(
+          this.data.game,
+          this.data.selectedRow,
+          this.data.selectedCol,
+          number
+        )
+      } else {
+        // 普通模式：放置数字
+        newGame = SudokuService.placeNumber(
+          this.data.game,
+          this.data.selectedRow,
+          this.data.selectedCol,
+          number
+        )
+      }
 
       this.setData({
         game: newGame,
@@ -124,8 +139,8 @@ Page({
       SudokuService.saveGame(newGame)
       this.updateBoardDisplay()
 
-      // 检查游戏是否完成
-      if (SudokuService.isGameComplete(newGame)) {
+      // 检查游戏是否完成（只在普通模式下检查）
+      if (!this.data.isNoteMode && SudokuService.isGameComplete(newGame)) {
         if (this.data.gameTimer) {
           clearInterval(this.data.gameTimer)
         }
@@ -212,10 +227,19 @@ Page({
 
       for (let row = 0; row < game.gridSize; row++) {
         for (let col = 0; col < game.gridSize; col++) {
+          const notes = game.board[row][col] === 0 ? game.notes[row][col] : new Set()
+          const noteFlags: { [key: number]: boolean } = {}
+          for (let i = 1; i <= 9; i++) {
+            noteFlags[i] = notes.has(i)
+          }
+          
           const cell: CellData = {
             row,
             col,
             value: game.board[row][col],
+            notes: Array.from(notes).sort(),
+            hasNotes: notes.size > 0,
+            noteFlags: noteFlags,
             className: this.getCellClassName(row, col),
             textClass: this.getCellTextClass(row, col),
             borderClass: this.getCellBorderClass(row, col)
