@@ -49,8 +49,8 @@ page {
 
 .sudoku-board {
   display: grid;
-  background-color: #000;
-  border: 4rpx solid #000;
+  background-color: #41424E;
+  border: 4rpx solid #41424E;
   max-width: 740rpx;
   max-height: 740rpx;
   aspect-ratio: 1;
@@ -83,7 +83,7 @@ page {
 /* 子棋盘样式 */
 .sub-grid {
   display: grid;
-  background-color: #ccc;
+  background-color: #C0C6D2;
   gap: 2rpx;
 }
 
