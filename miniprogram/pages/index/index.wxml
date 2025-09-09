@@ -36,4 +36,9 @@
       </button>
     </view>
   </view>
+  
+  <!-- 导航到个人中心 -->
+  <view class="footer">
+    <button class="profile-btn" bindtap="navigateToProfile">个人中心</button>
+  </view>
 </view>

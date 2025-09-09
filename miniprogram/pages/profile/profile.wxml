@@ -1,18 +1,6 @@
 <!--profile.wxml-->
 <view class="container">
-  <view class="header">
-    <text class="title">个人中心</text>
-  </view>
-  
   <view class="content">
-    <view class="profile-section">
-      <text class="section-title">开发者信息</text>
-      <view class="info-item">
-        <text class="info-label">邮箱</text>
-        <text class="info-value">jinjiazh@qq.com</text>
-      </view>
-    </view>
-    
     <view class="stats-section">
       <text class="section-title">游戏统计</text>
       <view class="stats-grid">
@@ -34,10 +22,13 @@
         </view>
       </view>
     </view>
-    
-    <view class="actions-section">
-      <button class="action-btn" bindtap="clearAllData">清除所有数据</button>
-      <button class="action-btn secondary" bindtap="exportData">导出数据</button>
+
+    <view class="profile-section">
+      <text class="section-title">开发者信息</text>
+      <view class="info-item">
+        <text class="info-label">邮箱</text>
+        <text class="info-value">jinjiazh@qq.com</text>
+      </view>
     </view>
   </view>
 </view>

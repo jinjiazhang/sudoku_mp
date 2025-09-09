@@ -96,6 +96,13 @@ Component({
         selectedDifficulty: selectedDifficulty,
         selectedDifficultyName: difficulty?.displayName || `${selectedDifficulty}级`
       })
+    },
+
+    // 导航到个人中心
+    navigateToProfile() {
+      wx.navigateTo({
+        url: '../profile/profile'
+      })
     }
   }
 })

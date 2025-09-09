@@ -7,24 +7,8 @@
   ],
   "window": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "数独游戏",
+    "navigationBarTitleText": "数独练习",
     "navigationBarBackgroundColor": "#ffffff"
-  },
-  "tabBar": {
-    "color": "#999999",
-    "selectedColor": "#2196F3",
-    "backgroundColor": "#ffffff",
-    "borderStyle": "black",
-    "list": [
-      {
-        "pagePath": "pages/index/index",
-        "text": "主页"
-      },
-      {
-        "pagePath": "pages/profile/profile", 
-        "text": "我"
-      }
-    ]
   },
   "style": "v2",
   "componentFramework": "glass-easel",

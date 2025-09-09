@@ -1,3 +1,4 @@
 {
-  "navigationBarTitleText": "数独游戏"
+  "navigationBarTitleText": "数独练习",
+  "disableScroll": true
 }

@@ -101,3 +101,20 @@ page {
 .spacer {
   flex: 1;
 }
+
+/* 底部导航 */
+.footer {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-bottom: 40rpx;
+}
+
+.profile-btn {
+  background-color: transparent;
+  color: #666;
+  font-size: 28rpx;
+  border: none;
+  text-decoration: underline;
+}
