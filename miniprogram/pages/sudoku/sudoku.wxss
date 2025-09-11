@@ -7,7 +7,7 @@ page {
 .container {
   display: flex;
   flex-direction: column;
-  height: 90vh;
+  height: 100vh;
   padding: 10rpx;
   box-sizing: border-box;
 }
@@ -400,6 +400,11 @@ page {
 
 .btn-icon {
   font-size: 32rpx;
+}
+
+/* 底部占位区域 */
+.bottom-spacer {
+  height: calc(100vh - 1350rpx);
 }
 
 /* 响应式调整 */
