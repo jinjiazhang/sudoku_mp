@@ -13,42 +13,35 @@
   <!-- 棋盘 -->
   <view class="board-container">
     <view class="gomoku-board">
-      <!-- 棋盘网格线 -->
-      <view class="grid-lines">
-        <view wx:for="{{14}}" wx:key="h-{{index}}" class="grid-line horizontal" style="top: calc({{index + 1}} * 100% / 15);"></view>
-        <view wx:for="{{14}}" wx:key="v-{{index}}" class="grid-line vertical" style="left: calc({{index + 1}} * 100% / 15);"></view>
-        <!-- 星位点 -->
-        <view class="star-point" style="top: calc(3 * 100% / 15 + 50% / 15); left: calc(3 * 100% / 15 + 50% / 15);"></view>
-        <view class="star-point" style="top: calc(3 * 100% / 15 + 50% / 15); left: calc(11 * 100% / 15 + 50% / 15);"></view>
-        <view class="star-point" style="top: calc(11 * 100% / 15 + 50% / 15); left: calc(3 * 100% / 15 + 50% / 15);"></view>
-        <view class="star-point" style="top: calc(11 * 100% / 15 + 50% / 15); left: calc(11 * 100% / 15 + 50% / 15);"></view>
-        <view class="star-point" style="top: calc(7 * 100% / 15 + 50% / 15); left: calc(7 * 100% / 15 + 50% / 15);"></view>
-      </view>
-
-      <!-- 落子区域 -->
-      <view class="cells">
+      <view
+        wx:for="{{boardData}}"
+        wx:for-item="row"
+        wx:for-index="rowIndex"
+        wx:key="row-{{rowIndex}}"
+        class="board-row"
+      >
         <view
-          wx:for="{{boardData}}"
-          wx:for-item="row"
-          wx:for-index="rowIndex"
-          wx:key="row-{{rowIndex}}"
-          class="board-row"
+          wx:for="{{row}}"
+          wx:for-item="cell"
+          wx:for-index="colIndex"
+          wx:key="cell-{{rowIndex}}-{{colIndex}}"
+          class="cell {{cell.position}}"
+          bindtap="onCellTap"
+          data-row="{{cell.row}}"
+          data-col="{{cell.col}}"
         >
+          <!-- 网格线 -->
+          <view class="line horizontal"></view>
+          <view class="line vertical"></view>
+          
+          <!-- 星位 -->
+          <view wx:if="{{cell.isStarPoint}}" class="star-point"></view>
+
+          <!-- 棋子 -->
           <view
-            wx:for="{{row}}"
-            wx:for-item="cell"
-            wx:for-index="colIndex"
-            wx:key="cell-{{rowIndex}}-{{colIndex}}"
-            class="cell"
-            bindtap="onCellTap"
-            data-row="{{cell.row}}"
-            data-col="{{cell.col}}"
-          >
-            <view
-              wx:if="{{cell.stone !== 0}}"
-              class="stone {{cell.stone === 1 ? 'black' : 'white'}} {{cell.isLast ? 'last-move' : ''}} {{cell.isWinning ? 'winning' : ''}}"
-            ></view>
-          </view>
+            wx:if="{{cell.stone !== 0}}"
+            class="stone {{cell.stone === 1 ? 'black' : 'white'}} {{cell.isLast ? 'last-move' : ''}} {{cell.isWinning ? 'winning' : ''}}"
+          ></view>
         </view>
       </view>
     </view>

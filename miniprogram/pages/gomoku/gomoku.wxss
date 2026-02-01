@@ -40,6 +40,7 @@ page {
 }
 
 /* 棋盘容器 */
+/* 棋盘容器 */
 .board-container {
   flex: 1;
   display: flex;
@@ -53,54 +54,11 @@ page {
   max-width: 700rpx;
   aspect-ratio: 1;
   background-color: #DEB887;
-  border-radius: 16rpx;
+  border-radius: 8rpx;
   position: relative;
   box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.15);
-  padding: calc(100% / 30);
+  padding: 10rpx; /* 给边缘留一点点空隙，更像真实棋盘 */
   box-sizing: border-box;
-}
-
-/* 网格线 */
-.grid-lines {
-  position: absolute;
-  top: calc(100% / 30);
-  left: calc(100% / 30);
-  right: calc(100% / 30);
-  bottom: calc(100% / 30);
-}
-
-.grid-line {
-  position: absolute;
-  background-color: #8B4513;
-}
-
-.grid-line.horizontal {
-  left: 0;
-  right: 0;
-  height: 2rpx;
-}
-
-.grid-line.vertical {
-  top: 0;
-  bottom: 0;
-  width: 2rpx;
-}
-
-/* 星位点 */
-.star-point {
-  position: absolute;
-  width: 12rpx;
-  height: 12rpx;
-  background-color: #8B4513;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-}
-
-/* 落子区域 */
-.cells {
-  position: relative;
-  width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -112,11 +70,75 @@ page {
 
 .cell {
   flex: 1;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
 }
+
+/* 网格线基础样式 */
+.line {
+  position: absolute;
+  background-color: #8B4513;
+}
+
+.line.horizontal {
+  height: 2rpx;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.line.vertical {
+  width: 2rpx;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* 边缘处理：使得线段只画到中心点 */
+/* 左边缘：横线从中心开始画到右边 */
+.cell.left .line.horizontal,
+.cell.top-left .line.horizontal,
+.cell.bottom-left .line.horizontal {
+  left: 50%;
+}
+
+/* 右边缘：横线从左边画到中心 */
+.cell.right .line.horizontal,
+.cell.top-right .line.horizontal,
+.cell.bottom-right .line.horizontal {
+  right: 50%;
+}
+
+/* 上边缘：竖线从中心画到下边 */
+.cell.top .line.vertical,
+.cell.top-left .line.vertical,
+.cell.top-right .line.vertical {
+  top: 50%;
+}
+
+/* 下边缘：竖线从上边画到中心 */
+.cell.bottom .line.vertical,
+.cell.bottom-left .line.vertical,
+.cell.bottom-right .line.vertical {
+  bottom: 50%;
+}
+
+/* 星位点 */
+.star-point {
+  position: absolute;
+  width: 12rpx;
+  height: 12rpx;
+  background-color: #8B4513;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+/* 棋子 */
+
 
 /* 棋子 */
 .stone {
@@ -165,36 +187,48 @@ page {
 .toolbar {
   display: flex;
   justify-content: center;
-  gap: 80rpx;
-  padding: 32rpx 0;
+  gap: 40rpx;
+  padding: 40rpx 0;
 }
 
 .tool-button {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  padding: 16rpx 32rpx;
-  border-radius: 16rpx;
-  background-color: white;
-  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
-}
-
-.tool-button.disabled {
-  opacity: 0.5;
+  justify-content: center;
+  width: 240rpx;
+  height: 88rpx;
+  border-radius: 44rpx;
+  background: linear-gradient(145deg, #A0522D, #8B4513);
+  box-shadow: 0 6rpx 12rpx rgba(0, 0, 0, 0.2);
+  color: #fff;
+  transition: all 0.2s ease;
 }
 
 .tool-button:active:not(.disabled) {
-  background-color: #f0f0f0;
+  transform: translateY(2rpx);
+  box-shadow: 0 2rpx 6rpx rgba(0, 0, 0, 0.2);
+  background: linear-gradient(145deg, #8B4513, #A0522D);
+}
+
+.tool-button.disabled {
+  background: #D2B48C;
+  opacity: 0.6;
+  box-shadow: none;
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .tool-icon {
-  font-size: 48rpx;
-  margin-bottom: 8rpx;
+  font-size: 36rpx;
+  margin-right: 12rpx;
+  margin-bottom: 0;
 }
 
 .tool-label {
-  font-size: 24rpx;
-  color: #666;
+  font-size: 30rpx;
+  font-weight: 500;
+  color: #fff;
+  letter-spacing: 2rpx;
 }
 
 /* 对话框样式 */

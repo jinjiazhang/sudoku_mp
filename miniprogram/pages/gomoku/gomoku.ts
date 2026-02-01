@@ -1,5 +1,5 @@
 // gomoku.ts
-export {}
+export { }
 const { GomokuService, GomokuGame, BOARD_SIZE, EMPTY, BLACK, WHITE } = require('../../utils/gomoku-service.js')
 
 interface CellData {
@@ -8,6 +8,8 @@ interface CellData {
   stone: number
   isLast: boolean
   isWinning: boolean
+  position: string
+  isStarPoint: boolean
 }
 
 Page({
@@ -86,15 +88,31 @@ Page({
     const winningStones = game.gameOver && game.winner ? GomokuService.getWinningStones(game) : []
     const winningSet = new Set(winningStones.map((s: any) => `${s.row},${s.col}`))
 
+    // 定义星位坐标
+    const starPoints = new Set(['3,3', '3,11', '7,7', '11,3', '11,11'])
+
     for (let i = 0; i < BOARD_SIZE; i++) {
       boardData[i] = []
       for (let j = 0; j < BOARD_SIZE; j++) {
+        // 确定位置类型，用于绘制网格线
+        let position = 'center'
+        if (i === 0 && j === 0) position = 'top-left'
+        else if (i === 0 && j === BOARD_SIZE - 1) position = 'top-right'
+        else if (i === BOARD_SIZE - 1 && j === 0) position = 'bottom-left'
+        else if (i === BOARD_SIZE - 1 && j === BOARD_SIZE - 1) position = 'bottom-right'
+        else if (i === 0) position = 'top'
+        else if (i === BOARD_SIZE - 1) position = 'bottom'
+        else if (j === 0) position = 'left'
+        else if (j === BOARD_SIZE - 1) position = 'right'
+
         boardData[i][j] = {
           row: i,
           col: j,
           stone: game.board[i][j],
           isLast: game.lastMove && game.lastMove.row === i && game.lastMove.col === j,
-          isWinning: winningSet.has(`${i},${j}`)
+          isWinning: winningSet.has(`${i},${j}`),
+          position,
+          isStarPoint: starPoints.has(`${i},${j}`)
         }
       }
     }
