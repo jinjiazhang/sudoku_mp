@@ -1,37 +1,60 @@
 <!--gomoku-menu.wxml-->
-<view class="container">
-  <view class="header">
-    <text class="title">五子棋</text>
-    <text class="subtitle">黑白之道，连珠之美</text>
+<view class="page-container">
+  <view class="hero-header">
+    <view class="game-icon-graphic">
+      <view class="g-stone black"></view>
+      <view class="g-stone white"></view>
+    </view>
+    <text class="game-title">五子棋</text>
+    <text class="game-subtitle">黑白博弈，连珠之美</text>
   </view>
 
-  <view class="menu-options">
-    <view wx:if="{{hasSavedGame}}" class="menu-btn resume-btn" bindtap="handleResumeGame">
-      继续游戏
+  <view class="menu-content">
+    <!-- 继续游戏 -->
+    <view wx:if="{{hasSavedGame}}" class="menu-card resume" bindtap="handleResumeGame">
+      <view class="card-left">
+        <text class="card-main-text">继续对局</text>
+        <text class="card-sub-text">恢复上一次的棋局</text>
+      </view>
+      <view class="icon-circle">▶</view>
     </view>
 
-    <view class="menu-btn pve-btn" bindtap="showPveOptions">
-      人机对战
+    <!-- 人机对战 -->
+    <view class="menu-card pve" bindtap="showPveOptions">
+      <view class="card-bg-circle"></view>
+      <view class="card-left">
+        <text class="card-main-text">人机对战</text>
+        <text class="card-sub-text">挑战 AI 磨练棋艺</text>
+      </view>
+      <view class="icon-circle">🤖</view>
     </view>
 
-    <view class="menu-btn pvp-btn" bindtap="handlePvpGame">
-      双人对战
+    <!-- 双人对战 -->
+    <view class="menu-card pvp" bindtap="handlePvpGame">
+      <view class="card-bg-circle"></view>
+      <view class="card-left">
+        <text class="card-main-text">双人对战</text>
+        <text class="card-sub-text">与好友面对面切磋</text>
+      </view>
+      <view class="icon-circle">VS</view>
     </view>
   </view>
 
   <!-- 人机对战选择模态框 -->
   <view wx:if="{{showPveModal}}" class="modal-mask" bindtap="closeModal">
-    <view class="modal-content" catchtap="true">
-      <view class="modal-title">选择阵营</view>
-      <view class="choice-options">
-        <view class="choice-btn black" bindtap="chooseBlack">
-          执黑 (先手)
+    <view class="modal-card" catchtap="true">
+      <view class="modal-header">选择执子</view>
+      <view class="choice-grid">
+        <view class="choice-item black" bindtap="chooseBlack">
+          <view class="stone-preview black"></view>
+          <text class="choice-title">执黑 (先手)</text>
         </view>
-        <view class="choice-btn white" bindtap="chooseWhite">
-          执白 (后手)
+        <view class="choice-item white" bindtap="chooseWhite">
+          <view class="stone-preview white"></view>
+          <text class="choice-title">执白 (后手)</text>
         </view>
       </view>
-      <view class="modal-close" bindtap="closeModal">取消</view>
+      <view class="modal-cancel" bindtap="closeModal">取消</view>
     </view>
   </view>
 </view>

@@ -1,101 +1,197 @@
 /**sudoku-menu.wxss**/
-page {
-  height: 100vh;
-  background-color: #f5f5f5;
-}
-
-.container {
+.page-container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  padding: 40rpx;
+  background-color: #F8F9FA;
+  align-items: center;
+  padding-top: 80rpx;
+}
+
+.hero-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 80rpx;
+}
+
+.game-icon-graphic {
+  width: 200rpx;
+  height: 200rpx;
+  margin-bottom: 24rpx;
+  background: white;
+  border-radius: 50rpx;
+  box-shadow: 0 20rpx 40rpx rgba(49, 130, 206, 0.15);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8rpx;
+  padding: 24rpx;
   box-sizing: border-box;
 }
 
-.header {
+.s-cell {
+  background: #E2E8F0;
+  border-radius: 8rpx;
+}
+
+.s-cell.filled {
+  background: #4A90E2;
+}
+
+.game-title {
+  font-size: 48rpx;
+  font-weight: 800;
+  color: #2D3748;
+  letter-spacing: 2rpx;
+}
+
+.menu-content {
+  width: 100%;
+  padding: 0 40rpx;
   display: flex;
   flex-direction: column;
+  gap: 32rpx;
+}
+
+.save-card {
+  background: white;
+  padding: 40rpx;
+  border-radius: 32rpx;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  flex: 2;
-  justify-content: center;
+  box-shadow: 0 12rpx 24rpx rgba(0,0,0,0.06);
+  transition: all 0.2s;
+  border: 2rpx solid transparent;
 }
 
-.title {
-  font-size: 72rpx;
-  font-weight: bold;
-  color: #2E3A59;
-  margin-bottom: 16rpx;
+.save-card:active {
+  transform: scale(0.98);
+  border-color: #3182CE;
 }
 
-.subtitle {
-  font-size: 28rpx;
-  color: #999;
-  font-weight: 400;
-}
-
-.main {
-  flex: 3;
+.save-info {
   display: flex;
   flex-direction: column;
-  justify-content: center;
 }
 
-.ongoing-game, .new-game {
-  display: flex;
-  flex-direction: column;
-  gap: 24rpx;
-}
-
-.continue-btn {
-  background-color: #2196F3;
-  color: white;
-  padding: 32rpx 48rpx;
-  border-radius: 50rpx;
+.save-label {
   font-size: 36rpx;
-  font-weight: 600;
-  border: none;
-  box-shadow: 0 4rpx 12rpx rgba(33, 150, 243, 0.3);
-  min-width: 420rpx;
-  white-space: nowrap;
+  font-weight: 700;
+  color: #2D3748;
+  margin-bottom: 8rpx;
 }
 
-.continue-btn:active {
-  background-color: #1976D2;
-  transform: translateY(2rpx);
+.save-detail {
+  font-size: 26rpx;
+  color: #718096;
 }
 
-.restart-btn, .start-btn {
-  background-color: white;
-  color: #2196F3;
-  padding: 32rpx 48rpx;
-  border-radius: 50rpx;
-  font-size: 36rpx;
-  font-weight: 600;
-  border: 2rpx solid #E0E0E0;
-  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
-  min-width: 420rpx;
-  white-space: nowrap;
-}
-
-.restart-btn:active, .start-btn:active {
-  background-color: #f8f9fa;
-  transform: translateY(2rpx);
-}
-
-.difficulty-section {
+.play-arrow {
+  width: 80rpx;
+  height: 80rpx;
+  background: #EBF8FF;
+  color: #3182CE;
+  border-radius: 50%;
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+}
+
+.new-game-card {
+  background: white;
+  padding: 40rpx;
+  border-radius: 32rpx;
+  box-shadow: 0 12rpx 24rpx rgba(0,0,0,0.06);
+}
+
+.card-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #2D3748;
   margin-bottom: 40rpx;
 }
 
-.difficulty-label {
+.difficulty-control {
+  margin-bottom: 60rpx;
+}
+
+.diff-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24rpx;
+}
+
+.diff-header .label {
+  color: #718096;
+  font-size: 28rpx;
+}
+
+.diff-header .val {
+  color: #3182CE;
+  font-weight: 700;
+  font-size: 32rpx;
+}
+
+.diff-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 24rpx;
+  color: #A0AEC0;
+  padding: 0 10rpx;
+  margin-top: 10rpx;
+}
+
+.start-btn {
+  background: linear-gradient(135deg, #3182CE, #2B6CB0);
+  color: white;
+  border-radius: 50rpx;
+  padding: 32rpx;
   font-size: 32rpx;
   font-weight: 600;
-  color: #2E3A59;
-  margin-bottom: 40rpx;
+  box-shadow: 0 12rpx 24rpx rgba(49, 130, 206, 0.3);
 }
 
-.difficulty-slider {
-  width: 80%;
+
+/* iPad 适配 */
+@media (min-width: 768px) {
+  .page-container { padding-top: 60px; }
+  .hero-header { margin-bottom: 50px; }
+  
+  .game-icon-graphic {
+    width: 120px; height: 120px;
+    padding: 16px;
+    gap: 6px;
+    border-radius: 30px;
+  }
+  
+  .s-cell { border-radius: 6px; }
+  
+  .game-title { font-size: 32px; }
+  
+  .menu-content { 
+    max-width: 800px; /* Constrain content width */
+    margin: 0 auto;
+    gap: 30px;
+  }
+  
+  .save-card, .new-game-card {
+    padding: 30px;
+    border-radius: 20px;
+  }
+  
+  .save-label { font-size: 24px; margin-bottom: 6px; }
+  .save-detail { font-size: 18px; }
+  .play-arrow { width: 50px; height: 50px; font-size: 20px; }
+  
+  .card-title { font-size: 24px; margin-bottom: 30px; }
+  
+  .diff-header .label { font-size: 18px; }
+  .diff-header .val { font-size: 22px; }
+  
+  .start-btn { 
+    padding: 20px;
+    font-size: 20px;
+    border-radius: 30px;
+  }
 }

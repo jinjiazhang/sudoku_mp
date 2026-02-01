@@ -1,111 +1,278 @@
 /**index.wxss**/
-page {
-  height: 100vh;
-  background-color: #f5f5f5;
-}
-
-.container {
+.page-container {
+  background-color: #F8F9FA;
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  padding: 40rpx;
-  box-sizing: border-box;
-  justify-content: space-between;
 }
 
-.header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 60rpx;
-  padding-bottom: 40rpx;
+.hero-section {
+  position: relative;
+  height: 320rpx;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-bottom-left-radius: 40rpx;
+  border-bottom-right-radius: 40rpx;
+  padding: 60rpx 40rpx;
+  color: white;
+  box-shadow: 0 10rpx 30rpx rgba(118, 75, 162, 0.2);
+  overflow: hidden;
 }
 
-.title {
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.app-title {
   font-size: 64rpx;
-  font-weight: bold;
-  color: #2E3A59;
+  font-weight: 800;
+  display: block;
   margin-bottom: 16rpx;
+  letter-spacing: 2rpx;
 }
 
-.subtitle {
-  font-size: 28rpx;
-  color: #999;
-  font-weight: 400;
-}
-
-/* 游戏列表 */
-.game-list {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 24rpx;
-  padding: 20rpx 0;
-}
-
-/* 游戏卡片 */
-.game-card {
-  display: flex;
-  align-items: center;
-  background-color: white;
-  padding: 32rpx;
-  border-radius: 24rpx;
-  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.08);
-}
-
-.game-card:active {
-  background-color: #f8f9fa;
-  transform: scale(0.98);
-}
-
-.game-icon {
-  font-size: 64rpx;
-  width: 100rpx;
-  height: 100rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #f0f4ff;
-  border-radius: 20rpx;
-  margin-right: 24rpx;
-}
-
-.game-info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 8rpx;
-}
-
-.game-name {
-  font-size: 36rpx;
-  font-weight: 600;
-  color: #2E3A59;
-}
-
-.game-desc {
-  font-size: 26rpx;
-  color: #999;
-}
-
-.game-arrow {
-  font-size: 48rpx;
-  color: #ccc;
+.app-subtitle {
+  font-size: 30rpx;
+  opacity: 0.9;
   font-weight: 300;
 }
 
-/* 底部导航 */
-.footer {
-  display: flex;
-  justify-content: center;
-  padding-bottom: 40rpx;
+.hero-decoration {
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 400rpx;
+  height: 400rpx;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  filter: blur(40rpx);
 }
 
-.profile-btn {
-  background-color: transparent;
-  color: #666;
+.content-area {
+  flex: 1;
+  padding: 40rpx;
+  margin-top: -40rpx; /* overlap with hero */
+  position: relative;
+  z-index: 3;
+}
+
+.section-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #2C3E50;
+  margin-bottom: 32rpx;
+  padding-left: 10rpx;
+}
+
+.game-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 32rpx;
+}
+
+.game-card {
+  height: 200rpx;
+  background: white;
+  border-radius: 32rpx;
+  padding: 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 12rpx 24rpx rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+}
+
+.game-card:active {
+  transform: scale(0.98);
+  box-shadow: 0 6rpx 16rpx rgba(0, 0, 0, 0.04);
+}
+
+.gomoku-card .card-bg-decoration {
+  position: absolute;
+  width: 150rpx;
+  height: 150rpx;
+  background: linear-gradient(135deg, #FF9966, #FF5E62);
+  border-radius: 50%;
+  right: -20rpx;
+  bottom: -40rpx;
+  opacity: 0.1;
+}
+
+.sudoku-card .card-bg-decoration {
+  position: absolute;
+  width: 150rpx;
+  height: 150rpx;
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  border-radius: 50%;
+  right: -20rpx;
+  bottom: -40rpx;
+  opacity: 0.1;
+}
+
+.card-content {
+  display: flex;
+  align-items: center;
+  z-index: 2;
+}
+
+  .icon-box {
+    width: 100rpx;
+    height: 100rpx;
+    border-radius: 24rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 32rpx;
+    background: #F5F7FA;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Gomoku Icon Styles */
+  .gomoku-icon-graphic {
+    width: 60%;
+    height: 60%;
+    position: relative;
+  }
+  
+  .g-stone {
+    width: 45rpx;
+    height: 45rpx;
+    border-radius: 50%;
+    position: absolute;
+    box-shadow: 2rpx 4rpx 8rpx rgba(0,0,0,0.2);
+  }
+  
+  .g-stone.black {
+    background: radial-gradient(circle at 30% 30%, #555, #000);
+    top: 0; left: 0;
+    z-index: 1;
+  }
+  
+  .g-stone.white {
+    background: radial-gradient(circle at 30% 30%, #fff, #ddd);
+    bottom: 0; right: 0;
+    z-index: 2;
+    border: 1rpx solid #e0e0e0;
+  }
+  
+  /* Sudoku Icon Styles */
+  .sudoku-icon-graphic {
+    width: 60%;
+    height: 60%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4rpx;
+  }
+  
+  .s-cell {
+    background: #E2E8F0;
+    border-radius: 4rpx;
+  }
+  
+  .s-cell.filled {
+    background: #4A90E2;
+  }
+
+  .text-box {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .game-name {
+    font-size: 36rpx;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 8rpx;
+  }
+
+  .game-desc {
+    font-size: 26rpx;
+    color: #95A5A6;
+  }
+
+  .play-arrow-btn {
+    width: 64rpx; height: 64rpx;
+    border-radius: 50%;
+    background: #F5F7FA;
+    color: #A0AEC0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32rpx;
+  }
+
+.footer-area {
+  padding: 40rpx 0 calc(40rpx + env(safe-area-inset-bottom));
+  display: flex;
+  justify-content: center;
+  background-color: #F8F9FA; /* Ensure it matches bg */
+}
+
+.footer-card {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 20rpx 40rpx;
+  background: white;
+  border-radius: 40rpx;
+  box-shadow: 0 8rpx 20rpx rgba(0, 0, 0, 0.05);
   font-size: 28rpx;
-  border: none;
-  text-decoration: underline;
-  white-space: nowrap;
+  font-weight: 500;
+  color: #555;
+  transition: all 0.2s;
+}
+
+
+/* iPad 适配 */
+@media (min-width: 768px) {
+  .hero-section {
+    height: 240px;
+    padding: 40px 30px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+  
+  .app-title { font-size: 48px; margin-bottom: 10px; }
+  .app-subtitle { font-size: 20px; }
+  
+  .content-area { padding: 30px 40px; margin-top: -30px; }
+  .section-title { font-size: 24px; margin-bottom: 20px; }
+  
+  .game-grid { 
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px; 
+  }
+  
+  .game-card {
+    height: 160px; /* Slightly taller */
+    padding: 30px;
+  }
+  
+  .icon-box {
+    width: 70px; height: 70px;
+    border-radius: 16px;
+    margin-right: 20px;
+  }
+  
+  /* iPad overrides for icons */
+  .g-stone { width: 32px; height: 32px; }
+  .sudoku-icon-graphic { gap: 3px; }
+  .s-cell { border-radius: 3px; }
+  
+  .game-name { font-size: 24px; margin-bottom: 6px; }
+  .game-desc { font-size: 16px; }
+  
+  .play-arrow-btn {
+    width: 48px; height: 48px;
+    font-size: 24px;
+  }
+  
+  .footer-card {
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-size: 18px;
+  }
 }

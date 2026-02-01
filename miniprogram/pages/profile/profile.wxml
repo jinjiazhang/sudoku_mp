@@ -1,33 +1,38 @@
 <!--profile.wxml-->
-<view class="container">
-  <view class="content">
-    <view class="stats-section">
-      <text class="section-title">游戏统计</text>
-      <view class="stats-grid">
-        <view class="stat-item">
-          <text class="stat-number">{{gameStats.totalGames}}</text>
-          <text class="stat-label">总游戏数</text>
-        </view>
-        <view class="stat-item">
-          <text class="stat-number">{{gameStats.completedGames}}</text>
-          <text class="stat-label">完成游戏数</text>
-        </view>
-        <view class="stat-item">
-          <text class="stat-number">{{gameStats.bestTime}}</text>
-          <text class="stat-label">最佳用时</text>
-        </view>
-        <view class="stat-item">
-          <text class="stat-number">{{gameStats.averageTime}}</text>
-          <text class="stat-label">平均用时</text>
-        </view>
+<view class="page-container">
+  <view class="header-section">
+    <view class="avatar-circle">👤</view>
+    <text class="user-name">玩家</text>
+    <text class="user-level">数独爱好者</text>
+  </view>
+
+  <view class="content-area">
+    <view class="section-title">我的成就</view>
+    
+    <view class="stats-grid">
+      <view class="stat-card">
+        <text class="stat-value">{{gameStats.totalGames}}</text>
+        <text class="stat-label">总游戏数</text>
+      </view>
+      <view class="stat-card highlight">
+        <text class="stat-value">{{gameStats.completedGames}}</text>
+        <text class="stat-label">完成数</text>
+      </view>
+      <view class="stat-card">
+        <text class="stat-value">{{gameStats.bestTime || '-'}}</text>
+        <text class="stat-label">最佳用时</text>
+      </view>
+      <view class="stat-card">
+        <text class="stat-value">{{gameStats.averageTime || '-'}}</text>
+        <text class="stat-label">平均用时</text>
       </view>
     </view>
 
-    <view class="profile-section">
-      <text class="section-title">开发者信息</text>
-      <view class="info-item">
-        <text class="info-label">邮箱</text>
-        <text class="info-value">jinjiazh@qq.com</text>
+    <view class="section-title" style="margin-top: 60rpx;">开发者</view>
+    <view class="dev-card">
+      <view class="dev-info-row">
+        <text class="label">联系邮箱</text>
+        <text class="value">jinjiazh@qq.com</text>
       </view>
     </view>
   </view>

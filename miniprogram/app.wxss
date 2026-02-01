@@ -1,2 +1,61 @@
 /**app.wxss**/
-/* 全局样式 */ 
+page {
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica,
+    Segoe UI, Arial, Roboto, 'PingFang SC', 'miui', 'Hiragino Sans GB', 'Microsoft Yahei',
+    sans-serif;
+  box-sizing: border-box;
+  background-color: #F8F9FA;
+  color: #333;
+  --primary-color: #4A90E2;
+  --secondary-color: #50E3C2;
+  --text-dark: #2C3E50;
+  --text-gray: #95A5A6;
+  --card-shadow: 0 12rpx 32rpx rgba(0, 0, 0, 0.06);
+}
+
+view, text, button, image {
+  box-sizing: border-box;
+}
+
+/* 响应式容器：适配 iPad */
+.page-container {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 平板/大屏适配 */
+@media (min-width: 768px) {
+  .page-container {
+    max-width: 100%; /* Use full width */
+    padding: 0 40rpx; /* Add some padding */
+    margin: 0 auto;
+    background-color: #fff;
+    min-height: 100vh; 
+  }
+}
+
+/* 通用卡片样式 */
+.card {
+  background: #fff;
+  border-radius: 24rpx;
+  box-shadow: var(--card-shadow);
+  padding: 32rpx;
+  margin-bottom: 24rpx;
+}
+
+/* 通用按钮基础 */
+.btn-primary {
+  background: linear-gradient(135deg, #4A90E2, #357ABD);
+  color: white;
+  border-radius: 50rpx;
+  font-weight: 600;
+  box-shadow: 0 8rpx 20rpx rgba(74, 144, 226, 0.3);
+  border: none;
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}

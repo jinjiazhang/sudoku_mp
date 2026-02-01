@@ -1,39 +1,51 @@
 <!--sudoku-menu.wxml-->
-<view class="container">
-  <view class="header">
-    <text class="title">数独</text>
-    <text class="subtitle">经典数字逻辑游戏</text>
+<view class="page-container">
+  <view class="hero-header">
+    <view class="game-icon-graphic">
+      <view class="s-cell"></view><view class="s-cell filled"></view><view class="s-cell"></view>
+      <view class="s-cell filled"></view><view class="s-cell"></view><view class="s-cell filled"></view>
+      <view class="s-cell"></view><view class="s-cell filled"></view><view class="s-cell"></view>
+    </view>
+    <text class="game-title">数独挑战</text>
   </view>
 
-  <view class="main">
-    <!-- 有正在进行的游戏时显示 -->
-    <view wx:if="{{hasOngoingGame}}" class="ongoing-game">
-      <button class="continue-btn" bindtap="continueGame">
-        继续游戏
-      </button>
-      <button class="restart-btn" bindtap="restartGame">
-        重新开始
-      </button>
+  <view class="menu-content">
+    <!-- 有存档 -->
+    <view wx:if="{{hasOngoingGame}}" class="save-card" bindtap="continueGame">
+      <view class="save-info">
+        <text class="save-label">继续游戏</text>
+        <text class="save-detail">难度: {{savedGameDifficulty || '未知'}}</text>
+      </view>
+      <view class="play-arrow">▶</view>
     </view>
 
-    <!-- 没有正在进行的游戏时显示难度选择 -->
-    <view wx:else class="new-game">
-      <view class="difficulty-section">
-        <text class="difficulty-label">难度: {{selectedDifficultyName}}</text>
-        <slider
-          class="difficulty-slider"
-          value="{{selectedDifficulty}}"
-          min="1"
+    <!-- 新游戏设置 -->
+    <view class="new-game-card">
+      <view class="card-title">新游戏</view>
+      
+      <view class="difficulty-control">
+        <view class="diff-header">
+          <text class="label">选择难度</text>
+          <text class="val">{{selectedDifficultyName || selectedDifficulty + '级'}}</text>
+        </view>
+        <slider 
+          class="diff-slider" 
+          value="{{selectedDifficulty}}" 
+          min="1" 
           max="9"
-          step="1"
-          show-value="{{false}}"
+          activeColor="#3182CE"
+          backgroundColor="#EDF2F7"
+          block-size="24"
           bindchange="onDifficultyChange"
+          bindchanging="onDifficultyChange"
         />
+        <view class="diff-labels">
+          <text>简单</text>
+          <text>困难</text>
+        </view>
       </view>
 
-      <button class="start-btn" bindtap="startNewGame">
-        开始游戏
-      </button>
+      <button class="start-btn" bindtap="startNewGame">开始新游戏</button>
     </view>
   </view>
 </view>

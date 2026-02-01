@@ -1,421 +1,399 @@
 /**sudoku.wxss**/
-page {
+.page-container {
   height: 100vh;
-  background-color: white;
-}
-
-.container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  padding: 10rpx;
-  box-sizing: border-box;
+  background-color: #F8F9FA;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
-/* 状态栏 */
-.status-bar {
+.header-bar {
+  padding: 20rpx 40rpx;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 16rpx;
 }
 
-.difficulty-display {
-  background-color: #f0f0f0;
+.badge-pill {
+  background: white;
   padding: 12rpx 24rpx;
-  border-radius: 20rpx;
-  font-size: 32rpx;
-  color: #333;
-  font-family: 'SF Pro Display', -apple-system, system-ui, sans-serif;
+  border-radius: 40rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.05);
+  font-size: 28rpx;
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  color: #555;
 }
 
-.time-display {
-  background-color: #f0f0f0;
-  padding: 12rpx 24rpx;
-  border-radius: 20rpx;
+.badge-pill.time {
+  background: #EBF8FF;
+  color: #2B6CB0;
+  font-family: monospace;
+  font-weight: 700;
   font-size: 32rpx;
-  color: #333;
-  font-family: 'SF Pro Display', -apple-system, system-ui, sans-serif;
 }
 
-/* 棋盘容器 */
-.board-container {
+.board-area {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 32rpx;
+  padding: 20rpx;
 }
 
 .sudoku-board {
-  display: grid;
-  background-color: #41424E;
-  border: 4rpx solid #41424E;
-  max-width: 740rpx;
-  max-height: 740rpx;
+  width: 92vw;
+  max-width: 600px; /* Limit max width for iPad */
   aspect-ratio: 1;
-  width: calc(100vw - 10rpx);
-  margin: 0 auto;
-  overflow: hidden;
+  background-color: #333;
+  padding: 4rpx;
+  border-radius: 12rpx;
+  display: flex;
+  flex-wrap: wrap;
+  box-shadow: 0 12rpx 32rpx rgba(0,0,0,0.15);
 }
 
-/* 4x4网格 - 2x2子棋盘 */
-.sudoku-board[data-size="4"] {
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 4rpx;
-}
-
-/* 6x6网格 - 3x2子棋盘 */
-.sudoku-board[data-size="6"] {
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  gap: 4rpx;
-}
-
-/* 9x9网格 - 3x3子棋盘 */
-.sudoku-board[data-size="9"] {
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  gap: 4rpx;
-}
-
-/* 子棋盘样式 */
 .sub-grid {
-  display: grid;
-  background-color: #C0C6D2;
-  gap: 2rpx;
-}
-
-/* 4x4数独的子棋盘 - 每个子棋盘2x2 */
-.sub-grid[data-size="4"] {
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-}
-
-/* 6x6数独的子棋盘 - 每个子棋盘2x3 */
-.sub-grid[data-size="6"] {
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-}
-
-/* 9x9数独的子棋盘 - 每个子棋盘3x3 */
-.sub-grid[data-size="9"] {
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  width: 33.333%;
+  height: 33.333%;
+  background-color: #333;
+  display: flex;
+  flex-wrap: wrap;
+  border: 2rpx solid #333;
+  box-sizing: border-box;
 }
 
 .cell {
-  background-color: white;
+  width: 33.333%;
+  height: 33.333%;
+  background-color: #fff;
+  border: 1rpx solid #e0e0e0;
+  box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: center;
-  aspect-ratio: 1;
   position: relative;
-  border: none;
+  font-size: 40rpx;
+  color: #333;
 }
 
+/* 适配大屏字体 */
+@media (min-width: 768px) {
+  .cell {
+    font-size: 48rpx;
+  }
+}
+
+/* 选中样式 */
 .cell.selected {
-  background-color: #BBDEFB !important;
+  background-color: #BEE3F8;
 }
 
-.cell.highlighted {
-  background-color: #E3F2FD;
+.cell.related {
+  background-color: #EBF8FF;
 }
 
-.cell.same-number {
-  background-color: #81C4E7;
+.cell.same-value {
+  background-color: #90CDF4;
 }
 
-.cell.hint-selected {
-  background-color: #E8F5E8 !important;
+.cell.error {
+  background-color: #FED7D7;
+  color: #C53030;
 }
 
-.cell.conflict {
-  background-color: #FFCCCC !important;
+.cell-text.initial {
+  font-weight: 700;
+  color: #2C3E50;
 }
 
-.cell.correct {
-  background-color: #CCFFCC !important;
+.cell-text.user-input {
+  color: #3182CE;
 }
 
-/* 移除原有的边框样式类，现在通过子棋盘结构来实现边框 */
-
-.cell-text {
-  font-size: 60rpx;  /* 默认9x9网格字体 */
-  font-weight: 400;
-  font-family: 'SF Pro Display', -apple-system, system-ui, sans-serif;
-}
-
-/* 4x4网格字体 */
-.sudoku-board[data-size="4"] .cell-text {
-  font-size: 104rpx;
-}
-
-/* 6x6网格字体 */
-.sudoku-board[data-size="6"] .cell-text {
-  font-size: 76rpx;
-}
-
-.cell-text.fixed {
-  color: black;
-}
-
-.cell-text.user {
-  color: #2196F3;
-}
-
-/* 备注数字样式 */
 .cell-notes {
   width: 100%;
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .note-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  width: 90%;
-  height: 90%;
-  gap: 2rpx;
+  width: 100%;
+  height: 100%;
+  padding: 4rpx;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .note-position {
+  width: 33.33%;
+  height: 33.33%;
   display: flex;
-  align-items: center;
   justify-content: center;
-  font-size: 20rpx;
-  color: #666;
-  line-height: 1;
-  opacity: 0;
+  align-items: center;
+  font-size: 18rpx;
+  color: #718096;
+  visibility: hidden;
 }
 
 .note-position.visible {
-  opacity: 1;
+  visibility: visible;
 }
 
-/* 工具栏 */
+/* 控制区域 */
+.controls-area {
+  background: white;
+  padding: 30rpx 40rpx;
+  border-top-left-radius: 40rpx;
+  border-top-right-radius: 40rpx;
+  box-shadow: 0 -4rpx 20rpx rgba(0,0,0,0.03);
+}
+
 .toolbar {
   display: flex;
   justify-content: space-around;
-  padding: 32rpx 0;
+  margin-bottom: 30rpx;
 }
 
-.tool-button {
+.tool-btn {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 16rpx;
-  border-radius: 16rpx;
-  min-width: 100rpx;
+  gap: 8rpx;
   position: relative;
-}
-
-.tool-button.active {
-  background-color: #E3F2FD;
-}
-
-.tool-button.disabled {
-  opacity: 0.5;
-}
-
-.tool-icon {
-  font-size: 48rpx;
-  margin-bottom: 8rpx;
-}
-
-.tool-icon.flipped {
-  transform: scaleX(-1);
-}
-
-.tool-label {
   font-size: 24rpx;
   color: #666;
+  opacity: 1;
 }
 
-.badge {
+.tool-btn.disabled {
+  opacity: 0.4;
+}
+
+.icon-circle {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 30rpx;
+  background: #F7FAFC;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+  transition: all 0.2s;
+}
+
+.tool-btn:active .icon-circle {
+  background: #E2E8F0;
+  transform: scale(0.95);
+}
+
+.icon-circle.active-bg {
+  background: #3182CE;
+  color: white;
+}
+
+.status-dot {
+  width: 12rpx;
+  height: 12rpx;
+  background: #48BB78;
+  border-radius: 50%;
   position: absolute;
-  top: 8rpx;
-  right: 8rpx;
-  background-color: #2196F3;
+  top: 10rpx;
+  right: 10rpx;
+  display: none;
+}
+
+.status-dot.on {
+  display: block;
+}
+
+.count-badge {
+  position: absolute;
+  top: -6rpx;
+  right: -6rpx;
+  background: #E53E3E;
   color: white;
   font-size: 20rpx;
-  padding: 4rpx 8rpx;
-  border-radius: 12rpx;
-  min-width: 24rpx;
-  text-align: center;
+  width: 32rpx;
+  height: 32rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.badge-on {
-  background-color: #4CAF50;
-  color: white;
-}
-
-.badge-off {
-  background-color: #9E9E9E;
-  color: white;
-}
-
-/* 数字键盘 */
 .number-keyboard {
   display: flex;
-  justify-content: space-around;
-  padding: 32rpx 24rpx;
-  margin: 24rpx 0;
+  justify-content: space-between;
 }
 
-.number-key {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 110rpx;
-  height: 110rpx;
+.key-btn {
+  width: 10%; /* slightly less than 11.11% for gap */
+  aspect-ratio: 0.8;
+  background: #EDF2F7;
   border-radius: 12rpx;
-  font-size: 80rpx;
-  font-weight: 300;
-  color: #2196F3;
-  font-family: 'SF Pro Display', -apple-system, system-ui, sans-serif;
-  background-color: transparent;
-  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 44rpx;
+  color: #2D3748;
+  font-weight: 500;
+  box-shadow: 0 4rpx 0 #CBD5E0;
 }
 
-.number-key:active {
-  background-color: #E3F2FD;
+.key-btn:active {
+  transform: translateY(4rpx);
+  box-shadow: none;
 }
 
-/* 对话框样式 */
+/* 弹窗样式 */
 .dialog-mask {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 100;
   display: flex;
-  justify-content: center;
   align-items: center;
-  z-index: 1000;
+  justify-content: center;
 }
 
-.complete-dialog {
-  background: linear-gradient(135deg, #4FC3F7, #29B6F6, #03A9F4);
-  padding: 48rpx;
+.complete-card {
+  width: 80%;
+  max-width: 600rpx;
+  background: white;
   border-radius: 40rpx;
-  width: 600rpx;
-  max-width: 90vw;
-  text-align: center;
-  color: white;
-  position: relative;
-  overflow: hidden;
+  padding: 60rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: popIn 0.3s ease;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
 
 .celebrate-icon {
-  font-size: 120rpx;
-  animation: celebrate 2s ease-in-out infinite;
-  margin-bottom: 32rpx;
-  display: block;
-}
-
-@keyframes celebrate {
-  0%, 100% { transform: scale(1) rotate(0deg); }
-  50% { transform: scale(1.1) rotate(10deg); }
+  font-size: 100rpx;
+  margin-bottom: 30rpx;
 }
 
 .dialog-title {
-  font-size: 56rpx;
-  font-weight: bold;
-  color: white;
-  margin-bottom: 24rpx;
-  display: block;
-}
-
-.dialog-subtitle {
-  font-size: 36rpx;
-  color: white;
+  font-size: 48rpx;
+  font-weight: 800;
+  color: #2D3748;
   margin-bottom: 40rpx;
-  display: block;
-  font-weight: 500;
 }
 
-.stats-container {
-  background-color: rgba(255, 255, 255, 0.2);
-  padding: 32rpx;
-  border-radius: 24rpx;
-  margin-bottom: 48rpx;
-}
-
-.stat-row {
+.result-stats {
+  width: 100%;
   display: flex;
-  justify-content: space-between;
+  background: #F7FAFC;
+  padding: 30rpx;
+  border-radius: 20rpx;
+  justify-content: space-around;
+  margin-bottom: 60rpx;
+}
+
+.stat-box {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  margin-bottom: 16rpx;
 }
 
-.stat-row:last-child {
-  margin-bottom: 0;
+.stat-divider {
+  width: 2rpx;
+  background: #E2E8F0;
 }
 
-.stat-label {
-  font-size: 32rpx;
-  color: white;
-  font-weight: 500;
+.stat-box .label {
+  font-size: 24rpx;
+  color: #718096;
 }
 
-.stat-value {
-  font-size: 32rpx;
-  color: white;
-  font-weight: bold;
+.stat-box .val {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #2D3748;
+  margin-top: 8rpx;
 }
 
-.dialog-buttons {
+.action-buttons {
+  width: 100%;
   display: flex;
-  gap: 16rpx;
+  flex-direction: column;
+  gap: 24rpx;
 }
 
-.dialog-btn {
-  flex: 1;
-  padding: 24rpx 16rpx;
+.action-btn {
+  width: 100%;
+  padding: 24rpx;
   border-radius: 50rpx;
   font-size: 32rpx;
   font-weight: 600;
-  border: none;
   display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 8rpx;
+  align-items: center;
 }
 
-.dialog-btn.primary {
-  background-color: white;
-  color: #03A9F4;
-}
-
-.dialog-btn.secondary {
-  background-color: rgba(255, 255, 255, 0.2);
+.action-btn.primary {
+  background: #3182CE;
   color: white;
+  box-shadow: 0 8rpx 20rpx rgba(49, 130, 206, 0.3);
 }
 
-.btn-icon {
-  font-size: 32rpx;
-}
 
-/* 底部占位区域 */
-.bottom-spacer {
-  height: calc(100vh - 1350rpx);
-}
-
-/* 响应式调整 */
-@media (max-width: 400px) {
-  .cell-text {
-    font-size: 40rpx;
+/* iPad 适配 */
+@media (min-width: 768px) {
+  .header-bar { padding: 16px 30px; }
+  
+  .badge-pill {
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 18px;
   }
   
-  .number-key {
-    width: 80rpx;
-    height: 80rpx;
-    font-size: 60rpx;
+  .badge-pill.time { font-size: 22px; }
+  
+  .sudoku-board {
+    max-width: 800px;
+    padding: 6px;
+    border-radius: 12px;
   }
+  
+  /* Cell font size override */
+  .cell { font-size: 32px !important; }
+  
+  .controls-area {
+    padding: 20px 30px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+  
+  .toolbar { margin-bottom: 20px; }
+  
+  .tool-btn { gap: 6px; font-size: 16px; }
+  
+  .icon-circle {
+    width: 60px; height: 60px;
+    border-radius: 16px;
+    font-size: 28px;
+  }
+  
+  .key-btn {
+    border-radius: 8px;
+    font-size: 32px;
+  }
+  
+  .complete-card {
+    width: 60%;
+    max-width: 400px;
+    padding: 40px;
+  }
+  
+  .celebrate-icon { font-size: 64px; }
+  .dialog-title { font-size: 32px; }
+  .stat-box .val { font-size: 24px; }
+  .action-btn { padding: 16px; font-size: 20px; }
 }

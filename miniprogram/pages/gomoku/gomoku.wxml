@@ -1,22 +1,32 @@
 <!--gomoku.wxml-->
-<view class="container">
+<view class="page-container">
   <!-- 顶部状态栏 -->
-  <view class="status-bar">
-    <view class="status-item">
-      <block wx:if="{{gameMode === 'pvp'}}">
-        <text class="status-label">{{game.currentPlayer === 1 ? '黑方落子' : '白方落子'}}</text>
-      </block>
-      <block wx:else>
-        <text class="status-label">{{(game.currentPlayer === 1 && playerColor === 'black') || (game.currentPlayer === 2 && playerColor === 'white') ? '你的回合' : 'AI思考中...'}}</text>
-      </block>
+  <view class="status-header">
+    <view class="player-pill {{game.currentPlayer === 1 ? 'active-black' : ''}}">
+      <view class="stone-icon black"></view>
+      <text class="player-name">黑方</text>
     </view>
-    <view class="status-item">
-      <text class="time-display">{{formattedTime}}</text>
+
+    <view class="game-info">
+      <view class="status-text">
+        <block wx:if="{{gameMode === 'pvp'}}">
+          <text>{{game.currentPlayer === 1 ? '黑方思考' : '白方思考'}}</text>
+        </block>
+        <block wx:else>
+          <text>{{(game.currentPlayer === 1 && playerColor === 'black') || (game.currentPlayer === 2 && playerColor === 'white') ? '你的回合' : 'AI思考'}}</text>
+        </block>
+      </view>
+      <view class="timer">{{formattedTime}}</view>
+    </view>
+
+    <view class="player-pill {{game.currentPlayer === 2 ? 'active-white' : ''}}">
+      <text class="player-name">白方</text>
+      <view class="stone-icon white"></view>
     </view>
   </view>
 
-  <!-- 棋盘 -->
-  <view class="board-container">
+  <!-- 棋盘区域 -->
+  <view class="board-area">
     <view class="gomoku-board">
       <view
         wx:for="{{boardData}}"
@@ -53,35 +63,29 @@
   </view>
 
   <!-- 工具栏 -->
-  <view class="toolbar">
-    <view class="tool-button {{(gameMode === 'pvp' ? game.moveHistory.length < 1 : game.moveHistory.length < 2) || game.gameOver || isThinking ? 'disabled' : ''}}" bindtap="undoMove">
-      <text class="tool-icon">↩️</text>
-      <text class="tool-label">悔棋</text>
+  <view class="controls-area">
+    <view class="tool-btn {{(gameMode === 'pvp' ? game.moveHistory.length < 1 : game.moveHistory.length < 2) || game.gameOver || isThinking ? 'disabled' : ''}}" bindtap="undoMove">
+      <view class="icon-circle">↩️</view>
+      <text>悔棋</text>
     </view>
 
-    <view class="tool-button" bindtap="restartGame">
-      <text class="tool-icon">🔄</text>
-      <text class="tool-label">重新开始</text>
+    <view class="tool-btn" bindtap="restartGame">
+      <view class="icon-circle">🔄</view>
+      <text>重新开始</text>
     </view>
   </view>
 </view>
 
 <!-- 游戏结束对话框 -->
 <view wx:if="{{showCompleteDialog}}" class="dialog-mask">
-  <view class="complete-dialog {{game.winner === 1 ? 'win' : game.winner === 2 ? 'lose' : 'draw'}}">
-    <view class="result-icon">{{game.winner === 1 ? '🎉' : game.winner === 2 ? '😔' : '🤝'}}</view>
-    <text class="dialog-title">{{resultText}}</text>
-    <text class="dialog-subtitle">用时 {{formattedTime}}</text>
-
-    <view class="dialog-buttons">
-      <button class="dialog-btn primary" bindtap="playAgain">
-        <text class="btn-icon">🔄</text>
-        <text>再来一局</text>
-      </button>
-      <button class="dialog-btn secondary" bindtap="backToHome">
-        <text class="btn-icon">🏠</text>
-        <text>返回主页</text>
-      </button>
+  <view class="result-card {{game.winner === 1 ? 'win-black' : game.winner === 2 ? 'win-white' : 'draw'}}">
+    <view class="result-icon">{{game.winner === 1 ? '⚫' : game.winner === 2 ? '⚪' : '🤝'}}</view>
+    <text class="result-title">{{resultText}}</text>
+    <text class="result-time">耗时 {{formattedTime}}</text>
+    
+    <view class="result-actions">
+      <button class="action-btn primary" bindtap="playAgain">再来一局</button>
+      <button class="action-btn secondary" bindtap="backToHome">返回主页</button>
     </view>
   </view>
 </view>
