@@ -1,6 +1,6 @@
 // gomoku.ts
 export { }
-const { GomokuService, GomokuGame, BOARD_SIZE, EMPTY, BLACK, WHITE } = require('../../utils/gomoku-service.js')
+const { GomokuService, BOARD_SIZE, EMPTY, BLACK, WHITE } = require('../../utils/gomoku-service.js')
 
 interface CellData {
   row: number
@@ -19,37 +19,50 @@ Page({
     formattedTime: '00:00',
     showCompleteDialog: false,
     resultText: '',
-    isThinking: false
+    isThinking: false,
+    gameMode: 'pve', // 'pve' or 'pvp'
+    playerColor: 'black', // 'black' or 'white' (for PvE)
   },
 
   timer: null as any,
 
-  onLoad() {
+  onLoad(options: any) {
+    if (options.action === 'resume') {
+      // Resume logic handled in initializeGame
+    } else {
+      // New game settings
+      const mode = options.mode || 'pve'
+      const color = options.playerColor || 'black'
+      this.setData({
+        gameMode: mode,
+        playerColor: color
+      })
+    }
     this.initializeGame()
   },
 
   onUnload() {
     this.stopTimer()
-    // 保存游戏进度
     if (this.data.game && !this.data.game.gameOver) {
+      // Save extra metadata if needed, but for now simple game state is enough
+      // ideally we should save mode/color too, but GomokuService needs update for that
+      // For now, let's just save the game state.
       GomokuService.saveGame(this.data.game)
     }
   },
 
   onHide() {
     this.stopTimer()
-    // 保存游戏进度
     if (this.data.game && !this.data.game.gameOver) {
       GomokuService.saveGame(this.data.game)
     }
   },
 
   initializeGame() {
-    // 检查是否有保存的游戏
     const savedGame = GomokuService.getSavedGame()
     let game: any
 
-    if (savedGame && !savedGame.gameOver) {
+    if (savedGame && !savedGame.gameOver && this.data.gameMode === 'pve') { // Simple resume for now
       game = savedGame
     } else {
       game = GomokuService.createGame()
@@ -59,6 +72,11 @@ Page({
     this.setData({ game })
     this.updateBoardDisplay()
     this.startTimer()
+
+    // If PvE and player is White, AI (Black) moves first
+    if (this.data.gameMode === 'pve' && this.data.playerColor === 'white' && game.moveHistory.length === 0) {
+      this.aiMove()
+    }
   },
 
   startTimer() {
@@ -87,14 +105,11 @@ Page({
     const boardData: CellData[][] = []
     const winningStones = game.gameOver && game.winner ? GomokuService.getWinningStones(game) : []
     const winningSet = new Set(winningStones.map((s: any) => `${s.row},${s.col}`))
-
-    // 定义星位坐标
     const starPoints = new Set(['3,3', '3,11', '7,7', '11,3', '11,11'])
 
     for (let i = 0; i < BOARD_SIZE; i++) {
       boardData[i] = []
       for (let j = 0; j < BOARD_SIZE; j++) {
-        // 确定位置类型，用于绘制网格线
         let position = 'center'
         if (i === 0 && j === 0) position = 'top-left'
         else if (i === 0 && j === BOARD_SIZE - 1) position = 'top-right'
@@ -123,36 +138,50 @@ Page({
   onCellTap(e: any) {
     const { row, col } = e.currentTarget.dataset
     const game = this.data.game
+    const { gameMode, playerColor, isThinking } = this.data
 
-    // 如果游戏结束或AI在思考或不是玩家回合，忽略点击
-    if (game.gameOver || this.data.isThinking || game.currentPlayer !== BLACK) {
-      return
+    if (game.gameOver || isThinking) return
+
+    // Check legality based on mode
+    let canMove = false
+    if (gameMode === 'pvp') {
+      canMove = true // Any turn is valid for the current player
+    } else {
+      // PvE
+      const playerSide = playerColor === 'black' ? BLACK : WHITE
+      if (game.currentPlayer === playerSide) {
+        canMove = true
+      }
     }
 
-    // 玩家落子
+    if (!canMove) return
+
     if (GomokuService.placeStone(game, row, col)) {
       this.setData({ game })
       this.updateBoardDisplay()
 
-      // 检查游戏是否结束
       if (game.gameOver) {
         this.handleGameOver()
         return
       }
 
-      // AI回合
-      this.aiMove()
+      // If PvE, trigger AI
+      if (gameMode === 'pve') {
+        this.aiMove()
+      }
     }
   },
 
   aiMove() {
+    const game = this.data.game
+    // Check if it's actually AI's turn
+    const aiColor = this.data.playerColor === 'black' ? WHITE : BLACK
+    if (game.currentPlayer !== aiColor) return
+
     this.setData({ isThinking: true })
 
-    // 延迟一下让UI更新，模拟思考
     setTimeout(() => {
-      const game = this.data.game
       const move = GomokuService.getAIMove(game)
-
       if (move) {
         GomokuService.placeStone(game, move.row, move.col)
         this.setData({ game, isThinking: false })
@@ -164,7 +193,7 @@ Page({
       } else {
         this.setData({ isThinking: false })
       }
-    }, 300)
+    }, 500)
   },
 
   handleGameOver() {
@@ -172,12 +201,17 @@ Page({
     GomokuService.clearSavedGame()
 
     let resultText = ''
-    if (this.data.game.winner === BLACK) {
-      resultText = '你赢了！'
-    } else if (this.data.game.winner === WHITE) {
-      resultText = 'AI 获胜'
+    if (this.data.gameMode === 'pvp') {
+      resultText = this.data.game.winner === BLACK ? '黑棋获胜' : '白棋获胜'
     } else {
-      resultText = '平局'
+      const playerSide = this.data.playerColor === 'black' ? BLACK : WHITE
+      if (this.data.game.winner === playerSide) {
+        resultText = '你赢了！'
+      } else if (this.data.game.winner === (playerSide === BLACK ? WHITE : BLACK)) {
+        resultText = 'AI 获胜'
+      } else {
+        resultText = '平局'
+      }
     }
 
     this.setData({
@@ -186,35 +220,61 @@ Page({
     })
   },
 
-  // 悔棋（撤销最后两步：玩家和AI的）
   undoMove() {
     const game = this.data.game
-    if (game.moveHistory.length < 2 || game.gameOver || this.data.isThinking) {
-      return
-    }
+    if (game.gameOver || this.data.isThinking) return
 
-    // 撤销AI的棋
-    const aiMove = game.moveHistory.pop()
-    game.board[aiMove.row][aiMove.col] = EMPTY
+    if (this.data.gameMode === 'pvp') {
+      if (game.moveHistory.length < 1) return
 
-    // 撤销玩家的棋
-    const playerMove = game.moveHistory.pop()
-    game.board[playerMove.row][playerMove.col] = EMPTY
+      // PvP undo 1 step
+      const lastMove = game.moveHistory.pop()
+      game.board[lastMove.row][lastMove.col] = EMPTY
 
-    // 更新最后落子位置
-    if (game.moveHistory.length > 0) {
-      game.lastMove = game.moveHistory[game.moveHistory.length - 1]
+      // Update last move
+      if (game.moveHistory.length > 0) {
+        game.lastMove = game.moveHistory[game.moveHistory.length - 1]
+      } else {
+        game.lastMove = null
+      }
+
+      // Switch player back
+      game.currentPlayer = lastMove.player
+
+      this.setData({ game })
+      this.updateBoardDisplay()
+
     } else {
-      game.lastMove = null
+      // PvE undo 2 steps (player + AI)
+      if (game.moveHistory.length < 2) return
+
+      // 1. Undo AI (or Player if it was player's turn?? Logic is usually Undo to BEFORE player's last move)
+      // Actually, if it is Player's turn now, it means AI just moved (or no one moved). 
+      // We want to undo AI move AND Player move.
+
+      const aiMove = game.moveHistory.pop()
+      game.board[aiMove.row][aiMove.col] = EMPTY
+
+      const playerMove = game.moveHistory.pop()
+      game.board[playerMove.row][playerMove.col] = EMPTY
+
+      if (game.moveHistory.length > 0) {
+        game.lastMove = game.moveHistory[game.moveHistory.length - 1]
+      } else {
+        game.lastMove = null
+      }
+
+      // Ensure it's player's turn
+      // If we popped AI and Player, currentPlayer should be Player
+      // Current logic in GomokuService toggles player automatically. 
+      // If we manually manipulate board, we must fix currentPlayer.
+      // In PvE, if we undo 2, we return to the state 2 turns ago, so currentPlayer should be unchanged (Player's turn).
+
+      this.setData({ game })
+      this.updateBoardDisplay()
     }
-
-    game.currentPlayer = BLACK
-
-    this.setData({ game })
-    this.updateBoardDisplay()
   },
 
-  // 重新开始
   restartGame() {
     this.stopTimer()
     GomokuService.clearSavedGame()
@@ -227,16 +287,19 @@ Page({
     })
     this.updateBoardDisplay()
     this.startTimer()
+
+    // If PvE and White, AI moves first
+    if (this.data.gameMode === 'pve' && this.data.playerColor === 'white') {
+      this.aiMove()
+    }
   },
 
-  // 再来一局
   playAgain() {
     this.restartGame()
   },
 
-  // 返回主页
   backToHome() {
     GomokuService.clearSavedGame()
-    wx.navigateBack()
+    wx.navigateBack() // Go back to menu
   }
 })

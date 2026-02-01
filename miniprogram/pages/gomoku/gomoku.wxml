@@ -3,7 +3,12 @@
   <!-- 顶部状态栏 -->
   <view class="status-bar">
     <view class="status-item">
-      <text class="status-label">{{game.currentPlayer === 1 ? '你的回合' : 'AI思考中...'}}</text>
+      <block wx:if="{{gameMode === 'pvp'}}">
+        <text class="status-label">{{game.currentPlayer === 1 ? '黑方落子' : '白方落子'}}</text>
+      </block>
+      <block wx:else>
+        <text class="status-label">{{(game.currentPlayer === 1 && playerColor === 'black') || (game.currentPlayer === 2 && playerColor === 'white') ? '你的回合' : 'AI思考中...'}}</text>
+      </block>
     </view>
     <view class="status-item">
       <text class="time-display">{{formattedTime}}</text>
@@ -49,7 +54,7 @@
 
   <!-- 工具栏 -->
   <view class="toolbar">
-    <view class="tool-button {{game.moveHistory.length < 2 || game.gameOver || isThinking ? 'disabled' : ''}}" bindtap="undoMove">
+    <view class="tool-button {{(gameMode === 'pvp' ? game.moveHistory.length < 1 : game.moveHistory.length < 2) || game.gameOver || isThinking ? 'disabled' : ''}}" bindtap="undoMove">
       <text class="tool-icon">↩️</text>
       <text class="tool-label">悔棋</text>
     </view>

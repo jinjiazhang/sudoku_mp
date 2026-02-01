@@ -1,0 +1,37 @@
+<!--gomoku-menu.wxml-->
+<view class="container">
+  <view class="header">
+    <text class="title">五子棋</text>
+    <text class="subtitle">黑白之道，连珠之美</text>
+  </view>
+
+  <view class="menu-options">
+    <view wx:if="{{hasSavedGame}}" class="menu-btn resume-btn" bindtap="handleResumeGame">
+      继续游戏
+    </view>
+
+    <view class="menu-btn pve-btn" bindtap="showPveOptions">
+      人机对战
+    </view>
+
+    <view class="menu-btn pvp-btn" bindtap="handlePvpGame">
+      双人对战
+    </view>
+  </view>
+
+  <!-- 人机对战选择模态框 -->
+  <view wx:if="{{showPveModal}}" class="modal-mask" bindtap="closeModal">
+    <view class="modal-content" catchtap="true">
+      <view class="modal-title">选择阵营</view>
+      <view class="choice-options">
+        <view class="choice-btn black" bindtap="chooseBlack">
+          执黑 (先手)
+        </view>
+        <view class="choice-btn white" bindtap="chooseWhite">
+          执白 (后手)
+        </view>
+      </view>
+      <view class="modal-close" bindtap="closeModal">取消</view>
+    </view>
+  </view>
+</view>

@@ -1,5 +1,5 @@
 // index.ts
-export {}
+export { }
 
 Component({
   data: {},
@@ -15,7 +15,7 @@ Component({
     // 导航到五子棋游戏
     navigateToGomoku() {
       wx.navigateTo({
-        url: '../gomoku/gomoku'
+        url: '../gomoku-menu/gomoku-menu'
       })
     },
 

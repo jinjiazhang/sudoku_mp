@@ -4,6 +4,7 @@
     "pages/sudoku-menu/sudoku-menu",
     "pages/sudoku/sudoku",
     "pages/gomoku/gomoku",
+    "pages/gomoku-menu/gomoku-menu",
     "pages/profile/profile",
     "pages/logs/logs"
   ],
