@@ -19,6 +19,13 @@ Component({
       })
     },
 
+    // 导航到围棋游戏
+    navigateToGo() {
+      wx.navigateTo({
+        url: '../go-menu/go-menu'
+      })
+    },
+
     // 导航到个人中心
     navigateToProfile() {
       wx.navigateTo({

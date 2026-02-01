@@ -99,16 +99,27 @@
   opacity: 0.1;
 }
 
-.sudoku-card .card-bg-decoration {
-  position: absolute;
-  width: 150rpx;
-  height: 150rpx;
-  background: linear-gradient(135deg, #4facfe, #00f2fe);
-  border-radius: 50%;
-  right: -20rpx;
-  bottom: -40rpx;
-  opacity: 0.1;
-}
+  .sudoku-card .card-bg-decoration {
+    position: absolute;
+    width: 150rpx;
+    height: 150rpx;
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    border-radius: 50%;
+    right: -20rpx;
+    bottom: -40rpx;
+    opacity: 0.1;
+  }
+
+  .go-card .card-bg-decoration {
+    position: absolute;
+    width: 150rpx;
+    height: 150rpx;
+    background: linear-gradient(135deg, #e6b980, #eacda3);
+    border-radius: 50%;
+    right: -20rpx;
+    bottom: -40rpx;
+    opacity: 0.15;
+  }
 
 .card-content {
   display: flex;
@@ -157,6 +168,29 @@
     border: 1rpx solid #e0e0e0;
   }
   
+  /* Go Icon Styles */
+  .go-icon-graphic {
+    width: 60%;
+    height: 60%;
+    position: relative;
+    border: 3rpx solid #ddd;
+    border-radius: 8rpx;
+    background: white;
+  }
+
+  .mini-grid-line {
+    position: absolute;
+    background: #e0e0e0;
+  }
+  .mini-grid-line.h1 { top: 33%; left: 0; right: 0; height: 2rpx; }
+  .mini-grid-line.h2 { top: 66%; left: 0; right: 0; height: 2rpx; }
+  .mini-grid-line.v1 { left: 33%; top: 0; bottom: 0; width: 2rpx; }
+  .mini-grid-line.v2 { left: 66%; top: 0; bottom: 0; width: 2rpx; }
+
+  /* Reuse g-stone but specific to Go icon positions if needed */
+  .go-icon-graphic .g-stone.black { top: 10%; left: 10%; width: 24rpx; height: 24rpx; }
+  .go-icon-graphic .g-stone.white { bottom: 10%; right: 10%; width: 24rpx; height: 24rpx; }
+
   /* Sudoku Icon Styles */
   .sudoku-icon-graphic {
     width: 60%;

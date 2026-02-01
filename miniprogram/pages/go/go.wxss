@@ -1,0 +1,247 @@
+/**go.wxss**/
+.page-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #FAF8F5; /* Warm Gomoku style */
+  min-height: 100vh;
+  padding-top: 20rpx;
+}
+
+.status-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx 40rpx;
+  margin-bottom: 20rpx;
+}
+
+.player-pill {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  padding: 8rpx 20rpx;
+  border-radius: 40rpx;
+  background: white;
+  opacity: 0.5;
+  transition: all 0.3s;
+  box-shadow: 0 4rpx 10rpx rgba(0,0,0,0.05);
+}
+
+.player-pill.active {
+  opacity: 1;
+  transform: scale(1.05);
+}
+/* If player is Black (1) */
+.player-pill.active:first-child { 
+  background: #333; 
+  color: white;
+  box-shadow: 0 8rpx 20rpx rgba(0,0,0,0.2);
+}
+/* If player is White (2) */
+.player-pill.active:last-child { 
+  background: #fff;
+  border: 1rpx solid #ccc;
+  box-shadow: 0 8rpx 20rpx rgba(0,0,0,0.1);
+}
+
+.stone-icon {
+  width: 24rpx;
+  height: 24rpx;
+  border-radius: 50%;
+}
+.stone-icon.black { background: black; }
+.stone-icon.white { background: white; border: 1rpx solid #ccc; }
+
+.player-name {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #5D4037;
+}
+
+.player-pill.active:first-child .player-name { color: white; }
+.player-pill.active:last-child .player-name { color: #333; }
+
+.prisoners {
+  font-size: 20rpx;
+  color: #8D6E63;
+  margin-left: 8rpx;
+}
+.player-pill.active:first-child .prisoners { color: #ccc; }
+
+.status-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.status-text {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #5D4037;
+}
+
+.board-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20rpx;
+}
+
+.go-board {
+  width: 100%;
+  max-width: 700rpx; 
+  aspect-ratio: 1;
+  background: #DEB887; /* Same as Gomoku */
+  border-radius: 16rpx;
+  display: grid;
+  padding: 4rpx; 
+  box-shadow: 0 20rpx 50rpx rgba(0,0,0,0.2);
+  position: relative;
+}
+
+.cell {
+  position: relative;
+}
+
+/* Lines */
+.line {
+  position: absolute;
+  background: #8B4513; /* Softer brown */
+}
+
+.line.horz {
+  height: 2rpx;
+  width: 100%;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.line.vert {
+  width: 2rpx;
+  height: 100%;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+}
+
+/* Edge Corrections */
+.line.horz.left { left: 50%; width: 50%; }
+.line.horz.right { width: 50%; }
+.line.vert.top { top: 50%; height: 50%; }
+.line.vert.bottom { height: 50%; }
+
+/* Star Point */
+.star-point {
+  width: 12rpx;
+  height: 12rpx;
+  background: #8B4513;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+/* Stone */
+.stone {
+  width: 90%;
+  height: 90%;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2; 
+  box-shadow: 2rpx 4rpx 8rpx rgba(0,0,0,0.3);
+}
+
+.stone.black {
+  background: radial-gradient(circle at 35% 35%, #666, #000);
+}
+
+.stone.white {
+  background: radial-gradient(circle at 35% 35%, #fff, #e0e0e0);
+}
+
+/* Last move marker */
+.last-move-marker {
+  width: 20%;
+  height: 20%;
+  border-radius: 50%;
+  background: #ff4444; 
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.controls-area {
+  padding: 40rpx;
+  display: flex;
+  justify-content: center;
+  gap: 80rpx;
+  padding-bottom: 80rpx;
+}
+
+.tool-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16rpx;
+  color: #5D4037;
+  font-size: 26rpx;
+}
+
+.tool-btn:active {
+  transform: scale(0.95);
+  opacity: 0.8;
+}
+
+.icon-circle {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 44rpx;
+  color: #5D4037;
+  box-shadow: 0 8rpx 16rpx rgba(93, 64, 55, 0.15);
+  transition: all 0.3s;
+}
+
+/* iPad 适配 matches Gomoku logic */
+@media (min-width: 768px) {
+  .status-header { padding: 20px 30px; }
+  
+  .player-pill {
+    padding: 6px 16px;
+    border-radius: 30px;
+    gap: 8px;
+  }
+  
+  .stone-icon { width: 16px; height: 16px; }
+  .player-name { font-size: 18px; }
+  .prisoners { font-size: 16px; }
+  .status-text { font-size: 22px; }
+  
+  .go-board {
+    max-width: 800px;
+    padding: 8px;
+  }
+  
+  .controls-area {
+    padding: 30px;
+    gap: 60px;
+  }
+  
+  .tool-btn { gap: 10px; font-size: 18px; }
+  
+  .icon-circle {
+    width: 64px; height: 64px;
+    font-size: 32px;
+  }
+}

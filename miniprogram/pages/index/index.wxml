@@ -30,6 +30,26 @@
         <view class="play-arrow-btn">➜</view>
       </view>
 
+      <!-- 围棋 -->
+      <view class="game-card go-card" bindtap="navigateToGo">
+        <view class="card-bg-decoration"></view>
+        <view class="card-content">
+          <view class="icon-box">
+             <view class="go-icon-graphic">
+               <view class="mini-grid-line h1"></view><view class="mini-grid-line h2"></view>
+               <view class="mini-grid-line v1"></view><view class="mini-grid-line v2"></view>
+               <view class="g-stone black"></view>
+               <view class="g-stone white"></view>
+             </view>
+          </view>
+          <view class="text-box">
+            <text class="game-name">围棋</text>
+            <text class="game-desc">纵横十九路，千古奇局</text>
+          </view>
+        </view>
+        <view class="play-arrow-btn">➜</view>
+      </view>
+
       <!-- 数独 -->
       <view class="game-card sudoku-card" bindtap="navigateToSudoku">
         <view class="card-bg-decoration"></view>

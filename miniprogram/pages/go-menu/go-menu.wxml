@@ -1,0 +1,72 @@
+<!--go-menu.wxml-->
+<view class="page-container">
+  <view class="hero-header">
+    <view class="game-icon-graphic">
+       <!-- Grid Lines for Go Icon -->
+       <view class="grid-line h1"></view><view class="grid-line h2"></view>
+       <view class="grid-line v1"></view><view class="grid-line v2"></view>
+       
+       <view class="g-stone black"></view>
+       <view class="g-stone white"></view>
+    </view>
+    <text class="game-title">围棋</text>
+    <text class="game-subtitle">纵横十九路，千古一局棋</text>
+  </view>
+
+  <view class="menu-content">
+    <!-- 继续游戏 -->
+    <view wx:if="{{hasSavedGame}}" class="menu-card resume" bindtap="handleResumeGame">
+      <view class="card-left">
+        <text class="card-main-text">继续对局</text>
+        <text class="card-sub-text">恢复上一次的棋局</text>
+      </view>
+      <view class="icon-circle">▶</view>
+    </view>
+
+    <!-- 人机对战 -->
+    <view class="menu-card pve" bindtap="showPveOptions">
+      <view class="card-bg-circle"></view>
+      <view class="card-left">
+        <text class="card-main-text">人机对战</text>
+        <text class="card-sub-text">挑战 AI 磨练棋艺</text>
+      </view>
+      <view class="icon-circle">🤖</view>
+    </view>
+
+    <!-- 双人对战 -->
+    <view class="menu-card pvp" bindtap="handlePvpGame">
+      <view class="card-bg-circle"></view>
+      <view class="card-left">
+        <text class="card-main-text">双人对战</text>
+        <text class="card-sub-text">与好友面对面切磋</text>
+      </view>
+      <view class="icon-circle">VS</view>
+    </view>
+  </view>
+
+  <!-- 棋盘大小选择弹窗 -->
+  <view class="modal-mask" wx:if="{{showModal}}" bindtap="hideModal">
+    <view class="modal-card" catchtap="stopProp">
+      <text class="modal-header">选择棋盘大小</text>
+      
+      <view class="choice-grid">
+        <view class="choice-item" bindtap="selectSize" data-size="9">
+          <view class="size-preview s9">9</view>
+          <text class="choice-title">9路 (入门)</text>
+        </view>
+        
+        <view class="choice-item" bindtap="selectSize" data-size="13">
+          <view class="size-preview s13">13</view>
+          <text class="choice-title">13路 (速战)</text>
+        </view>
+        
+        <view class="choice-item" bindtap="selectSize" data-size="19">
+          <view class="size-preview s19">19</view>
+          <text class="choice-title">19路 (标准)</text>
+        </view>
+      </view>
+
+      <view class="modal-cancel" bindtap="hideModal">取消</view>
+    </view>
+  </view>
+</view>

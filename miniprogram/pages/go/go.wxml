@@ -1,0 +1,69 @@
+<!--go.wxml-->
+<view class="page-container">
+  <!-- 状态栏 -->
+  <view class="status-header">
+    <view class="player-pill {{currentPlayer === 1 ? 'active' : ''}}">
+      <view class="stone-icon black"></view>
+      <text class="player-name">黑方 ({{gameMode === 'pve' ? '玩家' : '黑棋'}})</text>
+      <text class="prisoners" wx:if="{{prisoners[1] > 0}}">提子: {{prisoners[1]}}</text>
+    </view>
+    
+    <view class="status-center">
+      <text class="status-text">{{statusText}}</text>
+    </view>
+
+    <view class="player-pill {{currentPlayer === 2 ? 'active' : ''}}">
+      <view class="stone-icon white"></view>
+      <text class="player-name">白方 ({{gameMode === 'pve' ? 'AI' : '白棋'}})</text>
+      <text class="prisoners" wx:if="{{prisoners[2] > 0}}">提子: {{prisoners[2]}}</text>
+    </view>
+  </view>
+
+  <!-- 棋盘区域 -->
+  <view class="params-info">
+     <!-- Optional: Show size? -->
+  </view>
+
+  <view class="board-wrapper">
+    <view class="go-board" style="{{containerStyle}}">
+      <block wx:for="{{displayBoard}}" wx:key="index">
+        <view class="cell" 
+              bindtap="onBoardTap" 
+              data-row="{{item.row}}" 
+              data-col="{{item.col}}">
+              
+          <!-- Grid Lines -->
+          <view class="line horz {{item.positionClass}}"></view>
+          <view class="line vert {{item.positionClass}}"></view>
+          
+          <!-- Star Point -->
+          <view class="star-point" wx:if="{{item.isStar}}"></view>
+          
+          <!-- Stone -->
+          <view class="stone black" wx:if="{{item.value === 1}}">
+             <view class="stone-highlight"></view>
+             <view class="last-move-marker" wx:if="{{item.isLastMove}}"></view>
+          </view>
+          <view class="stone white" wx:if="{{item.value === 2}}">
+             <view class="stone-highlight"></view>
+             <view class="last-move-marker red" wx:if="{{item.isLastMove}}"></view>
+          </view>
+
+          <!-- Preview/Hover? No hover on mobile -->
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 控制区 -->
+  <view class="controls-area">
+    <view class="tool-btn restart" bindtap="onRestart">
+      <view class="icon-circle">↺</view>
+      <text>重玩</text>
+    </view>
+    
+    <!-- Pass Button? Go often needs Pass. -->
+    <!-- For simplicity, maybe no pass button yet, or add later -->
+  </view>
+
+</view>
