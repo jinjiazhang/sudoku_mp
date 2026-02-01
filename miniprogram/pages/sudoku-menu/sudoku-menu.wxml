@@ -1,0 +1,39 @@
+<!--sudoku-menu.wxml-->
+<view class="container">
+  <view class="header">
+    <text class="title">数独</text>
+    <text class="subtitle">经典数字逻辑游戏</text>
+  </view>
+
+  <view class="main">
+    <!-- 有正在进行的游戏时显示 -->
+    <view wx:if="{{hasOngoingGame}}" class="ongoing-game">
+      <button class="continue-btn" bindtap="continueGame">
+        继续游戏
+      </button>
+      <button class="restart-btn" bindtap="restartGame">
+        重新开始
+      </button>
+    </view>
+
+    <!-- 没有正在进行的游戏时显示难度选择 -->
+    <view wx:else class="new-game">
+      <view class="difficulty-section">
+        <text class="difficulty-label">难度: {{selectedDifficultyName}}</text>
+        <slider
+          class="difficulty-slider"
+          value="{{selectedDifficulty}}"
+          min="1"
+          max="9"
+          step="1"
+          show-value="{{false}}"
+          bindchange="onDifficultyChange"
+        />
+      </view>
+
+      <button class="start-btn" bindtap="startNewGame">
+        开始游戏
+      </button>
+    </view>
+  </view>
+</view>

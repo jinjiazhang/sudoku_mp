@@ -1,0 +1,101 @@
+/**sudoku-menu.wxss**/
+page {
+  height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 40rpx;
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 2;
+  justify-content: center;
+}
+
+.title {
+  font-size: 72rpx;
+  font-weight: bold;
+  color: #2E3A59;
+  margin-bottom: 16rpx;
+}
+
+.subtitle {
+  font-size: 28rpx;
+  color: #999;
+  font-weight: 400;
+}
+
+.main {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ongoing-game, .new-game {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.continue-btn {
+  background-color: #2196F3;
+  color: white;
+  padding: 32rpx 48rpx;
+  border-radius: 50rpx;
+  font-size: 36rpx;
+  font-weight: 600;
+  border: none;
+  box-shadow: 0 4rpx 12rpx rgba(33, 150, 243, 0.3);
+  min-width: 420rpx;
+  white-space: nowrap;
+}
+
+.continue-btn:active {
+  background-color: #1976D2;
+  transform: translateY(2rpx);
+}
+
+.restart-btn, .start-btn {
+  background-color: white;
+  color: #2196F3;
+  padding: 32rpx 48rpx;
+  border-radius: 50rpx;
+  font-size: 36rpx;
+  font-weight: 600;
+  border: 2rpx solid #E0E0E0;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+  min-width: 420rpx;
+  white-space: nowrap;
+}
+
+.restart-btn:active, .start-btn:active {
+  background-color: #f8f9fa;
+  transform: translateY(2rpx);
+}
+
+.difficulty-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40rpx;
+}
+
+.difficulty-label {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #2E3A59;
+  margin-bottom: 40rpx;
+}
+
+.difficulty-slider {
+  width: 80%;
+}

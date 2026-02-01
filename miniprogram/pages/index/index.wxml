@@ -1,43 +1,33 @@
 <!--index.wxml-->
 <view class="container">
   <view class="header">
-    <text class="title">Sudoku</text>
-    <text class="subtitle">jinjiazh@qq.com</text>
+    <text class="title">小游戏合集</text>
+    <text class="subtitle">选择一个游戏开始</text>
   </view>
-  
-  <view class="main">
-    <!-- 有正在进行的游戏时显示 -->
-    <view wx:if="{{hasOngoingGame}}" class="ongoing-game">
-      <button class="continue-btn" bindtap="continueGame">
-        继续游戏
-      </button>
-      <button class="restart-btn" bindtap="restartGame">
-        重新开始
-      </button>
-    </view>
-    
-    <!-- 没有正在进行的游戏时显示难度选择 -->
-    <view wx:else class="new-game">
-      <view class="difficulty-section">
-        <text class="difficulty-label">难度: {{selectedDifficultyName}}</text>
-        <slider 
-          class="difficulty-slider"
-          value="{{selectedDifficulty}}"
-          min="1"
-          max="9"
-          step="1"
-          show-value="{{false}}"
-          bindchange="onDifficultyChange"
-        />
+
+  <view class="game-list">
+    <!-- 数独游戏卡片 -->
+    <view class="game-card" bindtap="navigateToSudoku">
+      <view class="game-icon">🔢</view>
+      <view class="game-info">
+        <text class="game-name">数独</text>
+        <text class="game-desc">经典数字逻辑游戏</text>
       </view>
-      
-      <button class="start-btn" bindtap="startNewGame">
-        开始游戏
-      </button>
+      <view class="game-arrow">›</view>
+    </view>
+
+    <!-- 五子棋游戏卡片 -->
+    <view class="game-card" bindtap="navigateToGomoku">
+      <view class="game-icon">⚫</view>
+      <view class="game-info">
+        <text class="game-name">五子棋</text>
+        <text class="game-desc">人机对战策略游戏</text>
+      </view>
+      <view class="game-arrow">›</view>
     </view>
   </view>
-  
-  <!-- 导航到个人中心 -->
+
+  <!-- 底部 -->
   <view class="footer">
     <button class="profile-btn" bindtap="navigateToProfile">个人中心</button>
   </view>

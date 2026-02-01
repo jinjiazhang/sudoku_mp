@@ -17,12 +17,12 @@ page {
   display: flex;
   flex-direction: column;
   align-items: center;
-  flex: 2;
-  justify-content: center;
+  padding-top: 60rpx;
+  padding-bottom: 40rpx;
 }
 
 .title {
-  font-size: 72rpx;
+  font-size: 64rpx;
   font-weight: bold;
   color: #2E3A59;
   margin-bottom: 16rpx;
@@ -34,84 +34,70 @@ page {
   font-weight: 400;
 }
 
-.main {
-  flex: 3;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.ongoing-game, .new-game {
+/* 游戏列表 */
+.game-list {
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 24rpx;
+  padding: 20rpx 0;
 }
 
-.continue-btn {
-  background-color: #2196F3;
-  color: white;
-  padding: 32rpx 48rpx;
-  border-radius: 50rpx;
-  font-size: 36rpx;
-  font-weight: 600;
-  border: none;
-  box-shadow: 0 4rpx 12rpx rgba(33, 150, 243, 0.3);
-  min-width: 420rpx;
-  white-space: nowrap;
-}
-
-.continue-btn:active {
-  background-color: #1976D2;
-  transform: translateY(2rpx);
-}
-
-.restart-btn, .start-btn {
+/* 游戏卡片 */
+.game-card {
+  display: flex;
+  align-items: center;
   background-color: white;
-  color: #2196F3;
-  padding: 32rpx 48rpx;
-  border-radius: 50rpx;
-  font-size: 36rpx;
-  font-weight: 600;
-  border: 2rpx solid #E0E0E0;
-  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
-  min-width: 420rpx;
-  white-space: nowrap;
+  padding: 32rpx;
+  border-radius: 24rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.08);
 }
 
-.restart-btn:active, .start-btn:active {
+.game-card:active {
   background-color: #f8f9fa;
-  transform: translateY(2rpx);
+  transform: scale(0.98);
 }
 
-.difficulty-section {
+.game-icon {
+  font-size: 64rpx;
+  width: 100rpx;
+  height: 100rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f4ff;
+  border-radius: 20rpx;
+  margin-right: 24rpx;
+}
+
+.game-info {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin-bottom: 40rpx;
+  gap: 8rpx;
 }
 
-.difficulty-label {
-  font-size: 32rpx;
+.game-name {
+  font-size: 36rpx;
   font-weight: 600;
   color: #2E3A59;
-  margin-bottom: 40rpx;
 }
 
-.difficulty-slider {
-  width: 80%;
+.game-desc {
+  font-size: 26rpx;
+  color: #999;
 }
 
-/* Spacer 占位符 */
-.spacer {
-  flex: 1;
+.game-arrow {
+  font-size: 48rpx;
+  color: #ccc;
+  font-weight: 300;
 }
 
 /* 底部导航 */
 .footer {
-  flex: 1;
   display: flex;
   justify-content: center;
-  align-items: flex-end;
   padding-bottom: 40rpx;
 }
 

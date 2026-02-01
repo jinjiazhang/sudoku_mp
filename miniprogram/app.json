@@ -1,13 +1,15 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/sudoku-menu/sudoku-menu",
     "pages/sudoku/sudoku",
+    "pages/gomoku/gomoku",
     "pages/profile/profile",
     "pages/logs/logs"
   ],
   "window": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "专注数独",
+    "navigationBarTitleText": "小游戏合集",
     "navigationBarBackgroundColor": "#ffffff"
   },
   "style": "v2",

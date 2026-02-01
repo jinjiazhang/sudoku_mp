@@ -1,0 +1,89 @@
+<!--gomoku.wxml-->
+<view class="container">
+  <!-- 顶部状态栏 -->
+  <view class="status-bar">
+    <view class="status-item">
+      <text class="status-label">{{game.currentPlayer === 1 ? '你的回合' : 'AI思考中...'}}</text>
+    </view>
+    <view class="status-item">
+      <text class="time-display">{{formattedTime}}</text>
+    </view>
+  </view>
+
+  <!-- 棋盘 -->
+  <view class="board-container">
+    <view class="gomoku-board">
+      <!-- 棋盘网格线 -->
+      <view class="grid-lines">
+        <view wx:for="{{14}}" wx:key="h-{{index}}" class="grid-line horizontal" style="top: calc({{index + 1}} * 100% / 15);"></view>
+        <view wx:for="{{14}}" wx:key="v-{{index}}" class="grid-line vertical" style="left: calc({{index + 1}} * 100% / 15);"></view>
+        <!-- 星位点 -->
+        <view class="star-point" style="top: calc(3 * 100% / 15 + 50% / 15); left: calc(3 * 100% / 15 + 50% / 15);"></view>
+        <view class="star-point" style="top: calc(3 * 100% / 15 + 50% / 15); left: calc(11 * 100% / 15 + 50% / 15);"></view>
+        <view class="star-point" style="top: calc(11 * 100% / 15 + 50% / 15); left: calc(3 * 100% / 15 + 50% / 15);"></view>
+        <view class="star-point" style="top: calc(11 * 100% / 15 + 50% / 15); left: calc(11 * 100% / 15 + 50% / 15);"></view>
+        <view class="star-point" style="top: calc(7 * 100% / 15 + 50% / 15); left: calc(7 * 100% / 15 + 50% / 15);"></view>
+      </view>
+
+      <!-- 落子区域 -->
+      <view class="cells">
+        <view
+          wx:for="{{boardData}}"
+          wx:for-item="row"
+          wx:for-index="rowIndex"
+          wx:key="row-{{rowIndex}}"
+          class="board-row"
+        >
+          <view
+            wx:for="{{row}}"
+            wx:for-item="cell"
+            wx:for-index="colIndex"
+            wx:key="cell-{{rowIndex}}-{{colIndex}}"
+            class="cell"
+            bindtap="onCellTap"
+            data-row="{{cell.row}}"
+            data-col="{{cell.col}}"
+          >
+            <view
+              wx:if="{{cell.stone !== 0}}"
+              class="stone {{cell.stone === 1 ? 'black' : 'white'}} {{cell.isLast ? 'last-move' : ''}} {{cell.isWinning ? 'winning' : ''}}"
+            ></view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 工具栏 -->
+  <view class="toolbar">
+    <view class="tool-button {{game.moveHistory.length < 2 || game.gameOver || isThinking ? 'disabled' : ''}}" bindtap="undoMove">
+      <text class="tool-icon">↩️</text>
+      <text class="tool-label">悔棋</text>
+    </view>
+
+    <view class="tool-button" bindtap="restartGame">
+      <text class="tool-icon">🔄</text>
+      <text class="tool-label">重新开始</text>
+    </view>
+  </view>
+</view>
+
+<!-- 游戏结束对话框 -->
+<view wx:if="{{showCompleteDialog}}" class="dialog-mask">
+  <view class="complete-dialog {{game.winner === 1 ? 'win' : game.winner === 2 ? 'lose' : 'draw'}}">
+    <view class="result-icon">{{game.winner === 1 ? '🎉' : game.winner === 2 ? '😔' : '🤝'}}</view>
+    <text class="dialog-title">{{resultText}}</text>
+    <text class="dialog-subtitle">用时 {{formattedTime}}</text>
+
+    <view class="dialog-buttons">
+      <button class="dialog-btn primary" bindtap="playAgain">
+        <text class="btn-icon">🔄</text>
+        <text>再来一局</text>
+      </button>
+      <button class="dialog-btn secondary" bindtap="backToHome">
+        <text class="btn-icon">🏠</text>
+        <text>返回主页</text>
+      </button>
+    </view>
+  </view>
+</view>
