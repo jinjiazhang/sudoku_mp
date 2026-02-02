@@ -5,6 +5,13 @@ Component({
   data: {},
 
   methods: {
+    // 导航到象棋游戏
+    navigateToXiangqi() {
+      wx.navigateTo({
+        url: '../xiangqi-menu/xiangqi-menu'
+      })
+    },
+
     // 导航到数独游戏
     navigateToSudoku() {
       wx.navigateTo({

@@ -1,0 +1,9 @@
+<!--pages/xiangqi-menu/xiangqi-menu.wxml-->
+<view class="container">
+  <view class="title">中国象棋</view>
+  
+  <view class="menu-list">
+    <button class="menu-btn primary" bindtap="startPvP">双人对战</button>
+    <button class="menu-btn secondary" bindtap="startPvE">人机对战</button>
+  </view>
+</view>

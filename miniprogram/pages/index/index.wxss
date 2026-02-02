@@ -121,6 +121,17 @@
     opacity: 0.15;
   }
 
+  .xiangqi-card .card-bg-decoration {
+    position: absolute;
+    width: 150rpx;
+    height: 150rpx;
+    background: linear-gradient(135deg, #d64c4c, #f7e6b7);
+    border-radius: 50%;
+    right: -20rpx;
+    bottom: -40rpx;
+    opacity: 0.15;
+  }
+
 .card-content {
   display: flex;
   align-items: center;
@@ -207,6 +218,45 @@
   
   .s-cell.filled {
     background: #4A90E2;
+  }
+
+  /* Xiangqi Icon Styles */
+  .xiangqi-icon-graphic {
+    width: 80%;
+    height: 80%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .x-piece {
+    width: 40rpx;
+    height: 40rpx;
+    border-radius: 50%;
+    border: 2rpx solid #b38550;
+    background: #f7e6b7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24rpx;
+    font-weight: bold;
+    position: absolute;
+    box-shadow: 2rpx 2rpx 4rpx rgba(0,0,0,0.2);
+  }
+  
+  .x-piece.red {
+    color: #cc0000;
+    border-color: #cc0000;
+    top: 0; left: 10%;
+    z-index: 2;
+  }
+  
+  .x-piece.black {
+    color: #000000;
+    border-color: #000000;
+    bottom: 0; right: 10%;
+    z-index: 1;
   }
 
   .text-box {

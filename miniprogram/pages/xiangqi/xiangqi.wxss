@@ -1,0 +1,204 @@
+/* pages/xiangqi/xiangqi.wxss */
+.page-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #FAF8F5; /* Match Gomoku */
+  position: relative;
+}
+
+/* Header Styles */
+.status-header {
+  padding: 30rpx 40rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.player-pill {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  padding: 8rpx 20rpx;
+  border-radius: 40rpx;
+  background: white;
+  opacity: 0.5;
+  transition: all 0.3s;
+  box-shadow: 0 4rpx 10rpx rgba(0,0,0,0.05);
+}
+
+.player-pill.active {
+  opacity: 1;
+  background: #333;
+  color: white;
+  transform: scale(1.05);
+  box-shadow: 0 8rpx 20rpx rgba(0,0,0,0.2);
+}
+
+.player-pill.active.red { background: #cc0000; color: white; }
+.player-pill.active.black { background: #333; color: white; }
+
+.stone-icon {
+  width: 24rpx; height: 24rpx;
+  border-radius: 50%;
+  border: 1rpx solid #ccc;
+}
+.stone-icon.red { background: #cc0000; border-color: #cc0000; }
+.stone-icon.black { background: #000; border-color: #000; }
+
+.player-name { font-size: 26rpx; font-weight: 600; }
+.game-info { display: flex; flex-direction: column; align-items: center; }
+.status-text { font-size: 28rpx; font-weight: 700; color: #5D4037; margin-bottom: 4rpx; }
+
+/* Board Area */
+.board-area {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20rpx;
+}
+
+.board-wrapper {
+  position: relative;
+  width: 96vw;
+  max-width: 650px;
+  height: 106.6vw; /* Aspect ratio 0.9 */
+  max-height: 720px;
+  aspect-ratio: 0.9;
+  background-color: #eebb77;
+  border: 4rpx solid #5a3a22; /* Outer heavy border */
+  box-shadow: 0 20rpx 50rpx rgba(0,0,0,0.2);
+  padding: 20rpx; /* Padding creates space between outer border and inner grid? No, standard Xiangqi has a margin. */
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12rpx;
+}
+
+.board {
+  position: relative;
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+}
+
+/* Grid Lines */
+.grid-lines {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Horizontal lines: 10 lines. Rows 0-9. 
+   Assuming board content is 100% height. Rows are at center of each 10% block.
+   So grid lines are at 5%, 15% ... 95%.
+   Width: They should span from First Col (5.5%) to Last Col (94.5%).
+   Width = 89%. Left = 5.5%.
+*/
+.h-line {
+  position: absolute;
+  left: 5.55%;
+  width: 88.9%;
+  height: 2rpx;
+  background-color: #5a3a22;
+}
+
+/* Vertical lines: 
+   Starts at Top Line (Row 0, 5%) and ends at River Edge (Row 4, 45%).
+   Starts at River Edge (Row 5, 55%) and ends at Bottom Line (Row 9, 95%).
+   Exception: Edge lines (Col 0 and Col 8) are continuous from 5% to 95%.
+*/
+.v-line {
+  position: absolute;
+  top: 5%;
+  width: 2rpx;
+  height: 40%; /* 5% to 45% */
+  background-color: #5a3a22;
+}
+.v-line.bottom {
+  top: 55%;
+}
+.v-line.full {
+  height: 90%; /* 5% to 95% */
+}
+
+/* Palace Lines */
+.palace-line {
+  position: absolute;
+  background-color: #5a3a22;
+  width: 2rpx;
+  transform-origin: top center;
+  /* Top Palace: (3,0) to (5,2) and (5,0) to (3,2) */
+  /* Top-Left: (3,0). Left: 38.88% (Center of 4th col 11.11*3+5.55).
+     Bottom-Right: (5,2). Left: 61.11%. Top: 25%.
+     Width diff: 22.22%. Height diff: 20%.
+  */
+}
+
+/* River Text */
+.river {
+  position: absolute;
+  top: 45%; left: 5%; width: 90%; height: 10%;
+  display: flex; justify-content: center; align-items: center;
+  font-size: 36rpx; color: #5a3a22; letter-spacing: 120rpx;
+  font-family: "KaiTi", "STKaiti", serif; opacity: 0.8;
+}
+
+.board-row { display: flex; width: 100%; height: 10%; }
+.cell { flex: 1; position: relative; display: flex; justify-content: center; align-items: center; z-index: 10; }
+
+.valid-move-marker {
+  position: absolute; width: 20rpx; height: 20rpx;
+  background-color: rgba(0, 200, 0, 0.6); border-radius: 50%; pointer-events: none;
+}
+
+.piece {
+  width: 90%; height: 90%;
+  background-color: #f7e6b7; border-radius: 50%; border: 4rpx solid #b38550;
+  box-shadow: 2rpx 4rpx 6rpx rgba(0,0,0,0.3), inset 0 0 10rpx rgba(0,0,0,0.1);
+  display: flex; justify-content: center; align-items: center;
+  font-size: 36rpx; font-weight: bold; position: relative;
+  font-family: "KaiTi", "STKaiti", serif;
+}
+.piece::after { content: ''; position: absolute; top: 6rpx; left: 6rpx; right: 6rpx; bottom: 6rpx; border: 2rpx solid rgba(0,0,0,0.1); border-radius: 50%; }
+.piece.red { color: #cc0000; border-color: #cc0000; }
+.piece.black { color: #000000; border-color: #000000; }
+.last-move .piece { box-shadow: 0 0 0 4rpx rgba(0,255,0,0.5), 2rpx 4rpx 6rpx rgba(0,0,0,0.3); }
+.selected::after { content: ''; position: absolute; width: 80%; height: 80%; border: 4rpx dashed blue; border-radius: 50%; animation: rotate 4s linear infinite; }
+@keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+.controls-area { padding: 40rpx; display: flex; justify-content: center; gap: 80rpx; }
+.tool-btn { display: flex; flex-direction: column; align-items: center; gap: 16rpx; font-size: 26rpx; color: #5D4037; }
+.icon-circle { width: 100rpx; height: 100rpx; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 44rpx; box-shadow: 0 8rpx 16rpx rgba(93, 64, 55, 0.15); transition: all 0.2s; }
+.tool-btn:active .icon-circle { background: #EFEBE9; transform: scale(0.95); }
+
+/* Dialog */
+.dialog-mask { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 100; display: flex; align-items: center; justify-content: center; }
+.result-card { background: white; width: 80%; max-width: 600rpx; border-radius: 40rpx; padding: 60rpx; display: flex; flex-direction: column; align-items: center; animation: popIn 0.3s ease; }
+.result-icon { font-size: 100rpx; margin-bottom: 30rpx; }
+.result-title { font-size: 48rpx; font-weight: 800; margin-bottom: 10rpx; color: #333; }
+.result-actions { width: 100%; display: flex; flex-direction: column; gap: 24rpx; }
+.action-btn { width: 100%; height: 100rpx; border-radius: 50rpx; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+.primary { background: #d64c4c; color: white; }
+.secondary { background: #f0f0f0; color: #333; }
+
+/* iPad */
+@media (min-width: 768px) {
+  .status-header { padding: 20px 30px; }
+  .player-pill { padding: 6px 16px; border-radius: 30px; gap: 8px; }
+  .stone-icon { width: 16px; height: 16px; }
+  .player-name { font-size: 18px; }
+  .status-text { font-size: 22px; }
+  .board-wrapper { width: 85vw; max-width: 800px; height: 94.4vw; max-height: 888px; border-width: 6rpx; }
+  .river { font-size: 48rpx; letter-spacing: 200rpx; }
+  .piece { font-size: 50rpx; border-width: 6rpx; }
+  .controls-area { padding: 30px; gap: 60px; }
+  .tool-btn { gap: 10px; font-size: 18px; }
+  .icon-circle { width: 64px; height: 64px; font-size: 32px; }
+  .result-card { padding: 40px; max-width: 400px; width: 60%; }
+  .result-icon { font-size: 64px; margin-bottom: 20px; }
+  .result-title { font-size: 32px; }
+  .action-btn { height: 60px; font-size: 20px; border-radius: 30px; }
+}

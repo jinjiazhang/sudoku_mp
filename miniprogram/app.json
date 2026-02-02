@@ -8,6 +8,8 @@
     "pages/go-menu/go-menu",
     "pages/go/go",
     "pages/profile/profile",
+    "pages/xiangqi-menu/xiangqi-menu",
+    "pages/xiangqi/xiangqi",
     "pages/logs/logs"
   ],
   "window": {

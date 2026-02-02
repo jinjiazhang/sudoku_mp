@@ -12,6 +12,24 @@
     <view class="section-title">热门游戏</view>
     
     <view class="game-grid">
+      <!-- 象棋 -->
+      <view class="game-card xiangqi-card" bindtap="navigateToXiangqi">
+        <view class="card-bg-decoration"></view>
+        <view class="card-content">
+          <view class="icon-box">
+             <view class="xiangqi-icon-graphic">
+               <view class="x-piece red">帅</view>
+               <view class="x-piece black">将</view>
+             </view>
+          </view>
+          <view class="text-box">
+            <text class="game-name">中国象棋</text>
+            <text class="game-desc">楚河汉界，运筹帷幄</text>
+          </view>
+        </view>
+        <view class="play-arrow-btn">➜</view>
+      </view>
+
       <!-- 五子棋 -->
       <view class="game-card gomoku-card" bindtap="navigateToGomoku">
         <view class="card-bg-decoration"></view>
