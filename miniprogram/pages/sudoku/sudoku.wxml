@@ -1,18 +1,17 @@
 <!--sudoku.wxml-->
-<view class="page-container">
+<view class="container">
   <!-- 顶部状态栏 -->
-  <view class="header-bar">
-    <view class="badge-pill">
-      <text class="label">难度</text>
-      <text class="value">{{game.difficulty}}</text>
+  <view class="status-bar">
+    <view class="difficulty-display">
+      难度: {{game.difficulty}}
     </view>
-    <view class="badge-pill time">
-      <text class="value">{{formattedTime}}</text>
+    <view class="time-display">
+      时间: {{formattedTime}}
     </view>
   </view>
 
-  <!-- 数独棋盘区域：使用 flex-1 让它占据剩余空间并居中 -->
-  <view class="board-area">
+  <!-- 数独棋盘 -->
+  <view class="board-container">
     <view class="sudoku-board" data-size="{{game.gridSize}}">
       <view 
         wx:for="{{subGrids}}" 
@@ -48,70 +47,77 @@
     </view>
   </view>
 
-  <!-- 控制与键盘区域 -->
-  <view class="controls-area">
-    <!-- 工具栏 -->
-    <view class="toolbar">
-      <view class="tool-btn" bindtap="eraseCell">
-        <view class="icon-circle">🧽</view>
-        <text>擦除</text>
-      </view>
-      
-      <view class="tool-btn {{isNoteMode ? 'active' : ''}}" bindtap="toggleNoteMode">
-        <view class="icon-circle {{isNoteMode ? 'active-bg' : ''}}">✏️</view>
-        <text>备注</text>
-        <view class="status-dot {{isNoteMode ? 'on' : ''}}"></view>
-      </view>
-      
-      <view class="tool-btn {{game.checkCount > 0 ? '' : 'disabled'}}" bindtap="checkGame">
-        <view class="icon-circle">🔍</view>
-        <text>检查</text>
-        <view wx:if="{{game.checkCount > 0}}" class="count-badge">{{game.checkCount}}</view>
-      </view>
-      
-      <view class="tool-btn {{game.hintCount > 0 ? '' : 'disabled'}}" bindtap="showHint">
-        <view class="icon-circle">💡</view>
-        <text>提示</text>
-        <view wx:if="{{game.hintCount > 0}}" class="count-badge">{{game.hintCount}}</view>
-      </view>
+  <!-- 工具栏 -->
+  <view class="toolbar">
+    <view class="tool-button" bindtap="eraseCell">
+      <text class="tool-icon">🧽</text>
+      <text class="tool-label">擦除</text>
     </view>
-
-    <!-- 数字键盘 -->
-    <view class="number-keyboard">
-      <view 
-        wx:for="{{numberRange}}" 
-        wx:key="*this"
-        class="key-btn" 
-        bindtap="inputNumber" 
-        data-number="{{item}}"
-      >
-        {{item}}
-      </view>
+    
+    <view class="tool-button {{isNoteMode ? 'active' : ''}}" bindtap="toggleNoteMode">
+      <text class="tool-icon flipped">✏️</text>
+      <text class="tool-label">备注</text>
+      <view class="badge {{isNoteMode ? 'badge-on' : 'badge-off'}}">{{isNoteMode ? 'ON' : 'OFF'}}</view>
+    </view>
+    
+    <view class="tool-button {{game.checkCount > 0 ? '' : 'disabled'}}" bindtap="checkGame">
+      <text class="tool-icon">🔍</text>
+      <text class="tool-label">检查</text>
+      <view wx:if="{{game.checkCount > 0}}" class="badge">{{game.checkCount}}</view>
+    </view>
+    
+    <view class="tool-button {{game.hintCount > 0 ? '' : 'disabled'}}" bindtap="showHint">
+      <text class="tool-icon">💡</text>
+      <text class="tool-label">提示</text>
+      <view wx:if="{{game.hintCount > 0}}" class="badge">{{game.hintCount}}</view>
     </view>
   </view>
+
+  <!-- 数字输入键盘 -->
+  <view class="number-keyboard">
+    <view 
+      wx:for="{{numberRange}}" 
+      wx:key="*this"
+      class="number-key" 
+      bindtap="inputNumber" 
+      data-number="{{item}}"
+    >
+      {{item}}
+    </view>
+  </view>
+  
+  <!-- 底部占位区域 -->
+  <view class="bottom-spacer"></view>
 </view>
 
 <!-- 游戏完成对话框 -->
 <view wx:if="{{showCompleteDialog}}" class="dialog-mask">
-  <view class="complete-card">
-    <view class="celebrate-icon">🏆</view>
-    <text class="dialog-title">挑战成功</text>
+  <view class="complete-dialog">
+    <view class="celebrate-icon">✨</view>
+    <text class="dialog-title">🎉太棒了！</text>
+    <text class="dialog-subtitle">挑战成功</text>
     
-    <view class="result-stats">
-      <view class="stat-box">
-        <text class="label">难度</text>
-        <text class="val">{{game.difficulty}}</text>
+    <!-- 成绩统计 -->
+    <view class="stats-container">
+      <view class="stat-row">
+        <text class="stat-label">🎯 难度</text>
+        <text class="stat-value">{{game.difficulty}}</text>
       </view>
-      <view class="stat-divider"></view>
-      <view class="stat-box">
-        <text class="label">用时</text>
-        <text class="val">{{formattedTime}}</text>
+      <view class="stat-row">
+        <text class="stat-label">⏱️ 用时</text>
+        <text class="stat-value">{{formattedTime}}</text>
       </view>
     </view>
     
-    <view class="action-buttons">
-      <button class="action-btn primary" bindtap="playAgain">再来一局</button>
-      <button class="action-btn secondary" bindtap="backToHome">返回主页</button>
+    <view class="dialog-buttons">
+      <button class="dialog-btn primary" bindtap="playAgain">
+        <text class="btn-icon">🔄</text>
+        <text>再来一局</text>
+      </button>
+      <button class="dialog-btn secondary" bindtap="backToHome">
+        <text class="btn-icon">🏠</text>
+        <text>返回主页</text>
+      </button>
     </view>
   </view>
 </view>
