@@ -86,7 +86,7 @@
 /* Grid Lines */
 .grid-lines {
   position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
+  top: 20rpx; left: 20rpx; right: 20rpx; bottom: 20rpx;
   pointer-events: none;
   z-index: 0;
 }
@@ -170,9 +170,9 @@
   box-sizing: border-box; /* Critical for alignment when border exists */
   background: radial-gradient(circle at 30% 30%, #ffdcae, #dcb378); /* Wood-like gradient */
   box-shadow: 
-    inset 0 2rpx 6rpx rgba(255,255,255,0.6), /* Top highlight */
-    inset 0 -3rpx 6rpx rgba(0,0,0,0.1), /* Bottom shade */
-    0 2rpx 6rpx rgba(0,0,0,0.2); /* Symmetrical-ish drop shadow */
+    inset 0 1rpx 1rpx rgba(255,255,255,0.5), /* Top highlight */
+    inset 0 -1rpx 1rpx rgba(0,0,0,0.1), /* Bottom shade */
+    0 1rpx 1rpx rgba(0,0,0,0.15); /* Drop shadow */
   display: flex; justify-content: center; align-items: center;
   font-size: 24rpx; font-weight: bold; position: relative;
   font-family: "KaiTi", "STKaiti", serif;
@@ -231,7 +231,9 @@
   content: '';
   position: absolute;
   border-color: #2196F3; 
-  width: 90%; height: 90%; top: 5%; left: 5%;
+  width: 90%; height: 90%; 
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
   border-radius: 50%;
   border-width: 4rpx; border-style: solid;
   animation: pulse-border 1.5s infinite;
@@ -239,9 +241,9 @@
 }
 
 @keyframes pulse-border {
-  0% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.05); opacity: 0.6; }
-  100% { transform: scale(1); opacity: 1; }
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  50% { transform: translate(-50%, -50%) scale(1.05); opacity: 0.6; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
 }
 
 .controls-area { padding: 40rpx; display: flex; justify-content: center; gap: 80rpx; }
