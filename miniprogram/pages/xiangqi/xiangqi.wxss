@@ -91,83 +91,158 @@
   z-index: 0;
 }
 
-/* Horizontal lines: 10 lines. Rows 0-9. 
-   Assuming board content is 100% height. Rows are at center of each 10% block.
-   So grid lines are at 5%, 15% ... 95%.
-   Width: They should span from First Col (5.5%) to Last Col (94.5%).
-   Width = 89%. Left = 5.5%.
-*/
 .h-line {
   position: absolute;
-  left: 5.55%;
-  width: 88.9%;
+  left: calc(100% / 9 * 0.5);
+  width: calc(100% / 9 * 8);
   height: 2rpx;
-  background-color: #5a3a22;
+  background-color: #5D4037;
+  transform: translateY(-50%);
 }
 
-/* Vertical lines: 
-   Starts at Top Line (Row 0, 5%) and ends at River Edge (Row 4, 45%).
-   Starts at River Edge (Row 5, 55%) and ends at Bottom Line (Row 9, 95%).
-   Exception: Edge lines (Col 0 and Col 8) are continuous from 5% to 95%.
-*/
 .v-line {
   position: absolute;
   top: 5%;
   width: 2rpx;
-  height: 40%; /* 5% to 45% */
-  background-color: #5a3a22;
+  height: 40%;
+  background-color: #5D4037;
+  transform: translateX(-50%);
 }
+
 .v-line.bottom {
   top: 55%;
 }
+
 .v-line.full {
-  height: 90%; /* 5% to 95% */
+  height: 90%;
 }
 
-/* Palace Lines */
+/* Palace Lines - Corrected Geometry */
+/* Width of Palace = 22.22% (2 cols). Height = 20% (2 rows). */
+/* Diagonal length ≈ 31.4%. Center Top: 15%, 50%. Center Bottom: 85%, 50%. */
+/* Angle = 45 degrees. */
+
 .palace-line {
   position: absolute;
-  background-color: #5a3a22;
-  width: 2rpx;
-  transform-origin: top center;
-  /* Top Palace: (3,0) to (5,2) and (5,0) to (3,2) */
-  /* Top-Left: (3,0). Left: 38.88% (Center of 4th col 11.11*3+5.55).
-     Bottom-Right: (5,2). Left: 61.11%. Top: 25%.
-     Width diff: 22.22%. Height diff: 20%.
-  */
+  background-color: #5D4037;
+  width: 31.5%;
+  height: 2rpx;
+  left: 50%;
+  transform-origin: center;
 }
 
 /* River Text */
 .river {
   position: absolute;
-  top: 45%; left: 5%; width: 90%; height: 10%;
-  display: flex; justify-content: center; align-items: center;
-  font-size: 36rpx; color: #5a3a22; letter-spacing: 120rpx;
-  font-family: "KaiTi", "STKaiti", serif; opacity: 0.8;
+  top: 45%; left: 0; width: 100%; height: 10%;
+  display: flex; /* Default row */
+  align-items: center;
+  font-size: 40rpx; color: #5D4037; 
+  font-family: "KaiTi", "STKaiti", serif; 
+  opacity: 0.9;
+  line-height: 1;
+  pointer-events: none; /* Let clicks pass through if needed */
+}
+
+.river-half {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* gap removed to bring words close together */
 }
 
 .board-row { display: flex; width: 100%; height: 10%; }
-.cell { flex: 1; position: relative; display: flex; justify-content: center; align-items: center; z-index: 10; }
-
-.valid-move-marker {
-  position: absolute; width: 20rpx; height: 20rpx;
-  background-color: rgba(0, 200, 0, 0.6); border-radius: 50%; pointer-events: none;
+/* Ensure cell bounds are precise */
+.cell {
+  flex: 1; 
+  position: relative; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  z-index: 10;
+  box-sizing: border-box; /* Ensure padding/border doesn't shift content box */
 }
 
 .piece {
-  width: 90%; height: 90%;
-  background-color: #f7e6b7; border-radius: 50%; border: 4rpx solid #b38550;
-  box-shadow: 2rpx 4rpx 6rpx rgba(0,0,0,0.3), inset 0 0 10rpx rgba(0,0,0,0.1);
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  box-sizing: border-box; /* Critical for alignment when border exists */
+  background: radial-gradient(circle at 30% 30%, #ffdcae, #dcb378); /* Wood-like gradient */
+  box-shadow: 
+    inset 0 2rpx 6rpx rgba(255,255,255,0.6), /* Top highlight */
+    inset 0 -3rpx 6rpx rgba(0,0,0,0.1), /* Bottom shade */
+    0 2rpx 6rpx rgba(0,0,0,0.2); /* Symmetrical-ish drop shadow */
   display: flex; justify-content: center; align-items: center;
-  font-size: 36rpx; font-weight: bold; position: relative;
+  font-size: 24rpx; font-weight: bold; position: relative;
   font-family: "KaiTi", "STKaiti", serif;
+  z-index: 2;
 }
-.piece::after { content: ''; position: absolute; top: 6rpx; left: 6rpx; right: 6rpx; bottom: 6rpx; border: 2rpx solid rgba(0,0,0,0.1); border-radius: 50%; }
-.piece.red { color: #cc0000; border-color: #cc0000; }
-.piece.black { color: #000000; border-color: #000000; }
-.last-move .piece { box-shadow: 0 0 0 4rpx rgba(0,255,0,0.5), 2rpx 4rpx 6rpx rgba(0,0,0,0.3); }
-.selected::after { content: ''; position: absolute; width: 80%; height: 80%; border: 4rpx dashed blue; border-radius: 50%; animation: rotate 4s linear infinite; }
-@keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+.piece::after { 
+  content: ''; 
+  position: absolute; 
+  top: 10%; left: 10%; width: 80%; height: 80%;
+  border: 2rpx solid rgba(0,0,0,0.15); 
+  border-radius: 50%; 
+}
+
+.piece.red { 
+  color: #c00; 
+  text-shadow: 0 1px 0 rgba(255,255,255,0.4);
+  background: radial-gradient(circle at 30% 30%, #ffdec0, #e0b090); /* Slightly lighter/redder wood for red? Or same wood? Standard is same wood, colored text. Let's keep wood uniform, just text color. */
+  background: radial-gradient(circle at 30% 30%, #FDF3E0, #E6C898); /* Premium Wood */
+  border: 4rpx solid #d4a971; /* Wood edge */
+}
+
+/* Specific styling for the carved text look */
+.piece-text {
+  /* We can wrap text in a view if we want simplified HTML logic, but current WXML puts text directly. */
+  /* Just style .piece */
+}
+
+.piece.red {
+  color: #D32F2F;
+  text-shadow: 0 2rpx 0 rgba(255,255,255,0.5), 0 -1rpx 0 rgba(0,0,0,0.1);
+}
+
+.piece.black { 
+  color: #212121;
+  background: radial-gradient(circle at 30% 30%, #FDF3E0, #E6C898); /* Premium Wood */
+  border: 4rpx solid #d4a971;
+  text-shadow: 0 2rpx 0 rgba(255,255,255,0.5), 0 -1rpx 0 rgba(0,0,0,0.1);
+}
+
+.piece.last-move { 
+  box-shadow: 0 0 0 4rpx rgba(255, 87, 34, 0.8), 2rpx 8rpx 16rpx rgba(0,0,0,0.5); 
+  z-index: 3;
+}
+
+.last-move-from::before {
+  content: '';
+  position: absolute;
+  width: 20rpx; height: 20rpx;
+  background: rgba(255, 87, 34, 0.5);
+  border-radius: 50%;
+  box-shadow: 0 0 10rpx rgba(255, 87, 34, 0.5);
+}
+
+.selected::after { 
+  content: '';
+  position: absolute;
+  border-color: #2196F3; 
+  width: 90%; height: 90%; top: 5%; left: 5%;
+  border-radius: 50%;
+  border-width: 4rpx; border-style: solid;
+  animation: pulse-border 1.5s infinite;
+  z-index: 5;
+}
+
+@keyframes pulse-border {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.6; }
+  100% { transform: scale(1); opacity: 1; }
+}
 
 .controls-area { padding: 40rpx; display: flex; justify-content: center; gap: 80rpx; }
 .tool-btn { display: flex; flex-direction: column; align-items: center; gap: 16rpx; font-size: 26rpx; color: #5D4037; }

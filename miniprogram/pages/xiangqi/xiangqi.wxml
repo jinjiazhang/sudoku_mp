@@ -24,44 +24,42 @@
         <!-- Static Grid Lines -->
         <view class="grid-lines">
             <!-- 10 Horizontal Lines -->
-            <view class="h-line" style="top: 5%"></view>
-            <view class="h-line" style="top: 15%"></view>
-            <view class="h-line" style="top: 25%"></view>
-            <view class="h-line" style="top: 35%"></view>
-            <view class="h-line" style="top: 45%"></view>
-            <view class="h-line" style="top: 55%"></view>
-            <view class="h-line" style="top: 65%"></view>
-            <view class="h-line" style="top: 75%"></view>
-            <view class="h-line" style="top: 85%"></view>
-            <view class="h-line" style="top: 95%"></view>
+            <view class="h-line" style="top: calc(100% / 10 * 0.5)"></view>
+            <view class="h-line" style="top: calc(100% / 10 * 1.5)"></view>
+            <view class="h-line" style="top: calc(100% / 10 * 2.5)"></view>
+            <view class="h-line" style="top: calc(100% / 10 * 3.5)"></view>
+            <view class="h-line" style="top: calc(100% / 10 * 4.5)"></view>
+            <view class="h-line" style="top: calc(100% / 10 * 5.5)"></view>
+            <view class="h-line" style="top: calc(100% / 10 * 6.5)"></view>
+            <view class="h-line" style="top: calc(100% / 10 * 7.5)"></view>
+            <view class="h-line" style="top: calc(100% / 10 * 8.5)"></view>
+            <view class="h-line" style="top: calc(100% / 10 * 9.5)"></view>
 
             <!-- Vertical Lines -->
             <!-- Edges (Full height 5% to 95%) -->
-            <view class="v-line full" style="left: 5.55%; height: 90%"></view>
-            <view class="v-line full" style="left: 94.44%; height: 90%"></view>
+            <view class="v-line full" style="left: calc(100% / 9 * 0.5); height: 90%"></view>
+            <view class="v-line full" style="left: calc(100% / 9 * 8.5); height: 90%"></view>
             
             <!-- Inner Col 1-7 -->
-            <block wx:for="{{[16.66, 27.77, 38.88, 50, 61.11, 72.22, 83.33]}}" wx:key="*this">
-               <view class="v-line" style="left: {{item}}%"></view>
-               <view class="v-line bottom" style="left: {{item}}%"></view>
+            <block wx:for="{{[1, 2, 3, 4, 5, 6, 7]}}" wx:key="*this">
+               <view class="v-line" style="left: calc(100% / 9 * ({{item}} + 0.5))"></view>
+               <view class="v-line bottom" style="left: calc(100% / 9 * ({{item}} + 0.5))"></view>
             </block>
 
             <!-- Palace lines -->
-            <!-- Top Palace (col 38.88 to 61.11, row 5 to 25 -->
-            <!-- Center is 50, 15 -->
-            <!-- Width 22.22%, Height 20% -->
-            <!-- Rotate ~42deg -->
-            <!-- Use polygon or simply lines connecting corners -->
-            <view class="palace-line" style="left: 50%; top: 5%; height: 26%; width: 2rpx; transform: rotate(48deg); transform-origin: top center;"></view>
-            <view class="palace-line" style="left: 50%; top: 5%; height: 26%; width: 2rpx; transform: rotate(-48deg); transform-origin: top center;"></view>
+            <!-- Top Palace Center (Row 1.5 -> 15%) -->
+            <view class="palace-line" style="top: 15%; transform: translate(-50%, -50%) rotate(45deg);"></view>
+            <view class="palace-line" style="top: 15%; transform: translate(-50%, -50%) rotate(-45deg);"></view>
             
-            <!-- Bottom Palace: Top is 75%. Same but rotate from bottom? Or just position top -->
-            <!-- Center is 50, 85 -->
-             <view class="palace-line" style="left: 50%; top: 75%; height: 26%; width: 2rpx; transform: rotate(48deg); transform-origin: top center;"></view>
-             <view class="palace-line" style="left: 50%; top: 75%; height: 26%; width: 2rpx; transform: rotate(-48deg); transform-origin: top center;"></view>
+            <!-- Bottom Palace Center (Row 8.5 -> 85%) -->
+             <view class="palace-line" style="top: 85%; transform: translate(-50%, -50%) rotate(45deg);"></view>
+             <view class="palace-line" style="top: 85%; transform: translate(-50%, -50%) rotate(-45deg);"></view>
         </view>
         
-        <view class="river"><text>楚河 汉界</text></view>
+        <view class="river">
+            <view class="river-half"><text>楚</text><text>河</text></view>
+            <view class="river-half"><text>汉</text><text>界</text></view>
+        </view>
     
         <view class="board">
         <block wx:for="{{boardData}}" wx:key="row" wx:for-item="row" wx:for-index="rIdx">
