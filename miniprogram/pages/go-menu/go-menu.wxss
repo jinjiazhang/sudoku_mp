@@ -102,12 +102,12 @@
 }
 
 .menu-card.pve {
-  background: linear-gradient(135deg, #8D6E63, #5D4037);
+  background: linear-gradient(135deg, #4FC3F7, #29B6F6);
   color: white;
 }
 
 .menu-card.pvp {
-  background: linear-gradient(135deg, #A1887F, #795548);
+  background: linear-gradient(135deg, #FFB74D, #FF9800);
   color: white;
 }
 

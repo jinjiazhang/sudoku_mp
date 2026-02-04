@@ -2,14 +2,14 @@
 <view class="page-container">
   <view class="hero-section">
     <view class="hero-content">
-      <text class="app-title">智力挑战</text>
-      <text class="app-subtitle">每天一点脑力激荡</text>
+      <text class="app-title">脑力觉醒</text>
+      <text class="app-subtitle">思维越练越活，大脑越用越灵</text>
     </view>
     <view class="hero-decoration"></view>
   </view>
 
   <view class="content-area">
-    <view class="section-title">热门游戏</view>
+
     
     <view class="game-grid">
       <!-- 象棋 -->

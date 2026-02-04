@@ -1,45 +1,186 @@
-/* pages/xiangqi-menu/xiangqi-menu.wxss */
-.container {
+/**xiangqi-menu.wxss**/
+.page-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #FAF8F5; /* Warm background */
+  min-height: 100vh;
+  padding-top: 60rpx;
+}
+
+.hero-header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 100rpx;
-  height: 100vh;
-  box-sizing: border-box;
-  background-color: #f8f8f8;
+  margin-bottom: 60rpx;
 }
 
-.title {
-  font-size: 48rpx;
-  font-weight: bold;
-  margin-bottom: 100rpx;
-  color: #333;
-}
-
-.menu-list {
-  width: 80%;
-  display: flex;
-  flex-direction: column;
-  gap: 40rpx;
-}
-
-.menu-btn {
-  width: 100%;
-  padding: 20rpx 0;
-  border-radius: 50rpx;
-  font-size: 32rpx;
+.game-icon-graphic {
+  width: 180rpx;
+  height: 180rpx;
+  margin-bottom: 20rpx;
+  background: #f0e6d2; /* Wood-like background for Xiangqi */
+  border-radius: 50%;
+  box-shadow: 0 12rpx 32rpx rgba(139, 69, 19, 0.15);
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 4rpx solid #dcb35c;
 }
 
-.primary {
-  background-color: #d64c4c;
+.x-piece {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  border: 4rpx solid #b38550;
+  background: #f7e6b7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40rpx;
+  font-weight: bold;
+  position: absolute;
+  box-shadow: 4rpx 6rpx 12rpx rgba(0,0,0,0.2);
+}
+
+.x-piece.red {
+  color: #cc0000;
+  border-color: #cc0000;
+  top: 20rpx; left: 20rpx;
+  z-index: 2;
+  background-color: #fff8e7;
+}
+
+.x-piece.black {
+  color: #000000;
+  border-color: #000000;
+  bottom: 20rpx; right: 20rpx;
+  z-index: 1;
+  background-color: #fff8e7;
+}
+
+.game-title {
+  font-size: 56rpx;
+  font-weight: 800;
+  color: #5D4037;
+  letter-spacing: 4rpx;
+  margin-bottom: 12rpx;
+}
+
+.game-subtitle {
+  font-size: 28rpx;
+  color: #8D6E63;
+  letter-spacing: 2rpx;
+}
+
+.menu-content {
+  padding: 0 40rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 32rpx;
+}
+
+.menu-card {
+  height: 200rpx;
+  border-radius: 32rpx;
+  padding: 40rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 12rpx 24rpx rgba(0,0,0,0.08);
+  transition: all 0.2s;
+}
+
+.menu-card:active {
+  transform: scale(0.98);
+  box-shadow: 0 6rpx 16rpx rgba(0,0,0,0.06);
+}
+
+.menu-card.pve {
+  background: linear-gradient(135deg, #4FC3F7, #29B6F6);
   color: white;
 }
 
-.secondary {
-  background-color: #ffffff;
-  color: #333;
-  border: 2rpx solid #ddd;
+.menu-card.pvp {
+  background: linear-gradient(135deg, #FFB74D, #FF9800);
+  color: white;
+}
+
+.card-bg-circle {
+  position: absolute;
+  width: 300rpx;
+  height: 300rpx;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  right: -60rpx;
+  top: -60rpx;
+}
+
+.card-left {
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+}
+
+.card-main-text {
+  font-size: 40rpx;
+  font-weight: 700;
+  margin-bottom: 8rpx;
+}
+
+.card-sub-text {
+  font-size: 26rpx;
+  opacity: 0.9;
+}
+
+.icon-circle {
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+  z-index: 2;
+}
+
+/* iPad 适配 */
+@media (min-width: 768px) {
+  .hero-header { margin-bottom: 40px; }
+  
+  .game-icon-graphic {
+    width: 120px; height: 120px;
+    margin-bottom: 20px;
+  }
+  
+  .x-piece { width: 50px; height: 50px; font-size: 24px; }
+  .x-piece.red { top: 15px; left: 15px; }
+  .x-piece.black { bottom: 15px; right: 15px; }
+  
+  .game-title { font-size: 40px; margin-bottom: 10px; }
+  .game-subtitle { font-size: 20px; }
+  
+  .menu-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    padding: 0 40px;
+  }
+  
+  .menu-card {
+    height: 160px;
+    padding: 30px;
+    border-radius: 20px;
+  }
+  
+  .card-main-text { font-size: 28px; margin-bottom: 6px; }
+  .card-sub-text { font-size: 18px; }
+  
+  .icon-circle {
+    width: 60px; height: 60px;
+    font-size: 28px;
+  }
 }

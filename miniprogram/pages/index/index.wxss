@@ -20,6 +20,10 @@
 .hero-content {
   position: relative;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .app-title {
@@ -67,6 +71,7 @@
   display: flex;
   flex-direction: column;
   gap: 32rpx;
+  margin-top: 40rpx;
 }
 
 .game-card {

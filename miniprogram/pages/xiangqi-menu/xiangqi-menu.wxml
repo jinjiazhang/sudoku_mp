@@ -1,9 +1,33 @@
 <!--pages/xiangqi-menu/xiangqi-menu.wxml-->
-<view class="container">
-  <view class="title">中国象棋</view>
-  
-  <view class="menu-list">
-    <button class="menu-btn primary" bindtap="startPvP">双人对战</button>
-    <button class="menu-btn secondary" bindtap="startPvE">人机对战</button>
+<view class="page-container">
+  <view class="hero-header">
+    <view class="game-icon-graphic">
+      <view class="x-piece red">帅</view>
+      <view class="x-piece black">将</view>
+    </view>
+    <text class="game-title">中国象棋</text>
+    <text class="game-subtitle">楚河汉界，运筹帷幄</text>
+  </view>
+
+  <view class="menu-content">
+    <!-- 人机对战 -->
+    <view class="menu-card pve" bindtap="startPvE">
+      <view class="card-bg-circle"></view>
+      <view class="card-left">
+        <text class="card-main-text">人机对战</text>
+        <text class="card-sub-text">挑战 AI 磨练棋艺</text>
+      </view>
+      <view class="icon-circle">🤖</view>
+    </view>
+
+    <!-- 双人对战 -->
+    <view class="menu-card pvp" bindtap="startPvP">
+      <view class="card-bg-circle"></view>
+      <view class="card-left">
+        <text class="card-main-text">双人对战</text>
+        <text class="card-sub-text">与好友面对面切磋</text>
+      </view>
+      <view class="icon-circle">VS</view>
+    </view>
   </view>
 </view>
