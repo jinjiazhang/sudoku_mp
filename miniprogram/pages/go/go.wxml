@@ -57,13 +57,15 @@
 
   <!-- 控制区 -->
   <view class="controls-area">
+    <view class="tool-btn undo" bindtap="onUndo">
+      <view class="icon-circle">↶</view>
+      <text>悔棋</text>
+    </view>
+
     <view class="tool-btn restart" bindtap="onRestart">
       <view class="icon-circle">↺</view>
       <text>重玩</text>
     </view>
-    
-    <!-- Pass Button? Go often needs Pass. -->
-    <!-- For simplicity, maybe no pass button yet, or add later -->
   </view>
 
 </view>

@@ -22,7 +22,30 @@ class XiangqiGame {
     this.gameOver = false;
     this.winner = null;
     this.history = [];
+    this.history = [];
     this.reset();
+  }
+
+  undo() {
+    if (this.history.length === 0) return false;
+
+    const lastMove = this.history.pop();
+    const { from, to, captured, color } = lastMove;
+
+    // Restore piece to original position
+    this.board[from.row][from.col] = this.board[to.row][to.col];
+
+    // Restore captured piece (or null) to target position
+    this.board[to.row][to.col] = captured;
+
+    // Restore turn to the player who made the move
+    this.turn = color;
+
+    // Reset game over status
+    this.gameOver = false;
+    this.winner = null;
+
+    return true;
   }
 
   reset() {
@@ -87,7 +110,7 @@ class XiangqiGame {
   // Check if a move is pseudo-legal (geometry only, ignoring checks)
   isValidMove(fromRow, fromCol, toRow, toCol) {
     if (fromRow < 0 || fromRow > 9 || fromCol < 0 || fromCol > 8 ||
-        toRow < 0 || toRow > 9 || toCol < 0 || toCol > 8) {
+      toRow < 0 || toRow > 9 || toCol < 0 || toCol > 8) {
       return false;
     }
 
@@ -161,7 +184,7 @@ class XiangqiGame {
       case PIECE_TYPES.SOLDIER:
         // Forward 1, after river sideways allowed
         const forward = piece.color === COLORS.RED ? -1 : 1;
-        
+
         // Cannot move back
         if (piece.color === COLORS.RED && dRow > 0) return false;
         if (piece.color === COLORS.BLACK && dRow < 0) return false;
@@ -211,20 +234,20 @@ class XiangqiGame {
   // Make move if legal, including check safety
   makeMove(fromRow, fromCol, toRow, toCol) {
     if (this.gameOver) return false;
-    
+
     // 1. Check geometry logic
     if (!this.isValidMove(fromRow, fromCol, toRow, toCol)) return false;
 
     // 2. Flying General Check simulation (kings cannot face each other directly without screen)
     // Actually, this should be part of "isKingSafe" check after move.
-    
+
     // Simulate move
     const movingPiece = this.board[fromRow][fromCol];
     const targetPiece = this.board[toRow][toCol];
 
     this.board[toRow][toCol] = movingPiece;
     this.board[fromRow][fromCol] = null;
-    
+
     // 3. Check if own King is now in check (Illegal move)
     // Find own king
     const kingPos = this.findKing(this.turn);
@@ -236,18 +259,18 @@ class XiangqiGame {
     }
 
     if (this.isSpotUnderAttack(kingPos.row, kingPos.col, this.turn)) {
-       // Revert
-       this.board[fromRow][fromCol] = movingPiece;
-       this.board[toRow][toCol] = targetPiece;
-       return false;
+      // Revert
+      this.board[fromRow][fromCol] = movingPiece;
+      this.board[toRow][toCol] = targetPiece;
+      return false;
     }
-    
+
     // 4. Flying General Check: After move, are kings facing each other with no obstacles?
     if (this.areKingsFacing()) {
-       // Revert
-       this.board[fromRow][fromCol] = movingPiece;
-       this.board[toRow][toCol] = targetPiece;
-       return false;
+      // Revert
+      this.board[fromRow][fromCol] = movingPiece;
+      this.board[toRow][toCol] = targetPiece;
+      return false;
     }
 
     // Move committed
@@ -259,40 +282,40 @@ class XiangqiGame {
     });
 
     this.turn = this.turn === COLORS.RED ? COLORS.BLACK : COLORS.RED;
-    
+
     // Check for checkmate/stalemate
     const nextKingPos = this.findKing(this.turn);
     const isCheck = this.isSpotUnderAttack(nextKingPos.row, nextKingPos.col, this.turn);
-    
+
     if (!this.hasLegalMoves(this.turn)) {
       this.gameOver = true;
       // If checked and no moves -> lost. If not checked and no moves -> lost (Xiangqi rule: stalemate is loss for trapped side usually, but simplifies to "no valid moves = loss")
-      this.winner = this.turn === COLORS.RED ? COLORS.BLACK : COLORS.RED; 
+      this.winner = this.turn === COLORS.RED ? COLORS.BLACK : COLORS.RED;
     }
 
     return true;
   }
-  
+
   findKing(color) {
-    for(let r=0; r<10; r++) {
-      for(let c=0; c<9; c++) {
+    for (let r = 0; r < 10; r++) {
+      for (let c = 0; c < 9; c++) {
         const p = this.board[r][c];
         if (p && p.type === PIECE_TYPES.KING && p.color === color) {
-           return {row: r, col: c};
+          return { row: r, col: c };
         }
       }
     }
     return null;
   }
-  
+
   // Check if kings are facing each other in the same column with no pieces in between
   areKingsFacing() {
     const redKing = this.findKing(COLORS.RED);
     const blackKing = this.findKing(COLORS.BLACK);
-    
+
     if (!redKing || !blackKing) return false; // Should not happen
     if (redKing.col !== blackKing.col) return false;
-    
+
     // Check obstacles
     const obstacles = this.countObstacles(blackKing.row, blackKing.col, redKing.row, redKing.col);
     return obstacles === 0;
@@ -301,22 +324,22 @@ class XiangqiGame {
   // Is a spot (r, c) attacked by opponent of 'myColor'?
   isSpotUnderAttack(r, c, myColor) {
     const opponentColor = myColor === COLORS.RED ? COLORS.BLACK : COLORS.RED;
-    
+
     // Brute force: check all opponent pieces if they can move to (r, c)
     // Note: This needs to use a "capture" logic validation that doesn't recurse into self-check loops.
     // The `isValidMove` checks basic geometry.
     // DOES NOT CHECK "Flying General" here or "Self Check" here to avoid infinite loops.
     // Just geometry.
-    
-    for(let i=0; i<10; i++) {
-      for(let j=0; j<9; j++) {
+
+    for (let i = 0; i < 10; i++) {
+      for (let j = 0; j < 9; j++) {
         const p = this.board[i][j];
         if (p && p.color === opponentColor) {
-           // Can p move to (r, c)?
-           // We use a simplified check that doesn't modify board state
-           if (this.canAttack(i, j, r, c)) {
-             return true;
-           }
+          // Can p move to (r, c)?
+          // We use a simplified check that doesn't modify board state
+          if (this.canAttack(i, j, r, c)) {
+            return true;
+          }
         }
       }
     }
@@ -331,7 +354,7 @@ class XiangqiGame {
     // BUT checking PAWN forward logic etc.
     // The only catch is isValidMove might be too heavy? No, it's just geometry.
     // It DOES NOT check if move exposes check.
-    
+
     return this.isValidMove(fromRow, fromCol, toRow, toCol);
   }
 
@@ -346,23 +369,23 @@ class XiangqiGame {
           for (let tr = 0; tr < 10; tr++) {
             for (let tc = 0; tc < 9; tc++) {
               if (this.isValidMove(r, c, tr, tc)) {
-                 // Simulate check safety
-                 const targetPiece = this.board[tr][tc];
-                 
-                 this.board[tr][tc] = p;
-                 this.board[r][c] = null;
-                 
-                 let safe = true;
-                 const kingPos = this.findKing(color);
-                 if (this.isSpotUnderAttack(kingPos.row, kingPos.col, color) || this.areKingsFacing()) {
-                   safe = false;
-                 }
-                 
-                 // Revert
-                 this.board[r][c] = p;
-                 this.board[tr][tc] = targetPiece;
-                 
-                 if (safe) return true;
+                // Simulate check safety
+                const targetPiece = this.board[tr][tc];
+
+                this.board[tr][tc] = p;
+                this.board[r][c] = null;
+
+                let safe = true;
+                const kingPos = this.findKing(color);
+                if (this.isSpotUnderAttack(kingPos.row, kingPos.col, color) || this.areKingsFacing()) {
+                  safe = false;
+                }
+
+                // Revert
+                this.board[r][c] = p;
+                this.board[tr][tc] = targetPiece;
+
+                if (safe) return true;
               }
             }
           }
@@ -371,7 +394,7 @@ class XiangqiGame {
     }
     return false;
   }
-  
+
   getFen() {
     // Simplified FEN-like string if needed, or just return board state
     return JSON.stringify(this.board);

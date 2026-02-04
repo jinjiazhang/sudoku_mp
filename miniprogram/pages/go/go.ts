@@ -182,13 +182,25 @@ Page({
     },
 
     onUndo() {
-        // Implementing undo for Go is harder (need full history state).
-        // GoGame class needs `restoreState(historyIndex)`.
-        // Simple version: Not supported or just reload board?
-        // Gomoku had helper. GoService logic is complex to reverse (captures).
-        // I'll skip Undo for this iteration or implement naive state save.
-        // Actually `saveGame` serializes everything.
-        // If I want undo, I should have saved states.
-        wx.showToast({ title: '暂不支持悔棋', icon: 'none' })
+        if (!this.game) return
+
+        // PVE: Undo twice
+        if (this.game.gameMode === 'pve') {
+            if (this.game.moveHistory.length >= 2) {
+                GoService.undo(this.game) // Undo AI
+                GoService.undo(this.game) // Undo Player
+                this.updateUI()
+            } else {
+                wx.showToast({ title: '无法悔棋', icon: 'none' })
+            }
+        } else {
+            // PVP: Undo once
+            if (this.game.moveHistory.length >= 1) {
+                GoService.undo(this.game)
+                this.updateUI()
+            } else {
+                wx.showToast({ title: '无法悔棋', icon: 'none' })
+            }
+        }
     }
 })

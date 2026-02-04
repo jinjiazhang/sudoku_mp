@@ -218,6 +218,35 @@ Page<any, any>({
         this.initGame(this.data.gameMode);
     },
 
+    undoMove() {
+        if (!this.gameInstance) return;
+
+        // PVE: Undo twice (Undo AI's move, then Player's move)
+        if (this.data.gameMode === 'pve') {
+            // Check if we can undo twice (AI move + Player move)
+            // History length needs to be >= 2 ideally, or if AI just moved, history is even?
+            // Actually just check if it's player's turn (AI moved last) => length >= 2?
+            // Or if it's AI turn (unlikely as we block input), then we undo once?
+            // Usually user taps Undo when it's their turn.
+
+            if (this.gameInstance.history.length >= 2) {
+                this.gameInstance.undo(); // Undo AI
+                this.gameInstance.undo(); // Undo Player
+                this.updateBoard();
+            } else {
+                wx.showToast({ title: '无法悔棋', icon: 'none' });
+            }
+        } else {
+            // PVP
+            if (this.gameInstance.history.length >= 1) {
+                this.gameInstance.undo();
+                this.updateBoard();
+            } else {
+                wx.showToast({ title: '无法悔棋', icon: 'none' });
+            }
+        }
+    },
+
     goBack() {
         wx.navigateBack();
     },

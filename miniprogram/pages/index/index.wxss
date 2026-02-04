@@ -130,7 +130,7 @@
     position: absolute;
     width: 150rpx;
     height: 150rpx;
-    background: linear-gradient(135deg, #d64c4c, #f7e6b7);
+    background: linear-gradient(135deg, #43a047, #66bb6a);
     border-radius: 50%;
     right: -20rpx;
     bottom: -40rpx;

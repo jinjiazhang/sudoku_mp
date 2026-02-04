@@ -65,12 +65,12 @@
   <!-- 工具栏 -->
   <view class="controls-area">
     <view class="tool-btn {{(gameMode === 'pvp' ? game.moveHistory.length < 1 : game.moveHistory.length < 2) || game.gameOver || isThinking ? 'disabled' : ''}}" bindtap="undoMove">
-      <view class="icon-circle">↩️</view>
+      <view class="icon-circle">↶</view>
       <text>悔棋</text>
     </view>
 
     <view class="tool-btn" bindtap="restartGame">
-      <view class="icon-circle">🔄</view>
+      <view class="icon-circle">↺</view>
       <text>重新开始</text>
     </view>
   </view>

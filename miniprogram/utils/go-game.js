@@ -118,6 +118,8 @@ class GoService {
     static placeStone(game, row, col) {
         if (!this.canPlace(game, row, col)) return false
 
+        const prevKo = game.koPosition ? { ...game.koPosition } : null
+
         // Place stone
         game.board[row][col] = game.currentPlayer
         const opponent = this.getOpponent(game.currentPlayer)
@@ -134,10 +136,6 @@ class GoService {
             game.prisoners[game.currentPlayer] += deadStones.length
 
             // Update Ko Position
-            // Ko rule: if 1 stone captured and it reverts board to state before opponent move.
-            // Simple Ko: 1 captured, and the placed stone has 1 liberty?
-            // Strict definition involves full board hash, but for simplified Go:
-            // If 1 stone captured and the placement was single stone capture.
             if (deadStones.length === 1) {
                 const placedStoneLiberties = this.getLiberties(game, row, col)
                 if (placedStoneLiberties === 1) {
@@ -154,10 +152,58 @@ class GoService {
 
         // Update history
         game.lastMove = { row, col }
-        game.moveHistory.push({ row, col, player: game.currentPlayer })
+        game.moveHistory.push({
+            row,
+            col,
+            player: game.currentPlayer,
+            captured: deadStones,
+            prevKo: prevKo
+        })
 
         // Switch player
         game.currentPlayer = opponent
+        return true
+    }
+
+    // 悔棋
+    static undo(game) {
+        if (game.moveHistory.length === 0) return false
+
+        const lastMove = game.moveHistory.pop()
+        const { row, col, player, captured, prevKo } = lastMove
+
+        // 1. Remove the placed stone
+        if (game.board[row][col] !== player) {
+            // Error consistency check
+        }
+        game.board[row][col] = EMPTY
+
+        // 2. Restore captured stones
+        const opponent = this.getOpponent(player)
+        if (captured && captured.length > 0) {
+            for (const stone of captured) {
+                game.board[stone.row][stone.col] = opponent
+            }
+            game.prisoners[player] -= captured.length
+        }
+
+        // 3. Restore Ko position
+        game.koPosition = prevKo
+
+        // 4. Restore turn
+        game.currentPlayer = player
+
+        // 5. Restore lastMove reference
+        if (game.moveHistory.length > 0) {
+            const prev = game.moveHistory[game.moveHistory.length - 1]
+            game.lastMove = { row: prev.row, col: prev.col }
+        } else {
+            game.lastMove = null
+        }
+
+        game.gameOver = false
+        game.winner = null
+
         return true
     }
 

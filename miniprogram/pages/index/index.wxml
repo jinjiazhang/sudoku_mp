@@ -27,7 +27,7 @@
             <text class="game-desc">楚河汉界，运筹帷幄</text>
           </view>
         </view>
-        <view class="play-arrow-btn">➜</view>
+
       </view>
 
       <!-- 五子棋 -->
@@ -45,7 +45,7 @@
             <text class="game-desc">黑白博弈，连珠制胜</text>
           </view>
         </view>
-        <view class="play-arrow-btn">➜</view>
+
       </view>
 
       <!-- 围棋 -->
@@ -65,7 +65,7 @@
             <text class="game-desc">纵横十九路，千古奇局</text>
           </view>
         </view>
-        <view class="play-arrow-btn">➜</view>
+
       </view>
 
       <!-- 数独 -->
@@ -84,7 +84,7 @@
             <text class="game-desc">逻辑推理，数字迷宫</text>
           </view>
         </view>
-        <view class="play-arrow-btn">➜</view>
+
       </view>
 
     </view>
