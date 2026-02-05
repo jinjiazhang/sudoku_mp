@@ -285,6 +285,14 @@ class XiangqiGame {
 
     // Check for checkmate/stalemate
     const nextKingPos = this.findKing(this.turn);
+
+    // If opponent's king was captured, game over
+    if (!nextKingPos) {
+      this.gameOver = true;
+      this.winner = this.turn === COLORS.RED ? COLORS.BLACK : COLORS.RED;
+      return true;
+    }
+
     const isCheck = this.isSpotUnderAttack(nextKingPos.row, nextKingPos.col, this.turn);
 
     if (!this.hasLegalMoves(this.turn)) {
