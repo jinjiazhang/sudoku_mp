@@ -87,8 +87,8 @@ Page({
             // Usually 13x13 stars are 4,4 (3,3 index) and center (6,6) and 4,10 (3,9)?
             // Standard: 4-4 points (index 3) and center.
         } else if (size === 9) {
-            stars.add('4,4')
-            [2, 6].forEach(r => [2, 6].forEach(c => stars.add(`${r},${c}`)))
+            stars.add('4,4');
+            [2, 6].forEach(r => [2, 6].forEach(c => stars.add(`${r},${c}`)));
         }
 
         for (let i = 0; i < size; i++) {

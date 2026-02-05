@@ -107,30 +107,26 @@
 /* Lines */
 .line {
   position: absolute;
-  background: #8B4513; /* Softer brown */
+  background-color: #8B4513;
 }
 
 .line.horz {
   height: 2rpx;
-  width: 100%;
-  top: 50%;
-  left: 0;
+  left: 0; right: 0; top: 50%;
   transform: translateY(-50%);
 }
 
 .line.vert {
   width: 2rpx;
-  height: 100%;
-  left: 50%;
-  top: 0;
+  top: 0; bottom: 0; left: 50%;
   transform: translateX(-50%);
 }
 
 /* Edge Corrections */
-.line.horz.left { left: 50%; width: 50%; }
-.line.horz.right { width: 50%; }
-.line.vert.top { top: 50%; height: 50%; }
-.line.vert.bottom { height: 50%; }
+.line.horz.left { left: 50%; }
+.line.horz.right { right: 50%; }
+.line.vert.top { top: 50%; }
+.line.vert.bottom { bottom: 50%; }
 
 /* Star Point */
 .star-point {
