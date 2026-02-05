@@ -20,6 +20,23 @@ Page({
     game: null as GoGame | null,
     timer: null as number | null,
 
+    // 分享给好友
+    onShareAppMessage() {
+        return {
+            title: '来和我下一局围棋吧！',
+            path: '/pages/go-menu/go-menu'
+        }
+    },
+
+    // 分享到朋友圈
+    onShareTimeline() {
+        return {
+            title: 'ForceZone - 围棋',
+            query: ''
+        }
+    },
+
+
     onLoad(options: any) {
         let size = 19
         let mode = 'pve'

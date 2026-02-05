@@ -5,6 +5,22 @@ Component({
   data: {},
 
   methods: {
+    // 分享给好友
+    onShareAppMessage() {
+      return {
+        title: 'ForceZone - 益智游戏合集',
+        path: '/pages/index/index'
+      }
+    },
+
+    // 分享到朋友圈
+    onShareTimeline() {
+      return {
+        title: 'ForceZone - 益智游戏合集',
+        query: ''
+      }
+    },
+
     // 导航到象棋游戏
     navigateToXiangqi() {
       wx.navigateTo({

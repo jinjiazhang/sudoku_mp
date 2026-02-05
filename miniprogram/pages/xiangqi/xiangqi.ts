@@ -65,6 +65,22 @@ Page<any, any>({
     gameInstance: null,
     ai: null,
 
+    // 分享给好友
+    onShareAppMessage() {
+        return {
+            title: '来和我下一局象棋吧！',
+            path: '/pages/xiangqi-menu/xiangqi-menu'
+        }
+    },
+
+    // 分享到朋友圈
+    onShareTimeline() {
+        return {
+            title: 'ForceZone - 中国象棋',
+            query: ''
+        }
+    },
+
     onLoad(options: Record<string, string | undefined>) {
         const mode = options.mode || 'pvp';
         this.initGame(mode);

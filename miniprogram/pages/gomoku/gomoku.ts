@@ -26,6 +26,23 @@ Page({
 
   timer: null as any,
 
+  // 分享给好友
+  onShareAppMessage() {
+    return {
+      title: '来和我下一局五子棋吧！',
+      path: '/pages/gomoku-menu/gomoku-menu'
+    }
+  },
+
+  // 分享到朋友圈
+  onShareTimeline() {
+    return {
+      title: 'ForceZone - 五子棋',
+      query: ''
+    }
+  },
+
+
   onLoad(options: any) {
     if (options.action === 'resume') {
       // Resume logic handled in initializeGame
