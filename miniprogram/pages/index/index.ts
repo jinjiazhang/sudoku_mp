@@ -42,6 +42,13 @@ Component({
       })
     },
 
+    // 导航到反应测试
+    navigateToReaction() {
+      wx.navigateTo({
+        url: '../reaction/reaction'
+      })
+    },
+
     // 导航到五子棋游戏
     navigateToGomoku() {
       wx.navigateTo({

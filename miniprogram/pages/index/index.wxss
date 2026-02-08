@@ -148,6 +148,17 @@
     opacity: 0.15;
   }
 
+  .reaction-card .card-bg-decoration {
+    position: absolute;
+    width: 150rpx;
+    height: 150rpx;
+    background: linear-gradient(135deg, #FF6B6B, #556270);
+    border-radius: 50%;
+    right: -20rpx;
+    bottom: -40rpx;
+    opacity: 0.15;
+  }
+
 .card-content {
   display: flex;
   align-items: center;
@@ -298,6 +309,30 @@
     border-color: #000000;
     bottom: 0; right: 10%;
     z-index: 1;
+  }
+
+  /* Reaction Icon Styles */
+  .reaction-icon-graphic {
+    width: 80%;
+    height: 80%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .r-circle {
+    width: 70%;
+    height: 70%;
+    border-radius: 50%;
+    border: 4rpx solid #333;
+    position: absolute;
+    opacity: 0.1;
+  }
+  
+  .r-bolt {
+    font-size: 40rpx;
+    z-index: 2;
   }
 
   .text-box {

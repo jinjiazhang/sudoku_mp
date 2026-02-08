@@ -1,0 +1,21 @@
+<view class="container {{state === 'waiting' || state === 'ready' ? bgClass : state}}" bindtap="handleTap">
+  <view class="icon">
+    <!-- SVGs or simple characters -->
+    <text wx:if="{{state === 'idle'}}">⚡</text>
+    <view wx:elif="{{state === 'waiting' && messageText}}" class="icon-circle {{'bg-' + targetColor}}"></view>
+    <!-- ready state shows nothing in icon area -->
+    <text wx:elif="{{state === 'result'}}">⏱️</text>
+    <text wx:elif="{{state === 'too-early'}}">⚠️</text>
+  </view>
+  
+  <view class="message">
+    <text wx:if="{{state === 'idle'}}">点击屏幕开始测试</text>
+    <text wx:if="{{state === 'waiting'}}">{{messageText}}</text>
+    <!-- ready state shows nothing in message area -->
+    <text wx:elif="{{state === 'result'}}">{{reactionTime}} ms</text>
+    <text wx:elif="{{state === 'too-early'}}">太快了！</text>
+    
+    <text class="sub-message" wx:if="{{state === 'result'}}">再次点击重试</text>
+    <text class="sub-message" wx:if="{{state === 'too-early'}}">请等待目标颜色出现</text>
+  </view>
+</view>

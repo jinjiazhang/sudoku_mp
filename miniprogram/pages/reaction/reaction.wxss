@@ -1,0 +1,83 @@
+/* reaction.wxss */
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.2s;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 状态颜色 */
+.container.idle {
+  background-color: #2b87d1; /* Blue - Start */
+}
+
+/* Waiting state - White background */
+.container.waiting {
+  background-color: #ffffff; 
+}
+
+.container.waiting-red { background-color: #ce2636; }
+.container.waiting-orange { background-color: #ff9500; }
+.container.waiting-yellow { background-color: #ffcc00; }
+.container.waiting-green { background-color: #4cd964; }
+.container.waiting-blue { background-color: #5ac8fa; }
+.container.waiting-purple { background-color: #5856d6; }
+
+.container.ready {
+  background-color: #4cd964; /* Green - Go! */
+}
+
+.container.result {
+  background-color: #2b87d1; /* Blue - Result */
+}
+
+.container.too-early {
+  background-color: #ce2636; /* Red for too early */
+}
+
+/* 内容样式 */
+.icon {
+  font-size: 160rpx;
+  margin-bottom: 40rpx;
+  text-align: center;
+}
+
+.message {
+  color: white;
+  font-size: 60rpx;
+  font-weight: bold;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.container.waiting .message {
+  color: #000000;
+}
+
+.sub-message {
+  font-size: 32rpx;
+  opacity: 0.8;
+  margin-top: 10rpx;
+}
+
+/* Icon Circle */
+.icon-circle {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  display: inline-block;
+  border: 10rpx solid rgba(255, 255, 255, 0.4);
+}
+
+.bg-red { background-color: #ce2636; }
+.bg-orange { background-color: #ff9500; }
+.bg-yellow { background-color: #ffcc00; }
+.bg-green { background-color: #4cd964; }
+.bg-blue { background-color: #5ac8fa; }
+.bg-purple { background-color: #5856d6; }

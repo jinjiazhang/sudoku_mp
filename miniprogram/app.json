@@ -4,6 +4,7 @@
     "pages/sudoku-menu/sudoku-menu",
     "pages/sudoku/sudoku",
     "pages/game2048/game2048",
+    "pages/reaction/reaction",
     "pages/gomoku/gomoku",
     "pages/gomoku-menu/gomoku-menu",
     "pages/go-menu/go-menu",

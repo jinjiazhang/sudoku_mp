@@ -106,6 +106,23 @@
         </view>
       </view>
 
+      <!-- 反应测试 -->
+      <view class="game-card reaction-card" bindtap="navigateToReaction">
+        <view class="card-bg-decoration"></view>
+        <view class="card-content">
+          <view class="icon-box">
+             <view class="reaction-icon-graphic">
+               <view class="r-circle"></view>
+               <view class="r-bolt">⚡</view>
+             </view>
+          </view>
+          <view class="text-box">
+            <text class="game-name">反应测试</text>
+            <text class="game-desc">瞬时反应，唯快不破</text>
+          </view>
+        </view>
+      </view>
+
     </view>
   </view>
 
