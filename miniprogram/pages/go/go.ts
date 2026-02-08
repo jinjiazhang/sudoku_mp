@@ -1,4 +1,4 @@
-import { GoService, GoGame, BLACK, WHITE, EMPTY } from '../../utils/go-game'
+import { GoService, GoGame, BLACK, WHITE, EMPTY } from './go-game'
 
 Page({
     data: {

@@ -1,7 +1,7 @@
 // sudoku-menu.ts
-export {}
-const { SudokuService } = require('../../utils/sudoku-service.js')
-const { getDifficultyValues } = require('../../utils/sudoku-game.js')
+export { }
+const { SudokuService } = require('../sudoku/sudoku-service.js')
+const { getDifficultyValues } = require('../sudoku/sudoku-game.js')
 
 Component({
   data: {

@@ -1,7 +1,7 @@
 // sudoku.ts
 export { }
-const { SudokuService } = require('../../utils/sudoku-service.js')
-import { SudokuGame, getDifficultyFromName } from '../../utils/sudoku-game'
+const { SudokuService } = require('./sudoku-service.js')
+import { SudokuGame, getDifficultyFromName } from './sudoku-game'
 
 interface CellData {
   row: number

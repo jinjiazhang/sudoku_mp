@@ -1,6 +1,6 @@
 // pages/xiangqi/xiangqi.ts
-const { XiangqiGame, COLORS, PIECE_TYPES } = require('../../utils/xiangqi-logic');
-const { XiangqiAI } = require('../../utils/xiangqi-ai');
+const { XiangqiGame, COLORS, PIECE_TYPES } = require('./xiangqi-logic');
+const { XiangqiAI } = require('./xiangqi-ai');
 
 interface Piece {
     type: string;

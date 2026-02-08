@@ -1,6 +1,6 @@
 // gomoku.ts
 export { }
-const { GomokuService, BOARD_SIZE, EMPTY, BLACK, WHITE } = require('../../utils/gomoku-service.js')
+const { GomokuService, BOARD_SIZE, EMPTY, BLACK, WHITE } = require('./gomoku-service.js')
 
 interface CellData {
   row: number

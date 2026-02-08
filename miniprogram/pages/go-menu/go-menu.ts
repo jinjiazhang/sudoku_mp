@@ -1,4 +1,4 @@
-import { GoService } from '../../utils/go-game'
+import { GoService } from '../go/go-game'
 
 Page({
     data: {

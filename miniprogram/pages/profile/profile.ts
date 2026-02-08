@@ -1,6 +1,6 @@
 // profile.ts
-export {}
-const { SudokuService } = require('../../utils/sudoku-service.js')
+export { }
+const { SudokuService } = require('../sudoku/sudoku-service.js')
 
 interface GameStats {
   totalGames: number
@@ -47,7 +47,7 @@ Component({
           totalGames: stats.totalGames,
           completedGames: stats.completedGames,
           bestTime: stats.bestTimeSeconds > 0 ? SudokuService.formatTime(stats.bestTimeSeconds) : '--:--',
-          averageTime: stats.completedGames > 0 
+          averageTime: stats.completedGames > 0
             ? SudokuService.formatTime(Math.floor(stats.totalTimeSeconds / stats.completedGames))
             : '--:--'
         }

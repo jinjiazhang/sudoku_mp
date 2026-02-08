@@ -1,6 +1,6 @@
 // gomoku-menu.ts
 export { }
-const { GomokuService } = require('../../utils/gomoku-service.js')
+const { GomokuService } = require('../gomoku/gomoku-service.js')
 
 Page({
     data: {
