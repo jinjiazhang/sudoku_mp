@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center; /* Center vertically */
   padding: 40rpx;
   height: 100vh;
   box-sizing: border-box;
@@ -9,10 +10,13 @@
 }
 
 .header {
-  width: 100%;
+  position: absolute;
+  top: 40rpx;
+  left: 40rpx;
+  right: 40rpx;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 40rpx;
+  z-index: 10;
 }
 
 .level, .score {
@@ -146,11 +150,25 @@
   margin-bottom: 40rpx;
 }
 
-.btn-retry {
+.btn-retry, .btn-home {
   background: #4299e1;
   color: white;
   padding: 20rpx 50rpx;
   border-radius: 40rpx;
+  border: none;
+  font-size: 30rpx;
+  min-width: 240rpx; /* Increased min-width */
+  width: auto;
+  white-space: nowrap; /* Ensure single line */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-home {
+  background: #f5f5f5;
+  color: #666;
+  margin-top: 20rpx;
 }
 
 @keyframes shake {

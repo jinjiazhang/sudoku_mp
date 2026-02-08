@@ -23,7 +23,7 @@ Page({
         return grid
     },
 
-    startGame() {
+    startNewGame() {
         this.setData({
             level: 1,
             score: 0,
@@ -31,6 +31,19 @@ Page({
         }, () => {
             this.startLevel()
         })
+    },
+
+    retryLevel() {
+        // Keep current level and score, just restart the level logic
+        this.setData({
+            gameState: 'starting'
+        }, () => {
+            this.startLevel()
+        })
+    },
+
+    goHome() {
+        wx.navigateBack()
     },
 
     startLevel() {
