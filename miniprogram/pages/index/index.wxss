@@ -159,6 +159,17 @@
     opacity: 0.15;
   }
 
+  .memory-card .card-bg-decoration {
+    position: absolute;
+    width: 150rpx;
+    height: 150rpx;
+    background: linear-gradient(135deg, #a18cd1, #fbc2eb);
+    border-radius: 50%;
+    right: -20rpx;
+    bottom: -40rpx;
+    opacity: 0.15;
+  }
+
 .card-content {
   display: flex;
   align-items: center;
@@ -334,6 +345,38 @@
     font-size: 40rpx;
     z-index: 2;
   }
+
+  /* Memory Icon Styles */
+  .memory-icon-graphic {
+    width: 60%;
+    height: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .m-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 6rpx;
+    width: 100%;
+    height: 100%;
+  }
+
+  .m-cell {
+    background: #a18cd1;
+    border-radius: 6rpx;
+    color: white;
+    font-size: 18rpx;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .m-cell:nth-child(2) { background: #e0e0e0; color: #999; } /* Hidden/Question */
+  .m-cell:nth-child(4) { background: #fbc2eb; color: #fff; }
 
   .text-box {
     display: flex;

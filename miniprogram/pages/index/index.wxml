@@ -106,20 +106,47 @@
         </view>
       </view>
 
-      <!-- 反应测试 -->
-      <view class="game-card reaction-card" bindtap="navigateToReaction">
+      <!-- Reaction Card -->
+      <view class="game-card reaction-card" bindtap="navigateToReaction" hover-class="card-hover">
         <view class="card-bg-decoration"></view>
         <view class="card-content">
           <view class="icon-box">
              <view class="reaction-icon-graphic">
                <view class="r-circle"></view>
-               <view class="r-bolt">⚡</view>
+               <text class="r-bolt">⚡</text>
              </view>
           </view>
           <view class="text-box">
             <text class="game-name">反应测试</text>
-            <text class="game-desc">瞬时反应，唯快不破</text>
+            <text class="game-desc">挑战你的极限反应速度</text>
           </view>
+        </view>
+        <view class="play-arrow-btn">
+          <text class="arrow">></text>
+        </view>
+      </view>
+
+      <!-- Memory Card -->
+      <view class="game-card memory-card" bindtap="navigateToMemory" hover-class="card-hover">
+        <view class="card-bg-decoration"></view>
+        <view class="card-content">
+          <view class="icon-box">
+             <view class="memory-icon-graphic">
+               <view class="m-grid">
+                 <view class="m-cell">1</view>
+                 <view class="m-cell">?</view>
+                 <view class="m-cell">3</view>
+                 <view class="m-cell">4</view>
+               </view>
+             </view>
+          </view>
+          <view class="text-box">
+            <text class="game-name">瞬时记忆</text>
+            <text class="game-desc">过目不忘的数字挑战</text>
+          </view>
+        </view>
+        <view class="play-arrow-btn">
+          <text class="arrow">></text>
         </view>
       </view>
 

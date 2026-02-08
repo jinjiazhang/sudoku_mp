@@ -49,6 +49,13 @@ Component({
       })
     },
 
+    // 导航到记忆游戏
+    navigateToMemory() {
+      wx.navigateTo({
+        url: '../memory/memory'
+      })
+    },
+
     // 导航到五子棋游戏
     navigateToGomoku() {
       wx.navigateTo({

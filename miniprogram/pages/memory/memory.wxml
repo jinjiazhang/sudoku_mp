@@ -1,0 +1,35 @@
+<view class="container">
+  <view class="header">
+    <text class="level">Level {{level}}</text>
+    <text class="score">Score: {{score}}</text>
+  </view>
+
+  <view class="game-board" style="grid-template-columns: repeat({{gridSize}}, 1fr);">
+    <view 
+      wx:for="{{grid}}" 
+      wx:key="id"
+      class="cell {{item.status}}"
+      bindtap="handleTap"
+      data-index="{{index}}"
+      style="{{item.status === 'hidden' && !isGameActive ? 'opacity: 0' : ''}}"
+    >
+      <text wx:if="{{item.status === 'visible' || item.status === 'revealed'}}">{{item.value}}</text>
+      <text wx:if="{{item.status === 'hidden'}}" class="hidden-mark">?</text>
+    </view>
+  </view>
+
+  <view class="controls">
+    <button wx:if="{{gameState === 'idle'}}" class="btn-start" bindtap="startGame">开始挑战</button>
+    <button wx:if="{{gameState === 'result'}}" class="btn-restart" bindtap="startGame">再试一次</button>
+    <text wx:if="{{gameState === 'memorize'}}" class="instruction">记住数字位置...</text>
+    <text wx:if="{{gameState === 'recall'}}" class="instruction">按顺序点击数字!</text>
+  </view>
+
+  <view class="result-modal" wx:if="{{gameState === 'result'}}">
+    <view class="modal-content">
+      <text class="result-title">{{resultTitle}}</text>
+      <text class="result-score">最终等级: {{level}}</text>
+      <button class="btn-retry" bindtap="startGame">重新开始</button>
+    </view>
+  </view>
+</view>
