@@ -32,10 +32,10 @@
       <view class="n-selector">
         <text>难度 (N):</text>
         <view class="n-options">
+          <view class="n-opt {{n===2?'active':''}}" bindtap="setN" data-n="{{2}}">2</view>
           <view class="n-opt {{n===3?'active':''}}" bindtap="setN" data-n="{{3}}">3</view>
           <view class="n-opt {{n===4?'active':''}}" bindtap="setN" data-n="{{4}}">4</view>
           <view class="n-opt {{n===5?'active':''}}" bindtap="setN" data-n="{{5}}">5</view>
-          <view class="n-opt {{n===6?'active':''}}" bindtap="setN" data-n="{{6}}">6</view>
         </view>
       </view>
 

@@ -1,6 +1,6 @@
 Page({
     data: {
-        n: 3, // Default 3-back
+        n: 2, // Default 2-back
         score: 0,
         roundsLeft: 20, // Total rounds per game
         isPlaying: false,
