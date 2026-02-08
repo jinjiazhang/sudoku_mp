@@ -56,6 +56,12 @@ Component({
       })
     },
 
+    navigateToNBack() {
+      wx.navigateTo({
+        url: '../nback/nback'
+      })
+    },
+
     // 导航到五子棋游戏
     navigateToGomoku() {
       wx.navigateTo({

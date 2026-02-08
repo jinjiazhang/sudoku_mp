@@ -1,0 +1,221 @@
+.container {
+  background-color: #2c3e50;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40rpx;
+  box-sizing: border-box;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20rpx;
+}
+
+.info-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.label {
+  font-size: 24rpx;
+  color: #bdc3c7;
+}
+
+.value {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #ecf0f1;
+}
+
+.game-area {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.stimulus-card {
+  width: 300rpx;
+  height: 300rpx;
+  background: white;
+  border-radius: 40rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 20rpx 40rpx rgba(0,0,0,0.3);
+  transform: scale(0.9);
+  opacity: 0;
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.stimulus-card.visible {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.stimulus-text {
+  font-size: 140rpx;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.controls {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Center vertically in controls area */
+  padding-bottom: 80rpx;
+  flex: 1; /* Take up remaining space below game area? No, game-area is flex 1 */
+}
+
+.btn-match {
+  width: 200rpx !important;
+  height: 200rpx !important;
+  min-width: 200rpx !important;
+  min-height: 200rpx !important;
+  border-radius: 50%;
+  background: #e74c3c;
+  color: white;
+  font-size: 36rpx;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 8rpx 0 #c0392b, 0 15rpx 15rpx rgba(0,0,0,0.2);
+  transition: transform 0.1s, box-shadow 0.1s;
+  border: none;
+  padding: 0 !important; /* Remove default padding */
+  margin: 0;
+  line-height: normal;
+}
+
+.btn-match:active {
+  transform: translateY(8rpx);
+  box-shadow: 0 0 0 #c0392b, 0 8rpx 8rpx rgba(0,0,0,0.2);
+}
+
+.btn-match.disabled {
+  background: #95a5a6;
+  box-shadow: none;
+  opacity: 0.3;
+}
+
+/* Overlays */
+.start-overlay, .result-overlay {
+  position: absolute;
+  top: 0; bottom: 0; left: 0; right: 0;
+  background: rgba(44, 62, 80, 0.95);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.start-card, .result-card {
+  background: white;
+  width: 80%;
+  padding: 60rpx;
+  border-radius: 40rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.title {
+  font-size: 48rpx;
+  font-weight: 800;
+  color: #2c3e50;
+  margin-bottom: 20rpx;
+}
+
+.desc {
+  font-size: 30rpx;
+  color: #7f8c8d;
+  margin-bottom: 40rpx;
+  line-height: 1.5;
+}
+
+.n-selector {
+  margin-bottom: 40rpx;
+  width: 100%;
+}
+
+.n-options {
+  display: flex;
+  justify-content: center;
+  gap: 20rpx;
+  margin-top: 20rpx;
+}
+
+.n-opt {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 20rpx;
+  background: #ecf0f1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 40rpx; /* Added font size */
+  color: #7f8c8d;
+}
+
+.n-opt.active {
+  background: #3498db;
+  color: white;
+  box-shadow: 0 10rpx 20rpx rgba(52, 152, 219, 0.3);
+}
+
+.btn-primary, .btn-secondary {
+  width: auto;
+  min-width: 300rpx;
+  padding: 24rpx 60rpx;
+  border-radius: 50rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-primary {
+  background: #3498db;
+  color: white;
+  box-shadow: 0 10rpx 20rpx rgba(52, 152, 219, 0.3);
+}
+
+.btn-secondary {
+  background: #ecf0f1;
+  color: #7f8c8d;
+}
+
+.score-display {
+  font-size: 64rpx;
+  font-weight: bold;
+  color: #e74c3c;
+  margin-bottom: 10rpx;
+}
+
+.accuracy {
+  font-size: 32rpx;
+  color: #7f8c8d;
+  margin-bottom: 40rpx;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-bottom: 40rpx;
+  font-size: 24rpx;
+  color: #95a5a6;
+}

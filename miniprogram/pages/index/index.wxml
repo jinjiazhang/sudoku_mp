@@ -150,6 +150,26 @@
         </view>
       </view>
 
+      <!-- N-Back Card -->
+      <view class="game-card nback-card" bindtap="navigateToNBack" hover-class="card-hover">
+        <view class="card-bg-decoration"></view>
+        <view class="card-content">
+          <view class="icon-box">
+             <view class="nback-icon-graphic">
+               <view class="nb-card back"></view>
+               <view class="nb-card front">N</view>
+             </view>
+          </view>
+          <view class="text-box">
+            <text class="game-name">记忆回溯</text>
+            <text class="game-desc">挑战工作记忆极限</text>
+          </view>
+        </view>
+        <view class="play-arrow-btn">
+          <text class="arrow">></text>
+        </view>
+      </view>
+
     </view>
   </view>
 

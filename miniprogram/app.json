@@ -13,6 +13,7 @@
     "pages/xiangqi/xiangqi",
     "pages/reaction/reaction",
     "pages/memory/memory",
+    "pages/nback/nback",
     "pages/logs/logs"
   ],
   "window": {

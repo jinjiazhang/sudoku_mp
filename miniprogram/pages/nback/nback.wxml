@@ -1,0 +1,60 @@
+<view class="container">
+  <view class="header">
+    <view class="info-block">
+      <text class="label">N-Back</text>
+      <text class="value">{{n}}</text>
+    </view>
+    <view class="info-block">
+      <text class="label">得分</text>
+      <text class="value">{{score}}</text>
+    </view>
+    <view class="info-block">
+      <text class="label">剩余</text>
+      <text class="value">{{roundsLeft}}</text>
+    </view>
+  </view>
+
+  <view class="game-area">
+    <view class="stimulus-card {{showStimulus ? 'visible' : ''}}">
+      <text class="stimulus-text">{{currentLetter}}</text>
+    </view>
+  </view>
+  
+  <view class="controls">
+    <button class="btn-match {{!isPlaying ? 'disabled' : ''}}" bindtap="checkMatch" disabled="{{!isPlaying}}">匹配</button>
+  </view>
+
+  <view class="start-overlay" wx:if="{{!isPlaying && !isGameOver}}">
+    <view class="start-card">
+      <text class="title">N-Back 训练</text>
+      <text class="desc">当当前的字母与 {{n}} 个之前的字母相同时，点击“匹配”按钮。</text>
+      
+      <view class="n-selector">
+        <text>难度 (N):</text>
+        <view class="n-options">
+          <view class="n-opt {{n===3?'active':''}}" bindtap="setN" data-n="{{3}}">3</view>
+          <view class="n-opt {{n===4?'active':''}}" bindtap="setN" data-n="{{4}}">4</view>
+          <view class="n-opt {{n===5?'active':''}}" bindtap="setN" data-n="{{5}}">5</view>
+          <view class="n-opt {{n===6?'active':''}}" bindtap="setN" data-n="{{6}}">6</view>
+        </view>
+      </view>
+
+      <button class="btn-primary" bindtap="startGame">开始训练</button>
+    </view>
+  </view>
+
+  <view class="result-overlay" wx:if="{{isGameOver}}">
+    <view class="result-card">
+      <text class="title">训练结束</text>
+      <text class="score-display">得分: {{score}}</text>
+      <text class="accuracy">准确率: {{accuracy}}%</text>
+      <view class="stats">
+        <text>正确: {{correctHits}}</text>
+        <text>错误: {{mistakes}}</text>
+        <text>漏选: {{misses}}</text>
+      </view>
+      <button class="btn-primary" bindtap="resetGame">再次挑战</button>
+      <button class="btn-secondary" bindtap="goHome">返回首页</button>
+    </view>
+  </view>
+</view>

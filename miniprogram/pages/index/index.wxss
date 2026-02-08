@@ -170,6 +170,17 @@
     opacity: 0.15;
   }
 
+  .nback-card .card-bg-decoration {
+    position: absolute;
+    width: 150rpx;
+    height: 150rpx;
+    background: linear-gradient(135deg, #2c3e50, #3498db);
+    border-radius: 50%;
+    right: -20rpx;
+    bottom: -40rpx;
+    opacity: 0.15;
+  }
+
 .card-content {
   display: flex;
   align-items: center;
@@ -377,6 +388,41 @@
   
   .m-cell:nth-child(2) { background: #e0e0e0; color: #999; } /* Hidden/Question */
   .m-cell:nth-child(4) { background: #fbc2eb; color: #fff; }
+
+  /* N-Back Icon Styles */
+  .nback-icon-graphic {
+    width: 60%;
+    height: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  
+  .nb-card {
+    width: 60%;
+    height: 80%;
+    background: #3498db;
+    border-radius: 8rpx;
+    position: absolute;
+    box-shadow: -4rpx 4rpx 0 #2c3e50;
+    z-index: 2;
+    color: white;
+    font-size: 30rpx;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .nb-card.back {
+    background: #ecf0f1;
+    z-index: 1;
+    top: -10%;
+    left: 45%;
+    box-shadow: none;
+    border: 1rpx solid #bdc3c7;
+  }
 
   .text-box {
     display: flex;
