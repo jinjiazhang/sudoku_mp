@@ -115,6 +115,17 @@
     opacity: 0.1;
   }
 
+  .game2048-card .card-bg-decoration {
+    position: absolute;
+    width: 150rpx;
+    height: 150rpx;
+    background: linear-gradient(135deg, #edc22e, #f2b179);
+    border-radius: 50%;
+    right: -20rpx;
+    bottom: -40rpx;
+    opacity: 0.15;
+  }
+
   .go-card .card-bg-decoration {
     position: absolute;
     width: 150rpx;
@@ -224,6 +235,31 @@
   .s-cell.filled {
     background: #4A90E2;
   }
+
+  /* 2048 Icon Styles */
+  .game2048-icon-graphic {
+    width: 60%;
+    height: 60%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 4rpx;
+  }
+
+  .g-cell {
+    border-radius: 4rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16rpx;
+    font-weight: bold;
+    color: #776E65;
+  }
+  
+  .g-cell.c-2 { background: #EEE4DA; }
+  .g-cell.c-4 { background: #EDE0C8; }
+  .g-cell.c-8 { background: #F2B179; color: white; }
+  .g-cell.c-0 { background: #CDC1B4; }
 
   /* Xiangqi Icon Styles */
   .xiangqi-icon-graphic {

@@ -1,0 +1,328 @@
+/**game2048.wxss**/
+page {
+  height: 100vh;
+  background-color: #FAF8EF; /* 2048 经典米色背景 */
+  font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 20rpx;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* 状态栏 */
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 600rpx;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.score-box {
+  background-color: #BBADA0;
+  padding: 10rpx 40rpx;
+  border-radius: 6rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 150rpx;
+  position: relative;
+}
+
+.score-label {
+  color: #EEE4DA;
+  font-size: 24rpx;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.score-value {
+  color: white;
+  font-size: 44rpx;
+  font-weight: bold;
+}
+
+.score-add {
+  position: absolute;
+  right: 10rpx;
+  top: 10rpx;
+  color: rgba(119, 110, 101, 0.9);
+  font-size: 40rpx;
+  font-weight: bold;
+  animation: move-up 600ms ease-in;
+  animation-fill-mode: both;
+}
+
+@keyframes move-up {
+  0% {
+    top: 25px;
+    opacity: 1;
+  }
+  100% {
+    top: -50px;
+    opacity: 0;
+  }
+}
+
+/* 棋盘容器 */
+.board-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.game-board {
+  position: relative;
+  width: 600rpx;
+  height: 600rpx;
+  background-color: #BBADA0;
+  border-radius: 12rpx;
+  padding: 20rpx;
+  box-sizing: border-box;
+  touch-action: none;
+}
+
+/* 底部网格 */
+.grid-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.grid-row {
+  display: flex;
+  justify-content: space-between;
+  height: 125rpx; /* (600 - 40 - 3*gap) / 4 approx */
+}
+
+.grid-cell {
+  width: 125rpx;
+  height: 125rpx;
+  background-color: rgba(238, 228, 218, 0.35);
+  border-radius: 6rpx;
+}
+
+/* 动态方块 */
+.tile-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 20rpx; /* Same as padding of .game-board */
+  z-index: 10;
+}
+
+.tile {
+  position: absolute;
+  width: 125rpx;
+  height: 125rpx;
+  transition: transform 100ms ease-in-out;
+  /* 默认位置在 0,0，通过 transform 移动 */
+}
+
+.tile-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 6rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 55rpx;
+  color: #776E65; /* Default text color for 2, 4 */
+  background-color: #EEE4DA; /* Default tile color */
+  box-shadow: 0 0 30rpx 10rpx rgba(243, 215, 116, 0), inset 0 0 0 1px rgba(255, 255, 255, 0);
+}
+
+/* Tile Colors */
+.tile-2 .tile-inner { background: #EEE4DA; }
+.tile-4 .tile-inner { background: #EDE0C8; }
+.tile-8 .tile-inner { background: #F2B179; color: #f9f6f2; }
+.tile-16 .tile-inner { background: #F59563; color: #f9f6f2; }
+.tile-32 .tile-inner { background: #F67C5F; color: #f9f6f2; }
+.tile-64 .tile-inner { background: #F65E3B; color: #f9f6f2; }
+.tile-128 .tile-inner { background: #EDCF72; color: #f9f6f2; font-size: 45rpx; box-shadow: 0 0 30rpx 10rpx rgba(243, 215, 116, 0.2381), inset 0 0 0 1px rgba(255, 255, 255, 0.14286); }
+.tile-256 .tile-inner { background: #EDCC61; color: #f9f6f2; font-size: 45rpx; box-shadow: 0 0 30rpx 10rpx rgba(243, 215, 116, 0.31746), inset 0 0 0 1px rgba(255, 255, 255, 0.19048); }
+.tile-512 .tile-inner { background: #EDC850; color: #f9f6f2; font-size: 45rpx; box-shadow: 0 0 30rpx 10rpx rgba(243, 215, 116, 0.39683), inset 0 0 0 1px rgba(255, 255, 255, 0.2381); }
+.tile-1024 .tile-inner { background: #EDC53F; color: #f9f6f2; font-size: 35rpx; box-shadow: 0 0 30rpx 10rpx rgba(243, 215, 116, 0.47619), inset 0 0 0 1px rgba(255, 255, 255, 0.28571); }
+.tile-2048 .tile-inner { background: #EDC22E; color: #f9f6f2; font-size: 35rpx; box-shadow: 0 0 30rpx 10rpx rgba(243, 215, 116, 0.55556), inset 0 0 0 1px rgba(255, 255, 255, 0.33333); }
+.tile-super .tile-inner { background: #3C3A32; color: #f9f6f2; font-size: 30rpx; }
+
+/* Grid Positioning (Standard Gap = approx 13-14rpx if justified, but we use flex justify-between)
+   Cell size = 125rpx. 
+   Total width 560rpx (inside padding).
+   Gap = (560 - 4*125)/3 = 60/3 = 20rpx.
+   Wait, grid-row uses `justify-content: space-between`.
+   So the gaps are automatic.
+   
+   To position absolute tiles correctly, we need to calculate positions manually or use CSS variables.
+   Let's assume a simplified calculation:
+   Col 0: 0
+   Col 1: 125 + gap
+   Gap approx 19-20rpx depending on exact rendering.
+   
+   Actually, creating a fixed grid with `gap` is safer for absolute positioning.
+*/
+
+/* Re-defining Grid to be more precise for absolute positioning */
+.grid-container, .grid-row {
+  display: flex; 
+  /* disable previous flex settings to use specific margins/gaps if needed, 
+     but actually strict px/rpx is better for absolute alignment.
+  */
+}
+
+.grid-row {
+  margin-bottom: 20rpx;
+}
+.grid-row:last-child {
+  margin-bottom: 0;
+}
+
+.grid-cell {
+  margin-right: 20rpx;
+}
+.grid-cell:last-child {
+  margin-right: 0;
+}
+
+/* Tile Position Classes */
+/* 
+   Cell Size: 125rpx
+   Gap: 20rpx
+   
+   0: 0
+   1: 145rpx
+   2: 290rpx
+   3: 435rpx
+*/
+.tile-position-0-0 { transform: translate(0rpx, 0rpx); }
+.tile-position-0-1 { transform: translate(145rpx, 0rpx); }
+.tile-position-0-2 { transform: translate(290rpx, 0rpx); }
+.tile-position-0-3 { transform: translate(435rpx, 0rpx); }
+
+.tile-position-1-0 { transform: translate(0rpx, 145rpx); }
+.tile-position-1-1 { transform: translate(145rpx, 145rpx); }
+.tile-position-1-2 { transform: translate(290rpx, 145rpx); }
+.tile-position-1-3 { transform: translate(435rpx, 145rpx); }
+
+.tile-position-2-0 { transform: translate(0rpx, 290rpx); }
+.tile-position-2-1 { transform: translate(145rpx, 290rpx); }
+.tile-position-2-2 { transform: translate(290rpx, 290rpx); }
+.tile-position-2-3 { transform: translate(435rpx, 290rpx); }
+
+.tile-position-3-0 { transform: translate(0rpx, 435rpx); }
+.tile-position-3-1 { transform: translate(145rpx, 435rpx); }
+.tile-position-3-2 { transform: translate(290rpx, 435rpx); }
+.tile-position-3-3 { transform: translate(435rpx, 435rpx); }
+
+
+/* Game Over / Win Overlay */
+.game-message {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(238, 228, 218, 0.73);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12rpx;
+  animation: fade-in 800ms ease 1200ms;
+  animation-fill-mode: both;
+}
+
+.game-message.game-won {
+  background-color: rgba(237, 194, 46, 0.5);
+  color: #f9f6f2;
+}
+
+.game-message.game-over {
+  background-color: rgba(238, 228, 218, 0.73);
+  color: #776E65;
+}
+
+.message-text {
+  font-size: 60px;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+}
+
+.message-actions {
+  display: flex;
+  gap: 20rpx;
+}
+
+.retry-btn, .keep-playing-btn {
+  background-color: #8f7a66;
+  color: #f9f6f2;
+  border-radius: 6rpx;
+  padding: 0 40rpx;
+  line-height: 80rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  border: none;
+}
+
+/* 工具栏 */
+.controls-area {
+  padding: 20rpx;
+  display: flex;
+  justify-content: center;
+  gap: 80rpx;
+  width: 100%;
+  max-width: 600rpx;
+}
+
+.tool-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16rpx;
+  font-size: 26rpx;
+  color: #776E65;
+}
+
+.tool-btn.disabled {
+  opacity: 0.5;
+}
+
+.icon-circle {
+  width: 100rpx; height: 100rpx;
+  background: white; /* Or match 2048 theme colors like #bbada0 but white looks clean */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 44rpx;
+  color: #776E65;
+  box-shadow: 0 8rpx 16rpx rgba(119, 110, 101, 0.15); /* 2048 shadow color */
+  transition: all 0.2s;
+  background-color: #eee4da;
+}
+
+.tool-btn:active .icon-circle {
+  transform: scale(0.95);
+  background-color: #cdc1b4;
+}
+
+.footer-instruction {
+  margin-bottom: 40rpx;
+  color: #776E65;
+  font-size: 28rpx;
+}

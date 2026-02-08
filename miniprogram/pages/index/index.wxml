@@ -87,6 +87,25 @@
 
       </view>
 
+      <!-- 2048 -->
+      <view class="game-card game2048-card" bindtap="navigateToGame2048">
+        <view class="card-bg-decoration"></view>
+        <view class="card-content">
+          <view class="icon-box">
+            <view class="game2048-icon-graphic">
+              <view class="g-cell c-2">2</view>
+              <view class="g-cell c-0">4</view>
+              <view class="g-cell c-8">8</view>
+              <view class="g-cell c-2">2</view>
+            </view>
+          </view>
+          <view class="text-box">
+            <text class="game-name">2048</text>
+            <text class="game-desc">合成数字，挑战极限</text>
+          </view>
+        </view>
+      </view>
+
     </view>
   </view>
 
